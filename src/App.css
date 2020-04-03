@@ -1,3 +1,7 @@
+@import './styles/utils.css';
+@import './styles/variable.css';
+@import './styles/semantic-ui-override.scss';
+
 .App {
   text-align: center;
 }
