@@ -1,15 +1,16 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import './app-main-content.scss';
 import Divider from '../divider/divider';
 import AppContentWrapper from '../app-content-wrapper/app-content-wrapper';
 
-const AppMainContent = () => (
+const AppMainContent = ({ heading, children }) => (
 	<div>
 		<div className="app-main-content">
 			<AppContentWrapper
-				heading="Jobs"
+				heading={heading}
 			>
-				some content here
+				{children}
 			</AppContentWrapper>
 			<div>
 				<div className="m-b-20">

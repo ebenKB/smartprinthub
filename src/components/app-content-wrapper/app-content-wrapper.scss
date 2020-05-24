@@ -12,4 +12,7 @@
 .app-content-wrapper__heading {
   background: rgba(0, 0, 0, 0.1);
   padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--very-faint);
 }

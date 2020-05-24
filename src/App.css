@@ -21,6 +21,15 @@ body {
   color: var(--faint);
 }
 
+.small.icon {
+  width: 16px;
+  height: auto;
+}
+
+.dark.icon {
+  fill: var(--dark);
+}
+
 h1.no-pad,
 h2.no-pad,
 h3.no-pad,
