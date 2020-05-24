@@ -2,19 +2,8 @@
 @import './styles/variable.css';
 @import './styles/semantic-ui-override.scss';
 
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  color: var(--faint);
 }
 
 .App-header {
@@ -28,8 +17,17 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.faint {
+  color: var(--faint);
+}
+
+h1.no-pad,
+h2.no-pad,
+h3.no-pad,
+h4.no-pad,
+h5.no-pad,
+h6.no-pad {
+  margin: 0;
 }
 
 @keyframes App-logo-spin {

@@ -1,0 +1,29 @@
+.ui.input > input {
+  background: #FFFFFF;
+  border: 1.2099px solid #DBDEE2;
+  box-sizing: border-box;
+  border-radius: 2.05684px;
+  padding: 0.75em 0.8em;
+}
+
+.ui.form input {
+  padding: 0.6em 0.8em !important;
+  // border-radius: 1px;
+}
+
+.ui.input > input.small {
+  padding: 0.75em 0.8em;
+}
+
+.ui.input.custom > input {
+  background: var(--kt-black);
+  border: 1px solid #575754;
+  color: var(--kt-white);
+  padding-left: 50px;
+}
+
+// remove unwanted outline from input
+.ui.form .ui.input input:focus {
+  border-radius: 2px;
+  // border: 1px solid var(--kt-green);
+}

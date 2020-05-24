@@ -1,0 +1,27 @@
+.app-container.layout {
+  margin: auto;
+  display: grid;
+  grid-template-columns: 15% 85%;
+}
+
+.nav-pane {
+  background: var(--black);
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  color: black;
+
+  .nav-content {
+    position: fixed;
+  }
+}
+
+.main-content {
+  background: #FCFCFC;
+
+  .main-content__body{
+    width: 90%;
+    margin: auto
+  }
+}
+

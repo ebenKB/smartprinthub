@@ -1,0 +1,22 @@
+.divider.faint {
+  border-bottom: 1px solid #DFDFDF;
+}
+
+.divider.thick {
+  border-bottom: 2px solid #D9E2E8;
+}
+
+.divider.thick.kt-success {
+  border-bottom: 2px solid var(--kt-green);
+}
+
+.divider.thick.kt-danger {
+  border-bottom: 2px solid var(--kt-red);
+}
+
+.divider__wrapper {
+  display: grid;
+  grid-template-columns: 5% calc(95% - 10px);
+  grid-column-gap: 10px;
+  align-items: center;
+}

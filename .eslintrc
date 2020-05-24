@@ -11,8 +11,9 @@
     "node": true
   },
   "extends": [
-    "airbnb",
-    "airbnb/hooks"
+    // "react-app",
+    // "plugin:react/recommended",
+    "airbnb"
   ],
   "rules" : {
     "react/boolean-prop-naming" : [
@@ -30,5 +31,6 @@
     ],
     "no-tabs": 0,
     "react/jsx-indent-props": [1, 'tab'],
+    // "react/forbid-prop-types": [0, { "forbid": [], "checkContextTypes": false, "checkChildContextTypes": false }]
   }
 }

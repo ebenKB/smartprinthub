@@ -1,7 +1,8 @@
 import React from 'react';
 import { Input } from 'semantic-ui-react';
 
-const CustomInput = ({type, name, value, classes, placeholder}) => {
+const CustomInput = ({type, name, value, classes, placeholder, handleChange}) => {
+
   return (
     <Input 
       type={type}
@@ -9,7 +10,7 @@ const CustomInput = ({type, name, value, classes, placeholder}) => {
       value={value}
       placeholder={placeholder}
       className={`custom-input ${classes}`}
-      onChange={console.log('The input has changed')}
+      onChange={handleChange}
     />
   )
 }
