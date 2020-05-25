@@ -1,0 +1,41 @@
+.form-group.inline {
+  display: grid;
+  grid-template-columns: 20% calc(80% - 10px);
+  grid-column-gap: 10px;
+  width: 100%;
+}
+
+.form-group.block {
+  display: block;
+}
+
+.form-group.block label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.form-group.fluid {
+  width: 100%;
+}
+
+.form-group.center {
+  align-items: center;
+}
+
+.form-group .ui.input{
+  width: 70%;
+}
+
+.form-group.small .ui.input {
+  width: 35%;
+}
+
+.form-group .ui.dropdown.md-dropdown {
+  width: 250px;
+}
+
+.form-group textarea.custom {
+  min-width: 70%;
+  max-width: 70%;
+  min-height: 70px;
+}

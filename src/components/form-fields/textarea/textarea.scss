@@ -1,0 +1,13 @@
+textarea.custom {
+  min-height: 180px;
+  border-radius: 2px;
+  padding: 20px;
+  max-width: 100%;
+  min-width: 100%;
+  border: 1.2099px solid #DBDEE2;
+}
+
+textarea.custom:focus{
+  outline: none;
+  border-color: var(--focus-blue);
+}
