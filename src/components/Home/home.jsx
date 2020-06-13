@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { Component } from 'react';
 import { ValidatorForm } from 'react-form-validator-core';
 import { Button } from 'semantic-ui-react';
 import Layout from '../layout/layout';
@@ -8,9 +8,136 @@ import InputGroup from '../form-input-group/input-group';
 import Divider from '../divider/divider';
 import AddItem from '../add-item/add-item';
 
-const Home = () => {
-  const ref = useRef();
-  return (
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      paperTypes: [
+        {
+          id: 1,
+          name: 'SAV',
+          commonName: 'Sticker',
+          unitPrice: 1.0,
+        },
+        {
+          id: 2,
+          name: 'FLEXI',
+          commonName: 'Banner',
+          unitPrice: 1.3,
+        },
+        {
+          id: 3,
+          name: 'PAPER',
+          commonName: 'Blue back',
+          unitPrice: 1.2,
+        },
+      ],
+      units: [
+        {
+          name: 'Feet',
+          symbol: 'ft',
+        },
+        {
+          name: 'Centimeters',
+          symbol: 'cm',
+        },
+        {
+          name: 'Inches',
+          symbol: 'inc',
+        },
+      ],
+      allJobs: [],
+      selectedPaper: null,
+      selectedUnit: null,
+      job: {
+        totalCost: 0.0,
+        title: 'Title of the job',
+        width: null,
+        height: null,
+        quantity: 25,
+        comment: 'Please use the best options for the job',
+      },
+    };
+    this.ref = React.createRef();
+  }
+
+  checkJobCost = () => {
+    const { selectedPaper, job } = this.state;
+    if (selectedPaper !== null) {
+      const cost = (selectedPaper.unitPrice * job.quantity);
+      const newJob = job;
+      job.totalCost = cost;
+      this.setState((state) => ({
+        ...state,
+        job: newJob,
+      }));
+    }
+  };
+
+  handlePaperSelectionChange = (data) => {
+    const { paperTypes } = this.state;
+    const selectedPaper = paperTypes.find((f) => f.id === data);
+    this.setState((state) => ({
+      ...state,
+      selectedPaper,
+    }), () => { this.checkJobCost(); });
+  };
+
+  handleInputChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    const { job } = this.state;
+    job[name] = value;
+    this.setState((state) => ({
+      ...state,
+      job,
+    }));
+  };
+
+  handleCommentChange = (data) => {
+    const { job } = this.state;
+    job.comment = data;
+    this.setState((state) => ({
+      ...state,
+      job,
+    }));
+  }
+
+  clearAllFields = () => {
+    this.setState((state) => ({
+      ...state,
+      job: {
+        title: null,
+        width: null,
+        height: null,
+        quantity: 0,
+        comment: null,
+      },
+    }));
+  };
+
+  addJob = () => {
+    this.setState((state) => ({
+      ...state,
+      allJobs: [...state.allJobs, state.job],
+    }));
+
+    this.clearAllFields();
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('We want to submit');
+  };
+
+  render() {
+    const {
+      allJobs, paperTypes, ref, job: {
+        quantity, title, width, height, comment, totalCost,
+      },
+    } = this.state;
+
+    return (
 	<div>
 		<Layout>
 			<AppMainContent
@@ -18,14 +145,20 @@ const Home = () => {
 			>
 				<ValidatorForm
 					ref={ref}
-					onSubmit={console.log('submitting form...')}
+					onSubmit={() => {}}
 				>
-					<Divider type="faint" title="Job Details" />
+					<Divider
+						type="faint"
+						title={`Job Details ${allJobs && allJobs.length > 0 && allJobs.length}`}
+					/>
 					<div className="m-b-20 m-t-20">
 						<FormGroup
 							center
 							type="text"
 							label="Job Title"
+							value={title}
+							name="title"
+							onChange={this.handleInputChange}
 							placeholder="Enter Job Title"
 						/>
 					</div>
@@ -37,6 +170,8 @@ const Home = () => {
 							placeholder1="Width"
 							placeholder2="Height"
 							label="Size"
+							value1={width}
+							value2={height}
 							labelName="size"
 						/>
 					</div>
@@ -46,6 +181,8 @@ const Home = () => {
 							type="dropdown"
 							label="Job Type"
 							placeholder="Select job type"
+							options={paperTypes.map((p) => ({ key: p.id, text: `${p.name} (${p.commonName})`, value: p.id }))}
+							onChange={(data) => this.handlePaperSelectionChange(data)}
 						/>
 					</div>
 					<div className="m-b-20">
@@ -54,6 +191,7 @@ const Home = () => {
 							center
 							type="text"
 							label="Quantity"
+							value={quantity}
 							placeholder="How many pieces do you want?"
 						/>
 					</div>
@@ -64,6 +202,7 @@ const Home = () => {
 							type="text"
 							label="Cost"
 							placeholder="Cost of Job"
+							value={totalCost}
 						/>
 					</div>
 					<div className="m-b-20">
@@ -83,9 +222,17 @@ const Home = () => {
 							placeholder="Special comments"
 							rows={3}
 							cols={73}
+							value={comment}
+							name="comment"
+							onChange={this.handleCommentChange}
 						/>
 					</div>
-					<AddItem title="Add new job" classes="app-primary float-r" iconClasses="small icon m-r-5" />
+					<AddItem
+						title="Add new job"
+						classes="app-primary float-r"
+						iconClasses="small icon m-r-5"
+						handleClick={this.addJob}
+					/>
 					<div className="m-t-40">
 						<Divider type="faint" title="Company" />
 						<div className="m-t-20">
@@ -108,7 +255,8 @@ const Home = () => {
 			</AppMainContent>
 		</Layout>
 	</div>
-  );
-};
+    );
+  }
+}
 
 export default Home;

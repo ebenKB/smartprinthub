@@ -24,7 +24,9 @@ const AddItem = ({
 		)}
 		{isUrlLink && (
 			<Link to={linkUrl}>
-				<Button className={`add-item cta kt-transparent clickable app-primary bold sm-caption ${classes}`}>
+				<Button
+					className={`add-item cta kt-transparent clickable app-primary bold sm-caption ${classes}`}
+				>
 					{Logo !== null && (
 						<div className="m-r-10">{Logo}</div>
 					)}

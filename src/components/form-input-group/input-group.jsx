@@ -5,15 +5,26 @@ import InputValidator from '../form-fields/input-validator/input-validator';
 import './form-input-group.scss';
 
 const InputGroup = ({
-  label, labelName, placeholder1, placeholder2, inline, center, classes, ...rest
+  label, labelName, value1, value2, placeholder1, placeholder2, inline, center, classes, ...rest
 }) => (
 	<div className={`form-group ${inline ? 'inline' : 'block'} ${center ? 'center' : ''} ${classes}`}>
 		<label htmlFor={labelName}>
 			<span className="">{label}</span>
 		</label>
 		<div className="">
-			<InputValidator type="text" placeholder={placeholder1} {...rest} className="m-r-5" />
-			<InputValidator type="text" placeholder={placeholder2} {...rest} />
+			<InputValidator
+				value={value1}
+				type="text"
+				placeholder={placeholder1}
+				{...rest}
+				className="m-r-5"
+			/>
+			<InputValidator
+				value={value2}
+				type="text"
+				placeholder={placeholder2}
+				{...rest}
+			/>
 		</div>
 	</div>
 );

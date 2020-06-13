@@ -41,6 +41,7 @@ const FormGroup = ({
 	<Textarea
 		rows={rest.rows}
 		cols={rest.cols}
+		{...rest}
 	/>
       );
     } else if (type === 'date') {
