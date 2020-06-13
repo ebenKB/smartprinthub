@@ -1,0 +1,16 @@
+.nav-toggle {
+  position: absolute;
+  z-index: 99;
+  top: 16px;
+  left: 260px;
+  svg {
+    fill: var(--white);
+  }
+}
+
+.nav-toggle__shrink {
+  left: 105px;
+  svg {
+    fill: var(--black);
+  }
+}
