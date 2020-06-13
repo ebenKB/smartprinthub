@@ -1,4 +1,144 @@
-.dropzone-wrapper {
-  border: 1px solid var(--very-faint);
+.dropzone {
+  position: relative;
   width: 70%;
+}
+
+.dropzone.empty {
+  visibility: visible;
+}
+
+// .dropzone.full {
+//   visibility: hidden;
+//   display: none;
+// }
+
+// .dropzone-wrapper {
+//   position: relative;
+// }
+
+// .dropzone-item {
+//   position: relative;
+// }
+
+// .dropzone-item.hoverable:hover::after {
+//   position: absolute;
+//   background: black;
+//   content: "";
+//   width: 100%;
+//   left: 0;
+//   height: 100%;
+//   z-index: 1;
+//   opacity: 0.5;
+// }
+
+.dropzone div.root {
+  position: relative;
+  border: 2px dashed #e0e0e0;
+  padding: 20px;
+  background: var(--offwhite);
+}
+
+.dropzone div.root:focus {
+ outline: none;
+}
+
+.dropzone-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-inline-start: 0;
+}
+
+.dropzone-items li {
+  list-style: none;
+}
+
+.dropzone-items li:not(:last-child) {
+  margin-right: 10px;
+}
+
+.dropzone-items li .file-item {
+  padding: 4px 8px;
+}
+
+.dropzone.active div.root {
+  border: 2px dashed green;
+}
+
+.dropzone-content {
+  visibility: hidden;
+  margin-top: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.dropzone-content.active {
+  // width: 100%;
+  height: 10%;
+  top: 0;
+  visibility: visible;
+}
+
+.dropzone-content__heading {
+  width: 100%;
+  font-size: 0.9rem;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(212, 212, 213, 0.7);
+  margin-bottom: 10px;
+}
+
+.dropzone-heading__items {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 59% 41%;
+}
+
+.dropzone-content__body {
+  width: 100%;
+}
+
+.dropzone-content__body .dropzone-item:not(:last-child) {
+  border-bottom: 1px solid rgba(212, 212, 213, 0.7);
+}
+
+.dropzone-item {
+  display: grid;
+  grid-template-columns: 3% calc(57% - 30px) 10% 30%;
+  align-items: baseline;
+  padding: 10px 0;
+  column-gap: 10px;
+}
+
+.dropzone .kt-logo__custom {
+  width: 80px;
+  height: 80px;
+}
+
+.dropzone .kt-danger {
+  animation: fadeOut 6s ease-in-out 1 forwards normal;
+}
+
+.dropzone-wrapper .small.logo {
+  width: 10px;
+  height: auto;
+}
+
+.dropzone-cta {
+  visibility: hidden;
+}
+
+.dropzone-item:hover .dropzone-cta {
+  visibility: visible;
+}
+
+.dropzone-cta .ui.button {
+  border-radius: 2px;
+}
+
+.dropzone-cta.ui.basic.buttons {
+  border: none;
+}
+
+.dropzone-cta.ui.buttons .button {
+  border: 1px solid rgba(212, 212, 213, 0.7);
 }

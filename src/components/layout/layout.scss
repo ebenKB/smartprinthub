@@ -4,6 +4,12 @@
   grid-template-columns: 15% 85%;
 }
 
+.app-container__shrink.layout {
+  margin: auto;
+  display: grid;
+  grid-template-columns: 5% 95%;
+}
+
 .nav-pane {
   background: var(--black);
   min-height: 100vh;
@@ -25,3 +31,10 @@
   }
 }
 
+.nav-toggle {
+  position: absolute;
+  color: red;
+  z-index: 99;
+  top: 16px;
+  left: 220px;
+}

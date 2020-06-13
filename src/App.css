@@ -17,13 +17,26 @@ body {
   color: white;
 }
 
+.app-primary {
+  color: var(--blue);
+}
+
+svg.app-primary {
+  fill: var(--blue);
+}
 .faint {
   color: var(--faint);
 }
 
 .small.icon {
   width: 16px;
-  height: auto;
+  height: auto !important;
+}
+
+
+.medium.icon {
+  width: 20px;
+  height: auto !important;
 }
 
 .dark.icon {
@@ -37,6 +50,12 @@ h4.no-pad,
 h5.no-pad,
 h6.no-pad {
   margin: 0;
+}
+
+.transparent.ui.button {
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 @keyframes App-logo-spin {

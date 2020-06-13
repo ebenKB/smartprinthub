@@ -2,14 +2,15 @@
   background:rgb(243, 243, 243);
   padding: 6px 0;
   position: fixed;
-  width: 90%;
+  width: 100%;
   margin: auto;
   z-index: 100;
 }
 
 .header .content {
+  width: 90%;
   position: relative;
-  margin-left: 5%;
+  margin-left: 4.2%;
   display: grid;
   grid-template-columns: 75% 25%;
   grid-column-gap: 4px;

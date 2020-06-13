@@ -4,8 +4,7 @@ import { Dropdown, Icon } from 'semantic-ui-react';
 const trigger = (
 	<span>
 		<Icon name="user" />
-		{' '}
-		Hello, Bob Craiger
+		Bob Craiger
 	</span>
 );
 

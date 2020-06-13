@@ -5,3 +5,7 @@
 .ui.button {
   border-radius: 2px;
 }
+
+.ui.button.app-primary {
+  color: var(--blue);
+}
