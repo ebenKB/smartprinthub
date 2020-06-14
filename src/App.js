@@ -8,6 +8,8 @@ import {
 import './App.css';
 import SignIn from './components/signin/signin';
 import Home from './pages/Home/home';
+import Checkout from './pages/checkout/checkout';
+import ViewJobs from './pages/jobs/view/view-jobs';
 
 function App() {
   return (
@@ -16,6 +18,12 @@ function App() {
 			<Switch>
 				<Route exact path="/">
 					<Home />
+				</Route>
+				<Route path="/checkout">
+					<Checkout />
+				</Route>
+				<Route path="/jobs/view">
+					<ViewJobs />
 				</Route>
 				<Route path="/signin">
 					<SignIn />

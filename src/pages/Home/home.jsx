@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { ValidatorForm } from 'react-form-validator-core';
 import { Button } from 'semantic-ui-react';
@@ -129,6 +130,8 @@ class Home extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log('We want to submit');
+    const { history } = this.props;
+    history.push('/checkout');
   };
 
   render() {
@@ -253,6 +256,7 @@ class Home extends Component {
 							positive
 							small
 							content="Continue"
+							onClick={this.handleSubmit}
 						/>
 					</div>
 				</ValidatorForm>

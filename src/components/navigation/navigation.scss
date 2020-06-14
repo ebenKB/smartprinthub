@@ -2,3 +2,19 @@
   color: white;
   padding: 20px;
 }
+
+// override default accordion style
+.nav-wrapper {
+  .ui.accordion {
+    background: var(--black);
+    color: var(--white);
+
+    .menu-option {
+      margin-left: 25px;
+    }
+  }
+
+  .ui.accordion .title:not(.ui) {
+    color: var(--white);
+  }
+}

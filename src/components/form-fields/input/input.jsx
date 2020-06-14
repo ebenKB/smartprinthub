@@ -34,11 +34,11 @@ class CustomInput extends React.Component {
     };
 
     return (
-	<Fragment>
+	<>
 		{
       getInput()
     }
-	</Fragment>
+	</>
     );
   }
 }
