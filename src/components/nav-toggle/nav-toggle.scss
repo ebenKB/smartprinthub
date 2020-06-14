@@ -2,14 +2,18 @@
   position: absolute;
   z-index: 99;
   top: 16px;
-  left: 260px;
+  left: -50px;
   svg {
-    fill: var(--white);
+    fill: var(--black);
   }
 }
 
 .nav-toggle__shrink {
-  left: 105px;
+  position: absolute;
+  top: 16px;
+  left: -50px;
+  z-index: 1000;
+  top: 20px;
   svg {
     fill: var(--black);
   }

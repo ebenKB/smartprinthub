@@ -3,8 +3,8 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
 import {
-  ArrowBackIos as ArrowBackIcon,
   ArrowForwardIos as ArrowForwardIcon,
+  Menu as MenuIcon,
 } from '@material-ui/icons';
 import './nav-toggle.scss';
 
@@ -16,7 +16,7 @@ const NavToggle = ({ collapsed, handleAction }) => (
 			<div className={`${collapsed ? 'nav-toggle__shrink' : 'nav-toggle'}`}>
 				<Button
 					className="transparent"
-					icon={<ArrowBackIcon />}
+					icon={<MenuIcon />}
 					onClick={() => handleAction()}
 				/>
 			</div>

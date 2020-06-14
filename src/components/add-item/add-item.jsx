@@ -8,9 +8,10 @@ import './add-item.scss';
 
 
 const AddItem = ({
-  title, classes, iconClasses, handleClick, Logo, isUrlLink, linkUrl,
+  // eslint-disable-next-line react/prop-types
+  title, classes, iconClasses, parentClasses, handleClick, Logo, isUrlLink, linkUrl,
 }) => (
-	<div>
+	<div className={parentClasses}>
 		{!isUrlLink && (
 			<Button className={`add-item cta transparent clickable app-primary bold sm-caption ${classes}`} onClick={handleClick}>
 				{Logo !== null && (

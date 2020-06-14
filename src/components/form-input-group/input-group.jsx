@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { Dropdown } from 'semantic-ui-react';
 import InputValidator from '../form-fields/input-validator/input-validator';
 import './form-input-group.scss';
 
@@ -11,7 +12,13 @@ const InputGroup = ({
 		<label htmlFor={labelName}>
 			<span className="">{label}</span>
 		</label>
-		<div className="">
+		<div className="form-group__wrapper flex-center">
+			<Dropdown
+				placeholder="Units"
+				compact
+				selection
+				options={[{ key: 1, text: 'cm', value: '1' }]}
+			/>
 			<InputValidator
 				value={value1}
 				type="text"

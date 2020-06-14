@@ -7,6 +7,7 @@ import FormGroup from '../../components/form-group/form-group';
 import InputGroup from '../../components/form-input-group/input-group';
 import Divider from '../../components/divider/divider';
 import AddItem from '../../components/add-item/add-item';
+import CompanyDirectory from '../../components/company-directory/company-directory';
 
 class Home extends Component {
   constructor(props) {
@@ -147,9 +148,17 @@ class Home extends Component {
 					ref={ref}
 					onSubmit={() => {}}
 				>
+					<div className="">
+						<Divider type="faint" title="Company" />
+						<div className="m-t-20">
+							Open Company directory to select a company
+							<CompanyDirectory />
+						</div>
+					</div>
 					<Divider
 						type="faint"
 						title={`Job Details ${allJobs && allJobs.length > 0 && allJobs.length}`}
+						classes="m-t-40"
 					/>
 					<div className="m-b-20 m-t-20">
 						<FormGroup
@@ -229,16 +238,11 @@ class Home extends Component {
 					</div>
 					<AddItem
 						title="Add new job"
-						classes="app-primary float-r"
+						classes="app-primary text-right m-t-20 m-b-20"
 						iconClasses="small icon m-r-5"
+						parentClasses="text-right"
 						handleClick={this.addJob}
 					/>
-					<div className="m-t-40">
-						<Divider type="faint" title="Company" />
-						<div className="m-t-20">
-							Open Company directory to select a company
-						</div>
-					</div>
 					<div className="m-t-40 text-right inline center">
 						<Button
 							default

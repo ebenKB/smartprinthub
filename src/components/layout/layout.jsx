@@ -6,7 +6,7 @@ import Header from '../header/header';
 import HeaderOffset from '../header/header-offset';
 import './layout.scss';
 import Navigation from '../navigation/navigation';
-import NavToggle from '../nav-toggle/nav-toggle';
+// import NavToggle from '../nav-toggle/nav-toggle';
 
 const Layout = ({ children }) => {
   const [hasShrunk, setHasShrunk] = useState(false);
@@ -17,10 +17,10 @@ const Layout = ({ children }) => {
 			<Header />
 			<HeaderOffset />
 		</div> */}
-		<NavToggle
+		{/* <NavToggle
 			collapsed={hasShrunk}
 			handleAction={() => setHasShrunk(!hasShrunk)}
-		/>
+		/> */}
 		<div className={`${hasShrunk ? 'app-container__shrink' : 'app-container'} layout`}>
 			<div className="nav-pane">
 				<div className="nav-content">
@@ -32,7 +32,10 @@ const Layout = ({ children }) => {
 			</div>
 			<div className="main-content">
 				<div>
-					<Header />
+					<Header
+						hasShrunk={hasShrunk}
+						handleToggleAction={() => setHasShrunk(!hasShrunk)}
+					/>
 					<HeaderOffset />
 					<div className="main-content__body">
 						{children}

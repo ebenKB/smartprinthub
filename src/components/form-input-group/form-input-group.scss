@@ -1,1 +1,14 @@
 @import '../form-group/form-group.scss';
+
+.form-group.small {
+  .form-group__wrapper {
+    .ui.input {
+      width: 30%;
+    }
+
+    .ui.dropdown {
+      width: calc(10% - 10px);
+      margin-right: 5px;
+    }
+  }
+}

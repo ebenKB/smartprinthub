@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import SignIn from './components/signin/signin';
-import Home from './components/Home/home';
+import Home from './pages/Home/home';
 
 function App() {
   return (
