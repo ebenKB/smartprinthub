@@ -1,8 +1,8 @@
 import React from 'react';
 import './checkout.scss';
 import { Button } from 'semantic-ui-react';
-import Layout from '../../components/layout/layout';
-import AppMainContent from '../../components/app-main-content/app-main-content';
+import Layout from '../../../components/layout/layout';
+import AppMainContent from '../../../components/app-main-content/app-main-content';
 
 const Checkout = () => (
 	<Layout>

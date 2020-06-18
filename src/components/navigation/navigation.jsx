@@ -4,7 +4,7 @@ import './navigation.scss';
 import { Link } from 'react-router-dom';
 
 const Navigation = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   const handleClick = (e, titleProps) => {
     const { index } = titleProps;
@@ -14,19 +14,24 @@ const Navigation = () => {
   return (
 	<div className="nav-wrapper">
 		<Accordion as={Menu} vertical>
+			<div className="ui menu default-bg">
+				<Link to="/" className="item">
+					Welcome
+				</Link>
+			</div>
 			<Menu.Item>
 				<Accordion.Title
 					active={activeIndex === 0}
-					content={<span>XX- Jobs</span>}
+					content={<span>Jobs</span>}
 					index={0}
 					onClick={handleClick}
 					className="m-b-10"
 				/>
 				<Accordion.Content active={activeIndex === 0} className="menu-option">
-					<Link to="/rfx">Create</Link>
+					<Link to="/job/create">Create</Link>
 				</Accordion.Content>
 				<Accordion.Content active={activeIndex === 0} className="menu-option">
-					<Link to="/rfx/new">View</Link>
+					<Link to="/jobs/view">View</Link>
 				</Accordion.Content>
 			</Menu.Item>
 		</Accordion>
@@ -34,7 +39,7 @@ const Navigation = () => {
 			<Menu.Item>
 				<Accordion.Title
 					active={activeIndex === 1}
-					content={<span>XX-Companies</span>}
+					content={<span>Companies</span>}
 					index={1}
 					onClick={handleClick}
 					className="m-b-10"

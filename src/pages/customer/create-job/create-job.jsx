@@ -2,13 +2,13 @@
 import React, { Component } from 'react';
 import { ValidatorForm } from 'react-form-validator-core';
 import { Button } from 'semantic-ui-react';
-import Layout from '../../components/layout/layout';
-import AppMainContent from '../../components/app-main-content/app-main-content';
-import FormGroup from '../../components/form-group/form-group';
-import InputGroup from '../../components/form-input-group/input-group';
-import Divider from '../../components/divider/divider';
-import AddItem from '../../components/add-item/add-item';
-import CompanyDirectory from '../../components/company-directory/company-directory';
+import Layout from '../../../components/layout/layout';
+import AppMainContent from '../../../components/app-main-content/app-main-content';
+import FormGroup from '../../../components/form-group/form-group';
+import InputGroup from '../../../components/form-input-group/input-group';
+import Divider from '../../../components/divider/divider';
+import AddItem from '../../../components/add-item/add-item';
+import CompanyDirectory from '../../../components/company-directory/company-directory';
 
 class Home extends Component {
   constructor(props) {

@@ -1,0 +1,32 @@
+.heading {
+  background: var(--black);
+  min-height: 200px;
+  color: var(--white);
+  font-size: 2rem;
+}
+
+.content-wrapper {
+  border-radius: 5px;
+  background: var(--white);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.settings-container {
+  width: 50%;
+  margin: auto;
+}
+
+.user-details__caption {
+  position: relative;
+  margin-top: -90px;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 5px;
+  left: 200px;
+  width: 400px;
+
+  h1 {
+    font-size: 2rem;
+  }
+};

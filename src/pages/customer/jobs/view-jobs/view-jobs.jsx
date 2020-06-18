@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Divider, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import Layout from '../../../components/layout/layout';
-import AppMainContent from '../../../components/app-main-content/app-main-content';
-import ListItem from '../../../components/list-item/list-item';
+import Layout from '../../../../components/layout/layout';
+import AppMainContent from '../../../../components/app-main-content/app-main-content';
+import ListItem from '../../../../components/list-item/list-item';
 
 const ViewJobs = () => {
   const [jobs] = useState([
@@ -101,21 +101,21 @@ const ViewJobs = () => {
 			>
 				<div>
 					<div className="m-b-20 text-right">Sort</div>
-					{jobs.map((j) => (
+					{jobs.map((job) => (
 						<ListItem
-							key={j.id}
-							label={{ text: j.jobType.substring(0, 1), color: j.labelColor }}
-							status={j.status}
+							key={job.id}
+							label={{ text: job.jobType.substring(0, 1), color: job.labelColor }}
+							status={job.status}
 							className="m-b-20"
 						>
 							<div>
-								<Link to="/">
-									<h3 className="caption">{j.title}</h3>
+								<Link to={`/job/${job.id}`}>
+									<h3 className="caption">{job.title}</h3>
 								</Link>
 								You created this job and assinged it to
 							</div>
-							<div>{j.jobType}</div>
-							<div>{j.createdAt}</div>
+							<div>{job.jobType}</div>
+							<div>{job.createdAt}</div>
 						</ListItem>
 					))}
 					<div className="m-t-40">

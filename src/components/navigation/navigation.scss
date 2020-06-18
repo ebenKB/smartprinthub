@@ -14,7 +14,29 @@
     }
   }
 
-  .ui.accordion .title:not(.ui) {
+  .ui.accordion .title:not(.ui),
+  .ui.accordion .content.menu-option a {
     color: var(--white);
   }
+
+  .ui.menu {
+    margin: 4px;
+  }
+
+  // override semantic ui
+  .ui.menu .item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}
+
+.ui.menu.default-bg {
+  background: var(--black);
+  color: var(--white);
+}
+
+// override semantic ui
+.ui.vertical.menu .default-bg .item {
+  color:  var(--white);
+  font-weight: bold;
 }
