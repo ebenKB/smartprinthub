@@ -1,7 +1,6 @@
 import React from 'react';
 import './settings.scss';
 import { Button } from 'semantic-ui-react';
-import Divider from '../../../components/divider/divider';
 import RoundContentWrapper from '../../../components/round-content-wrapper/round-content-wrapper';
 
 const Settings = () => (
