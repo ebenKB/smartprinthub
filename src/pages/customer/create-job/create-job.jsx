@@ -5,15 +5,30 @@ import { Button } from 'semantic-ui-react';
 import Layout from '../../../components/layout/layout';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import FormGroup from '../../../components/form-group/form-group';
-import InputGroup from '../../../components/form-input-group/input-group';
+import DimensionInputGroup from '../../../components/dimension-input-group/input-group';
 import Divider from '../../../components/divider/divider';
 import AddItem from '../../../components/add-item/add-item';
 import CompanyDirectory from '../../../components/company-directory/company-directory';
+import getDimensionInFeet from '../../../utils/dimension';
+import amountToText from '../../../utils/app';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      options: {
+        canShowCompanyDirectory: true,
+      },
+      tenant: {
+        name: 'Best Starts Print Limited',
+        address: {
+          location: 'Kokomlemle',
+        },
+        currency: {
+          name: 'Ghana cedis',
+          symbol: 'GHC',
+        },
+      },
       paperTypes: [
         {
           id: 1,
@@ -36,39 +51,44 @@ class Home extends Component {
       ],
       units: [
         {
+          id: 1,
           name: 'Feet',
           symbol: 'ft',
         },
         {
+          id: 2,
           name: 'Centimeters',
           symbol: 'cm',
         },
         {
+          id: 3,
           name: 'Inches',
           symbol: 'inc',
         },
       ],
+      unit: null,
       allJobs: [],
       selectedPaper: null,
       selectedUnit: null,
       job: {
         totalCost: 0.0,
-        title: 'Title of the job',
-        width: null,
-        height: null,
-        quantity: 25,
-        comment: 'Please use the best options for the job',
+        title: '',
+        width: '',
+        height: '',
+        quantity: '',
+        comment: '',
       },
     };
     this.ref = React.createRef();
   }
 
-  checkJobCost = () => {
-    const { selectedPaper, job } = this.state;
-    if (selectedPaper !== null) {
-      const cost = (selectedPaper.unitPrice * job.quantity);
-      const newJob = job;
-      job.totalCost = cost;
+  computeCost = () => {
+    const { unit, job } = this.state;
+    const { width, height, quantity } = job;
+    const newJob = job;
+    if (width !== '' && height !== '' && unit != null && quantity !== '') {
+      const cost = getDimensionInFeet(unit.symbol, width, height) * quantity;
+      newJob.totalCost = amountToText(cost.toFixed(2));
       this.setState((state) => ({
         ...state,
         job: newJob,
@@ -82,7 +102,7 @@ class Home extends Component {
     this.setState((state) => ({
       ...state,
       selectedPaper,
-    }), () => { this.checkJobCost(); });
+    }), () => { this.computeCost(); });
   };
 
   handleInputChange = (e) => {
@@ -93,7 +113,7 @@ class Home extends Component {
     this.setState((state) => ({
       ...state,
       job,
-    }));
+    }), () => this.computeCost());
   };
 
   handleCommentChange = (data) => {
@@ -105,6 +125,20 @@ class Home extends Component {
     }));
   }
 
+  handleDimensionUnitChange = (data) => {
+    const { units } = this.state;
+    const selectedOption = units.find((u) => u.id === data);
+    this.setState((state) => ({
+      ...state,
+      unit: selectedOption,
+    }), () => this.computeCost());
+  }
+
+  transformUnits = () => {
+    const { units } = this.state;
+    return units.map((u) => ({ key: u.id, text: u.name, value: u.id }));
+  }
+
   clearAllFields = () => {
     this.setState((state) => ({
       ...state,
@@ -112,7 +146,7 @@ class Home extends Component {
         title: null,
         width: null,
         height: null,
-        quantity: 0,
+        quantity: '',
         comment: null,
       },
     }));
@@ -134,8 +168,21 @@ class Home extends Component {
     history.push('/checkout');
   };
 
+  toggleCompanyDirectoryForm = () => {
+    console.log('We want to toggle the action');
+    const { options: { canShowCompanyDirectory } } = this.state;
+    this.setState((state) => ({
+      ...state,
+      options: {
+        ...state.options,
+        canShowCompanyDirectory: !canShowCompanyDirectory,
+      },
+    }));
+  };
+
   render() {
     const {
+      options: { canShowCompanyDirectory },
       allJobs, paperTypes, ref, job: {
         quantity, title, width, height, comment, totalCost,
       },
@@ -151,13 +198,17 @@ class Home extends Component {
 					ref={ref}
 					onSubmit={() => {}}
 				>
-					<div className="">
-						<Divider type="faint" title="Company" />
-						<div className="m-t-20">
-							Open Company directory to select a company
-							<CompanyDirectory />
+					{canShowCompanyDirectory && (
+						<div className="">
+							<Divider type="faint" title="Company" />
+							<div className="m-t-20">
+								Open Company directory to select a company
+								<CompanyDirectory
+									handleCloseAction={this.toggleCompanyDirectoryForm}
+								/>
+							</div>
 						</div>
-					</div>
+					)}
 					<Divider
 						type="faint"
 						title={`Job Details ${allJobs && allJobs.length > 0 && allJobs.length}`}
@@ -174,17 +225,22 @@ class Home extends Component {
 							placeholder="Enter Job Title"
 						/>
 					</div>
+
 					<div className="m-b-20">
-						<InputGroup
-							classes="small"
-							center
+						<DimensionInputGroup
+							classes="smallx"
 							inline
 							placeholder1="Width"
 							placeholder2="Height"
 							label="Size"
+							name1="width"
+							name2="height"
 							value1={width}
 							value2={height}
 							labelName="size"
+							options={this.transformUnits()}
+							onChange={this.handleInputChange}
+							handleDropDownChange={this.handleDimensionUnitChange}
 						/>
 					</div>
 					<div className="m-b-20 m-t-20">
@@ -203,16 +259,20 @@ class Home extends Component {
 							center
 							type="text"
 							label="Quantity"
+							name="quantity"
 							value={quantity}
 							placeholder="How many pieces do you want?"
+							onChange={this.handleInputChange}
 						/>
 					</div>
 					<div className="m-b-20">
 						<FormGroup
 							classes="small"
 							center
-							type="text"
+							type="amount"
+							amountLabel="GHC"
 							label="Cost"
+							name="totalCost"
 							placeholder="Cost of Job"
 							value={totalCost}
 						/>
@@ -249,12 +309,12 @@ class Home extends Component {
 					<div className="m-t-40 text-right inline center">
 						<Button
 							default
-							small
+							size="small"
 							content="Save as Draft"
 						/>
 						<Button
 							positive
-							small
+							size="small"
 							content="Continue"
 							onClick={this.handleSubmit}
 						/>

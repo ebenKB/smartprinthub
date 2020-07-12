@@ -2,9 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-else-return */
 import React from 'react';
-import {
-  Form, TextArea, Dropdown,
-} from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 import Input from '../form-fields/input/input';
 import InputValidator from '../form-fields/input-validator/input-validator';
@@ -20,6 +18,7 @@ const FormGroup = ({
   center,
   classes = '',
   inline = true,
+  amountLabel,
   options = [
     {
       key: '1',
@@ -58,11 +57,14 @@ const FormGroup = ({
 		onChange={(e, data) => rest.onChange(data.value)}
 	/>
       );
-    } else if (type === 'textarea') {
+    } else if (type === 'amount') {
       return (
-	<Form>
-		<TextArea placeholder={placeholder} style={{ minHeight: 100 }} />
-	</Form>
+	<InputValidator
+		type={type}
+		placeholder={placeholder}
+		label={amountLabel}
+		{...rest}
+	/>
       );
     } else if (type === 'dropzone') {
       return (<Dropzone />);

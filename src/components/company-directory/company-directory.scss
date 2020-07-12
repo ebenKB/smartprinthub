@@ -10,14 +10,16 @@
 
   z-index: 999;
 
-  .header {
+  .company-directory__header {
+    background:rgb(243, 243, 243);
     padding: 15px;
-    // background: grey;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .content {
     position: relative;
-    min-height: 95vh;
+    min-height: 90vh;
   }
 
   .footer {

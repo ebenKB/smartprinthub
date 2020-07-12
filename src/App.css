@@ -24,6 +24,7 @@ body {
 svg.app-primary {
   fill: var(--blue);
 }
+
 .faint {
   color: var(--faint);
 }
@@ -33,6 +34,16 @@ svg.app-primary {
   height: auto !important;
 }
 
+.flex {
+  display:  flex;
+}
+.flex-inline {
+  display: inline-flex;
+}
+
+.flex.center {
+  align-items: center;
+}
 
 .medium.icon {
   width: 20px;
@@ -41,6 +52,10 @@ svg.app-primary {
 
 .dark.icon {
   fill: var(--dark);
+}
+
+.bold {
+  font-weight: 700;
 }
 
 h1.no-pad,

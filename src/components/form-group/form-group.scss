@@ -22,11 +22,12 @@
   align-items: center;
 }
 
-.form-group .ui.input{
+.form-group .ui.input {
   width: 70%;
 }
 
-.form-group.small .ui.input {
+.form-group.small .ui.input,
+.form-group .small .ui.input  {
   width: 35%;
 }
 
