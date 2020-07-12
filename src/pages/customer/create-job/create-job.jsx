@@ -17,7 +17,7 @@ class Home extends Component {
     super(props);
     this.state = {
       options: {
-        canShowCompanyDirectory: true,
+        canShowCompanyDirectory: false,
       },
       tenant: {
         name: 'Best Starts Print Limited',
@@ -168,14 +168,13 @@ class Home extends Component {
     history.push('/checkout');
   };
 
-  toggleCompanyDirectoryForm = () => {
-    console.log('We want to toggle the action');
-    const { options: { canShowCompanyDirectory } } = this.state;
+  toggleCompanyDirectoryForm = (value) => {
+    // const { options: { canShowCompanyDirectory } } = this.state;
     this.setState((state) => ({
       ...state,
       options: {
         ...state.options,
-        canShowCompanyDirectory: !canShowCompanyDirectory,
+        canShowCompanyDirectory: value,
       },
     }));
   };
@@ -198,17 +197,22 @@ class Home extends Component {
 					ref={ref}
 					onSubmit={() => {}}
 				>
-					{canShowCompanyDirectory && (
-						<div className="">
-							<Divider type="faint" title="Company" />
-							<div className="m-t-20">
-								Open Company directory to select a company
+					<div className="">
+						<Divider type="faint" title="Company" />
+						<div className="m-t-20">
+							<Button
+								content="Open company directory"
+								onClick={() => this.toggleCompanyDirectoryForm(true)}
+								className="transparent app-primary"
+							/>
+							to select a company
+							{canShowCompanyDirectory && (
 								<CompanyDirectory
-									handleCloseAction={this.toggleCompanyDirectoryForm}
+									handleCloseAction={() => this.toggleCompanyDirectoryForm(false)}
 								/>
-							</div>
+							)}
 						</div>
-					)}
+					</div>
 					<Divider
 						type="faint"
 						title={`Job Details ${allJobs && allJobs.length > 0 && allJobs.length}`}
