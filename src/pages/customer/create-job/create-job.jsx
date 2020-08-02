@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { ValidatorForm } from 'react-form-validator-core';
 import { Button } from 'semantic-ui-react';
-import Layout from '../../../components/layout/layout';
+// import Layout from '../../../components/layout/layout';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import FormGroup from '../../../components/form-group/form-group';
 import DimensionInputGroup from '../../../components/dimension-input-group/input-group';
@@ -11,8 +11,9 @@ import AddItem from '../../../components/add-item/add-item';
 import CompanyDirectory from '../../../components/company-directory/company-directory';
 import getDimensionInFeet from '../../../utils/dimension';
 import amountToText from '../../../utils/app';
+import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
 
-class Home extends Component {
+class CreateJob extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -189,9 +190,13 @@ class Home extends Component {
 
     return (
 	<div>
-		<Layout>
-			<AppMainContent
-				heading="New Job"
+		{/* <Layout> */}
+
+		<AppMainContent
+			heading="New Job"
+		>
+			<AppContentWrapper
+				heading="Some heading here"
 			>
 				<ValidatorForm
 					ref={ref}
@@ -324,11 +329,13 @@ class Home extends Component {
 						/>
 					</div>
 				</ValidatorForm>
-			</AppMainContent>
-		</Layout>
+			</AppContentWrapper>
+		</AppMainContent>
+
+		{/* </Layout> */}
 	</div>
     );
   }
 }
 
-export default Home;
+export default CreateJob;

@@ -1,30 +1,34 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { Suspense } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
 import './App.css';
-import SignIn from './components/signin/signin';
-import Home from './pages/customer/create-job/create-job';
-import Checkout from './pages/customer/checkout/checkout';
-import ViewJobs from './pages/customer/jobs/view-jobs/view-jobs';
-import Welcome from './pages/welcome/welcome';
-import ShowJob from './pages/customer/jobs/show/show-job';
-import UserSetings from './pages/customer/settings/settings';
 
+// import SignIn from './components/signin/signin';
+// import Checkout from './pages/customer/checkout/checkout';
+// import ViewJobs from './pages/customer/jobs/view-jobs/view-jobs';
+// import Welcome from './pages/welcome/welcome';
+// import ShowJob from './pages/customer/jobs/show/show-job';
+// import UserSetings from './pages/customer/settings/settings';
+
+import Routes from './routes/protected-routes';
+import DefaultRoutes from './routes/default-routes';
+import Layout from './components/layout/layout';
 
 function App() {
   return (
 	<div className="light-theme">
+
 		<Router>
-			<Switch>
-				<Route exact path="/">
+			<Layout>
+				<Switch>
+					{/* <Route exact path="/">
 					<Welcome />
-				</Route>
-				<Route exact path="/job/create">
-					<Home />
 				</Route>
 				<Route exact path="/job/:id">
 					<ShowJob />
@@ -40,8 +44,36 @@ function App() {
 				</Route>
 				<Route path="/signin">
 					<SignIn />
-				</Route>
-			</Switch>
+				</Route> */}
+					{DefaultRoutes.map((route, index) => (
+						<Route
+							key={index}
+							path={route.path}
+							exact={route.exact}
+						>
+							<Suspense fallback={null}>
+								<route.main />
+							</Suspense>
+						</Route>
+					))}
+
+					{Routes.map((route, index) => (
+						<Route
+							key={index}
+							path={route.path}
+							exact={route.exact}
+						>
+							<Suspense fallback={null}>
+								<route.main />
+							</Suspense>
+						</Route>
+					))}
+					{/* <Route path="*">
+						<h1>No match found</h1>
+					</Route> */}
+
+				</Switch>
+			</Layout>
 		</Router>
 	</div>
   );

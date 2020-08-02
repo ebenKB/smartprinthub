@@ -9,3 +9,15 @@
 .ui.button.app-primary {
   color: var(--blue);
 }
+
+.ui.button.hoverable {
+  background: transparent;
+}
+
+.ui.button.hoverable:hover {
+  background: #e0e1e2 ;
+}
+
+.ui.button.light {
+  font-weight: 300;
+}

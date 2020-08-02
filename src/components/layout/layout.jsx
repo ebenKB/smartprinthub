@@ -13,14 +13,6 @@ const Layout = ({ children }) => {
 
   return (
 	<div>
-		{/* <div>
-			<Header />
-			<HeaderOffset />
-		</div> */}
-		{/* <NavToggle
-			collapsed={hasShrunk}
-			handleAction={() => setHasShrunk(!hasShrunk)}
-		/> */}
 		<div className={`${hasShrunk ? 'app-container__shrink' : 'app-container'} layout`}>
 			<div className="nav-pane">
 				<div className="nav-content">

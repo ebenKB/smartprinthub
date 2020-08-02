@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Accordion, Menu } from 'semantic-ui-react';
 import './navigation.scss';
 import { Link } from 'react-router-dom';
+import { ReactComponent as Flag } from '../../svg/flag.svg';
+import { ReactComponent as List } from '../../svg/list.svg';
+import { ReactComponent as Box } from '../../svg/box.svg';
 
 const Navigation = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -15,14 +18,20 @@ const Navigation = () => {
 	<div className="nav-wrapper">
 		<Accordion as={Menu} vertical>
 			<div className="ui menu default-bg">
-				<Link to="/" className="item">
-					Welcome
+				<Link to="/" className="item flex center">
+					<Flag className="nav-icon" />
+					<span className="nav-caption">Welcome</span>
 				</Link>
 			</div>
 			<Menu.Item>
 				<Accordion.Title
 					active={activeIndex === 0}
-					content={<span>Jobs</span>}
+					content={(
+						<span className="flex center">
+							<List className="nav-icon" />
+							<span className="nav-caption">Jobs</span>
+						</span>
+					)}
 					index={0}
 					onClick={handleClick}
 					className="m-b-10"
@@ -39,7 +48,12 @@ const Navigation = () => {
 			<Menu.Item>
 				<Accordion.Title
 					active={activeIndex === 1}
-					content={<span>Companies</span>}
+					content={(
+						<span className="flex center">
+							<Box className="nav-icon" />
+							<span className="nav-caption">Companies</span>
+						</span>
+					)}
 					index={1}
 					onClick={handleClick}
 					className="m-b-10"

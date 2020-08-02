@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Divider, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import Layout from '../../../../components/layout/layout';
-import AppMainContent from '../../../../components/app-main-content/app-main-content';
-import ListItem from '../../../../components/list-item/list-item';
+import Layout from '../../../components/layout/layout';
+import AppMainContent from '../../../components/app-main-content/app-main-content';
+import ListItem from '../../../components/list-item/list-item';
 
 const ViewJobs = () => {
   const [jobs] = useState([
@@ -95,40 +95,38 @@ const ViewJobs = () => {
 
   return (
 	<div>
-		<Layout>
-			<AppMainContent
-				heading="Jobs"
-			>
-				<div>
-					<div className="m-b-20 text-right">Sort</div>
-					{jobs.map((j) => (
-						<ListItem
-							key={j.id}
-							label={{ text: j.jobType.substring(0, 1), color: j.labelColor }}
-							status={j.status}
-							className="m-b-20"
-						>
-							<div>
-								<Link to="/">
-									<h3 className="caption">{j.title}</h3>
-								</Link>
-								You created this job and assinged it to
-							</div>
-							<div>{j.jobType}</div>
-							<div>{j.createdAt}</div>
-						</ListItem>
-					))}
-					<div className="m-t-40">
-						<Divider />
-						<Button
-							content="View 10 more records"
-							className="app-primary transparent"
-							onClick={viewMoreJobs}
-						/>
-					</div>
+		<AppMainContent
+			heading="Jobs"
+		>
+			<div>
+				<div className="m-b-20 text-right">Sort</div>
+				{jobs.map((j) => (
+					<ListItem
+						key={j.id}
+						label={{ text: j.jobType.substring(0, 1), color: j.labelColor }}
+						status={j.status}
+						className="m-b-20"
+					>
+						<div>
+							<Link to="/jobs/view/:id">
+								<h3 className="caption">{j.title}</h3>
+							</Link>
+							You created this job and assinged it to
+						</div>
+						<div>{j.jobType}</div>
+						<div>{j.createdAt}</div>
+					</ListItem>
+				))}
+				<div className="m-t-40">
+					<Divider />
+					<Button
+						content="View 10 more records"
+						className="app-primary transparent"
+						onClick={viewMoreJobs}
+					/>
 				</div>
-			</AppMainContent>
-		</Layout>
+			</div>
+		</AppMainContent>
 	</div>
   );
 };

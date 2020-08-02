@@ -28,6 +28,12 @@
     padding-top: 5px;
     padding-bottom: 5px;
   }
+
+  .nav-icon {
+    fill: var(--white);
+    margin-right: 5px;
+    width: 15px;
+  }
 }
 
 .ui.menu.default-bg {
@@ -39,4 +45,22 @@
 .ui.vertical.menu .default-bg .item {
   color:  var(--white);
   font-weight: bold;
+}
+
+// when the menu shrinks in size
+.app-container__shrink {
+  .nav-caption,
+  .ui.accordion .title .dropdown.icon {
+    display: none;
+  }
+
+  .ui.vertical.menu {
+    width: 60px;
+  }
+
+  .nav-wrapper {
+    .nav-icon {
+      width: 24px;
+    }
+  }
 }

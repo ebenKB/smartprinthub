@@ -2,16 +2,12 @@
 import React from 'react';
 import './app-main-content.scss';
 import Divider from '../divider/divider';
-import AppContentWrapper from '../app-content-wrapper/app-content-wrapper';
+// import AppContentWrapper from '../app-content-wrapper/app-content-wrapper';
 
-const AppMainContent = ({ heading, children }) => (
+const AppMainContent = ({ children }) => (
 	<div>
 		<div className="app-main-content">
-			<AppContentWrapper
-				heading={heading}
-			>
-				{children}
-			</AppContentWrapper>
+			<div>{children}</div>
 			<div>
 				<div className="m-b-20">
 					<h5 className="no-pad">Help 1</h5>
