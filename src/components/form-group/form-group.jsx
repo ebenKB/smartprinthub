@@ -49,12 +49,11 @@ const FormGroup = ({
       return (
 	<Dropdown
 		placeholder={placeholder}
-		search
 		selection
 		options={options}
-		defaultValue={rest.defaultValue}
-		className={`md-dropdown ${rest.classes}`}
-		onChange={(e, data) => rest.onChange(data.value)}
+		/* className={`md-dropdown ${rest.classes}`} */
+		className={`${rest.classes}`}
+		{...rest}
 	/>
       );
     } else if (type === 'amount') {

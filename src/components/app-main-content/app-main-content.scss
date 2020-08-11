@@ -1,5 +1,14 @@
 .app-main-content {
   margin-top: 30px;
+}
+
+// .app-main-content.single {
+//   width: 90%;
+//   margin-left: auto;
+//   margin-right: auto;
+// }
+
+.app-main-content.split {
   display: grid;
   grid-template-columns: calc(80% - 20px) 20%;
   grid-column-gap: 20px;

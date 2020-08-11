@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { Dropdown, Radio, Form } from 'semantic-ui-react';
 import InputValidator from '../form-fields/input-validator/input-validator';
 import './dimension-input-group.scss';
@@ -19,12 +19,12 @@ const InputGroup = ({
   center,
   classes,
   options,
+  selectedPaper,
+  paperSizeType,
   handleDropDownChange,
+  handlePaperSizeTypeChange,
   ...rest
-}) => {
-  const [selectedOption, setSelectedOption] = useState('default');
-
-  return (
+}) => (
 	<div className={`form-group ${inline ? 'inline' : 'block'} ${center ? 'center' : ''} ${classes}`}>
 		<label htmlFor={labelName}>
 			<span className="">{label}</span>
@@ -36,8 +36,8 @@ const InputGroup = ({
 						label="Default sizes"
 						name="sizeRadio"
 						value="default"
-						checked={selectedOption === 'default'}
-						onChange={(e, { value }) => setSelectedOption(value)}
+						checked={paperSizeType === 'default'}
+						onChange={handlePaperSizeTypeChange}
 					/>
 				</Form.Field>
 				<Form.Field>
@@ -45,25 +45,26 @@ const InputGroup = ({
 						label="Custom size"
 						name="sizeRadio"
 						value="custom"
-						checked={selectedOption === 'custom'}
-						onChange={(e, { value }) => setSelectedOption(value)}
+						checked={paperSizeType === 'custom'}
+						onChange={handlePaperSizeTypeChange}
 					/>
 				</Form.Field>
 			</div>
-			{selectedOption === 'default' && (
+			{paperSizeType === 'default' && selectedPaper && (
 				<div>
 					<Dropdown
 						placeholder="Select paper size"
 						search
 						selection
-						options={options}
+						options={selectedPaper.defaultSizes
+						  .map((s) => ({ text: s.name, value: s.name, key: s.id }))}
 						defaultValue={rest.defaultValue}
 						className={`md-dropdown ${rest.classes}`}
 						onChange={(e, { value }) => handleDropDownChange(value)}
 					/>
 				</div>
 			)}
-			{selectedOption === 'custom' && (
+			{paperSizeType === 'custom' && (
 				<div className="small">
 					<Dropdown
 						placeholder="Units"
@@ -91,7 +92,6 @@ const InputGroup = ({
 			)}
 		</div>
 	</div>
-  );
-};
+);
 
 export default InputGroup;

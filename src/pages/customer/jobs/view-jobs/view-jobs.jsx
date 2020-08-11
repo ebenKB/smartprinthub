@@ -95,40 +95,38 @@ const ViewJobs = () => {
 
   return (
 	<div>
-		<Layout>
-			<AppMainContent
-				heading="Jobs"
-			>
-				<div>
-					<div className="m-b-20 text-right">Sort</div>
-					{jobs.map((job) => (
-						<ListItem
-							key={job.id}
-							label={{ text: job.jobType.substring(0, 1), color: job.labelColor }}
-							status={job.status}
-							className="m-b-20"
-						>
-							<div>
-								<Link to={`/job/${job.id}`}>
-									<h3 className="caption">{job.title}</h3>
-								</Link>
-								You created this job and assinged it to
-							</div>
-							<div>{job.jobType}</div>
-							<div>{job.createdAt}</div>
-						</ListItem>
-					))}
-					<div className="m-t-40">
-						<Divider />
-						<Button
-							content="View 10 more records"
-							className="app-primary transparent"
-							onClick={viewMoreJobs}
-						/>
-					</div>
+		<AppMainContent
+			heading="Jobs"
+		>
+			<div>
+				<div className="m-b-20 text-right">Sort</div>
+				{jobs.map((job) => (
+					<ListItem
+						key={job.id}
+						label={{ text: job.jobType.substring(0, 1), color: job.labelColor }}
+						status={job.status}
+						className="m-b-20"
+					>
+						<div>
+							<Link to="/jobs/view/:id">
+								<h3 className="caption">{job.title}</h3>
+							</Link>
+							You created this job and assinged it to
+						</div>
+						<div>{job.jobType}</div>
+						<div>{job.createdAt}</div>
+					</ListItem>
+				))}
+				<div className="m-t-40 m-b-40">
+					<Divider />
+					<Button
+						content="View 10 more records"
+						className="app-primary transparent"
+						onClick={viewMoreJobs}
+					/>
 				</div>
-			</AppMainContent>
-		</Layout>
+			</div>
+		</AppMainContent>
 	</div>
   );
 };

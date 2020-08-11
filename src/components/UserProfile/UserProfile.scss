@@ -1,0 +1,43 @@
+.user-profile {
+  position: relative;
+  padding: 10px;
+
+  &:hover {
+    .user-profile__content {
+      visibility: visible;
+    }
+  }
+}
+
+.user-profile__content {
+  position: absolute;
+  background: var(--white);
+  min-width: 18em;
+  top: 35px;
+  visibility: hidden;
+  right: 0;
+  border: 1px solid rgba(212, 212, 213, 0.7);
+  box-sizing: border-box;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  padding: 8px 20px;
+
+  .link {
+    color: var(--dark);
+
+    &:hover {
+      color: var(--blue);
+    }
+  }
+}
+
+.user-name__caption {
+  padding: 25px;
+  width: 30px;
+  height: 30px;
+  background: rgb(241, 169, 12);
+  border-radius: 100%;
+  margin-right: 10px;
+}

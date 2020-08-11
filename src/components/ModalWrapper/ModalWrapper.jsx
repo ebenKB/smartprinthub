@@ -1,16 +1,15 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import './app-wrapper-lite.scss';
 import { PropTypes } from 'prop-types';
+import './ModalWrapper.scss';
 
-const AppWrapperLite = ({ children }) => (
-	<div className="app-wrapper">
+const ModalWrapper = ({ children }) => (
+	<div className="modal-wrapper">
 		{children}
 	</div>
 );
 
-AppWrapperLite.propTypes = {
+ModalWrapper.propTypes = {
   children: PropTypes.array.isRequired,
 };
-
-export default AppWrapperLite;
+export default ModalWrapper;

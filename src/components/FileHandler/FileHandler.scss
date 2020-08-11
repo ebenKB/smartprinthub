@@ -1,0 +1,8 @@
+.file-handler__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.file-handler__wrapper .file-handlder__item:not(:last-child) {
+  margin-right: 8px;
+}

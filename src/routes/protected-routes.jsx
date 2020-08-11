@@ -1,11 +1,12 @@
 import React, { lazy } from 'react';
 
 const CreateJob = lazy(() => import('../pages/customer/create-job/create-job'));
-const ViewJobs = lazy(() => import('../pages/customer/view-jobs/view-jobs'));
+const ViewJobs = lazy(() => import('../pages/customer/jobs/view-jobs/view-jobs'));
 const ShowJob = lazy(() => import('../pages/customer/jobs/show/show-job'));
 const UserSettings = lazy(() => import('../pages/customer/settings/settings'));
 const Checkout = lazy(() => import('../pages/customer/checkout/checkout'));
 const Welcome = lazy(() => import('../pages/welcome/welcome'));
+const ConfirmCheckout = lazy(() => import('../pages/customer/ConfirmCheckout/ConfirmCheckout'));
 
 const routes = [
   {
@@ -14,7 +15,7 @@ const routes = [
     main: () => <CreateJob />,
   },
   {
-    path: '/jobs/view',
+    path: '/jobs',
     exact: true,
     main: () => <ViewJobs />,
   },
@@ -29,9 +30,14 @@ const routes = [
     main: () => <UserSettings />,
   },
   {
-    path: '/checkout',
+    path: '/job/checkout',
     exact: true,
     main: () => <Checkout />,
+  },
+  {
+    path: '/job/checkout/confirm',
+    exact: true,
+    main: () => <ConfirmCheckout />,
   },
   {
     path: '/welcome',

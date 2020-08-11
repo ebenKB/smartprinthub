@@ -40,7 +40,7 @@ const Navigation = () => {
 					<Link to="/job/create">Create</Link>
 				</Accordion.Content>
 				<Accordion.Content active={activeIndex === 0} className="menu-option">
-					<Link to="/jobs/view">View</Link>
+					<Link to="/jobs">View</Link>
 				</Accordion.Content>
 			</Menu.Item>
 		</Accordion>

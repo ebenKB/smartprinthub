@@ -1,4 +1,32 @@
 .checkout-container {
   min-height: 50vh;
   margin: auto;
+
+  .wrapper {
+    padding: 60px;
+    // background: #f0f0f0;
+    background: #fcfcfc;
+    border-radius: 5px;
+  }
+}
+
+.checkout-content__wrapper {
+  display: grid;
+  grid-template-columns: calc(70% - 30px) 30%;
+  column-gap: 30px;
+}
+
+.order-summary__item {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-summary__item h1,
+.order-summary__item h2,
+.order-summary__item h3, 
+.order-summary__item h4 {
+  margin-block-start: 0;
+  margin-block-end: 0;
 }

@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './FileItemHandler.scss';
 import { Button } from 'semantic-ui-react';
 
-const FileItemHandler = () => (
+import ImagePreview from '../ImagePreview/ImagePreview';
+
+const FileItemHandler = () => {
+  const [canPreview, setCanPreview] = useState(false);
+
+  const closePreview = () => {
+    setCanPreview(false);
+  };
+
+  return (
 	<div className="shadow-border file-item__wrapper">
 		<div className="file-item__icon">
-			<span className="icon-text bold">PDF</span>
+			<span className="icon-text bold">JPG</span>
 		</div>
 		<div className="icon-body">
 			<span className="bold">EXAMPLE FILE TITLE</span>
@@ -23,12 +32,22 @@ const FileItemHandler = () => (
 					</span>
 					<span className="m-r-5 m-l-5">|</span>
 					<span>
-						<Button content="Preview" className="transparent" />
+						<Button
+							content="Preview"
+							className="transparent"
+							onClick={() => setCanPreview(true)}
+						/>
 					</span>
 				</div>
 			</div>
 		</div>
+		{canPreview && (
+			<ImagePreview
+				handleCloseAction={closePreview}
+			/>
+		)}
 	</div>
-);
+  );
+};
 
 export default FileItemHandler;

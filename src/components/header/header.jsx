@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import './header.scss';
-import UserProfile from '../user-profile/user-profile';
+import UserProfile from '../UserProfile/UserProfile';
 import SearchInput from '../form-fields/search-input/search-input';
 import NavToggle from '../nav-toggle/nav-toggle';
 import Notification from '../notification/notification';

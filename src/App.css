@@ -21,6 +21,10 @@ body {
   color: var(--blue);
 }
 
+.app-danger {
+  color: var(--dark-red)
+}
+
 svg.app-primary {
   fill: var(--blue);
 }
@@ -37,6 +41,7 @@ svg.app-primary {
 .flex {
   display:  flex;
 }
+
 .flex-inline {
   display: inline-flex;
 }
@@ -52,6 +57,11 @@ svg.app-primary {
 .medium.icon {
   width: 20px;
   height: auto !important;
+}
+
+.big.icon {
+  width: 60px;
+  height: auto;
 }
 
 .dark.icon {

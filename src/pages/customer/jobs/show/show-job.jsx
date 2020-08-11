@@ -4,15 +4,14 @@ import Divider from '../../../../components/divider/divider';
 import AppMainContent from '../../../../components/app-main-content/app-main-content';
 import AppWrapperLite from '../../../../components/app-wrapper-lite/app-wrapper-lite';
 import './show-job.scss';
-import ImagePreview from '../../../../components/ImagePreview/ImagePreview';
-import FileItemHandler from '../../../../components/FileItemHandler/FileItemHandler';
+import FileHandler from '../../../../components/FileHandler/FileHandler';
+import { Link } from 'react-router-dom';
 
 const ShowJob = () => (
 	<>
 		<AppMainContent
 			heading="Job details"
 		>
-			<ImagePreview />
 			<div className="heading-caption m-b-20">
 				<h1 className="app-primary">Birthday Cards and Posters</h1>
 				<span className="m-l-5">
@@ -52,7 +51,7 @@ const ShowJob = () => (
 					type="faint"
 				/>
 				<div className="m-t-20">
-					<FileItemHandler />
+					<FileHandler />
 				</div>
 			</AppWrapperLite>
 			<Divider
@@ -60,7 +59,9 @@ const ShowJob = () => (
 				type="faint"
 			/>
 			<div className="m-t-20">
-				<Button content="Go Back" size="small" />
+				<Link to="/jobs">
+					<Button content="Go Back" size="small" />
+				</Link>
 			</div>
 		</AppMainContent>
 	</>
