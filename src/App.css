@@ -38,6 +38,11 @@ svg.app-primary {
   height: auto !important;
 }
 
+.x-small.icon {
+  width: 10px;
+  height: auto !important;
+}
+
 .flex {
   display:  flex;
 }
