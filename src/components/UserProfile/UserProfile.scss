@@ -47,10 +47,12 @@
 }
 
 .user-name__caption {
-  padding: 25px;
-  width: 30px;
-  height: 30px;
+  padding: 1.25rem 1rem;
+  text-align: center;
   background: rgb(241, 169, 12);
   border-radius: 100%;
   margin-right: 10px;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--white);
 }

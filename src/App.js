@@ -16,7 +16,7 @@ import './App.css';
 // import ShowJob from './pages/customer/jobs/show/show-job';
 // import UserSetings from './pages/customer/settings/settings';
 
-import Routes from './routes/protected-routes';
+import ProtectedRoutes from './routes/protected-routes';
 import DefaultRoutes from './routes/default-routes';
 import Layout from './components/layout/layout';
 
@@ -57,7 +57,7 @@ function App() {
 						</Route>
 					))}
 
-					{Routes.map((route, index) => (
+					{ProtectedRoutes.map((route, index) => (
 						<Route
 							key={index}
 							path={route.path}

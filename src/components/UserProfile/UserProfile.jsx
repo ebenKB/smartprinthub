@@ -13,7 +13,7 @@ const UserProfile = () => (
 		<div className="user-profile__content">
 			<div className="dropdown-item">
 				<div className="flex-inline flex center">
-					<div className="user-name__caption" />
+					<div className="user-name__caption">EB</div>
 					<div className="dropdown__heading">
 						<div className="bold">Ebenezer Adjei</div>
 						<div className="">example@email.com</div>
