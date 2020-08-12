@@ -37,10 +37,10 @@ const Navigation = () => {
 					className="m-b-10"
 				/>
 				<Accordion.Content active={activeIndex === 0} className="menu-option">
-					<Link to="/job/create">Create</Link>
+					<Link to="/job/create">Create new</Link>
 				</Accordion.Content>
 				<Accordion.Content active={activeIndex === 0} className="menu-option">
-					<Link to="/jobs">View</Link>
+					<Link to="/jobs">View all</Link>
 				</Accordion.Content>
 			</Menu.Item>
 		</Accordion>
@@ -59,10 +59,10 @@ const Navigation = () => {
 					className="m-b-10"
 				/>
 				<Accordion.Content active={activeIndex === 1} className="menu-option">
-					<Link to="/rfx">Create</Link>
+					<Link to="/rfx">Add new</Link>
 				</Accordion.Content>
 				<Accordion.Content active={activeIndex === 1} className="menu-option">
-					<Link to="/rfx/new">View</Link>
+					<Link to="/rfx/new">View all</Link>
 				</Accordion.Content>
 			</Menu.Item>
 		</Accordion>

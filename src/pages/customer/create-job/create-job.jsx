@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import { ValidatorForm } from 'react-form-validator-core';
 import { Button } from 'semantic-ui-react';
-// import Layout from '../../../components/layout/layout';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import FormGroup from '../../../components/form-group/form-group';
 import DimensionInputGroup from '../../../components/dimension-input-group/input-group';
@@ -14,6 +14,10 @@ import getDimensionInFeet from '../../../utils/dimension';
 import amountToText from '../../../utils/app';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
 import Help from '../../../components/Help/help';
+import { addJobAsDraft } from '../../../redux/slices/job';
+import samplePaperTypes from '../../../app/mockdata/papertype';
+import samplePaperSizes from '../../../app/mockdata/paperSizes';
+import sampleUnits from '../../../app/mockdata/units';
 
 class CreateJob extends Component {
   constructor(props) {
@@ -32,140 +36,10 @@ class CreateJob extends Component {
           symbol: 'GHC',
         },
       },
-      paperTypes: [
-        {
-          id: 1,
-          name: 'SAV',
-          commonName: 'Sticker',
-          unitPrice: 1.0,
-          defaultSizes: [
-            {
-              id: 11,
-              name: 'A4',
-              unitCost: 0.7,
-            },
-            {
-              id: 12,
-              name: 'A3',
-              unitCost: 1.4,
-            },
-            {
-              id: 13,
-              name: 'A2',
-              unitCost: 3.5,
-            },
-            {
-              id: 14,
-              name: 'A1',
-              unitCost: 5.5,
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: 'FLEXI',
-          commonName: 'Banner',
-          unitPrice: 1.3,
-          defaultSizes: [
-            {
-              id: 22,
-              name: 'A4',
-              unitCost: 0.7,
-            },
-            {
-              id: 23,
-              name: 'A3',
-              unitCost: 1.4,
-            },
-            {
-              id: 24,
-              name: 'A2',
-              unitCost: 3.5,
-            },
-            {
-              id: 25,
-              name: 'A1',
-              unitCost: 5.5,
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: 'PAPER',
-          commonName: 'Blue back',
-          unitPrice: 1.2,
-          defaultSizes: [
-            {
-              id: 33,
-              name: 'A4',
-              unitCost: 0.7,
-            },
-            {
-              id: 34,
-              name: 'A3',
-              unitCost: 1.4,
-            },
-            {
-              id: 35,
-              name: 'A2',
-              unitCost: 3.5,
-            },
-            {
-              id: 36,
-              name: 'A1',
-              unitCost: 5.5,
-            },
-          ],
-        },
-      ],
-      paperSizes: [
-        {
-          name: 'A4',
-          width: 144,
-          height: 200,
-          unitCose: 1.40,
-          defaultSizes: [
-            {
-              name: 'A4',
-              unitCost: 0.7,
-            },
-            {
-              name: 'A3',
-              unitCost: 1.4,
-            },
-            {
-              name: 'A2',
-              unitCost: 3.5,
-            },
-            {
-              name: 'A1',
-              unitCost: 5.5,
-            },
-          ],
-        },
-      ],
-      units: [
-        {
-          id: 1,
-          name: 'Feet',
-          symbol: 'ft',
-        },
-        {
-          id: 2,
-          name: 'Centimeters',
-          symbol: 'cm',
-        },
-        {
-          id: 3,
-          name: 'Inches',
-          symbol: 'inc',
-        },
-      ],
-      // unit: null,
+      paperTypes: samplePaperTypes,
+      paperSizes: samplePaperSizes,
+      units: sampleUnits,
       allJobs: [],
-      // selectedPaper: null,
-      // selectedUnit: null,
-      // paperSizeType: 'default', // or custom
       job: {
         totalCost: 0.0,
         title: '',
@@ -334,6 +208,8 @@ class CreateJob extends Component {
       },
     } = this.state;
 
+    const { jobDratfs, addNewJobAsDraft } = this.props;
+
     return (
 	<div>
 		{/* <Layout> */}
@@ -464,6 +340,11 @@ class CreateJob extends Component {
 							{allJobs.length}
 						</div>
 					</div>
+					<h1>
+						Job drafts are Here
+						{jobDratfs && jobDratfs.length}
+					</h1>
+					<button type="button" onClick={() => addNewJobAsDraft({ name: 'Creator', cost: 100 })}>Add job</button>
 					<AddItem
 						title="Add new job"
 						classes="app-primary text-right m-t-20 m-b-20"
@@ -487,11 +368,18 @@ class CreateJob extends Component {
 				</ValidatorForm>
 			</AppContentWrapper>
 		</AppMainContent>
-
 		{/* </Layout> */}
 	</div>
     );
   }
 }
 
-export default withRouter(CreateJob);
+const mapStateToProps = (state) => ({
+  jobDratfs: state.job.jobDrafts,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addNewJobAsDraft: (job) => dispatch(addJobAsDraft(job)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CreateJob));

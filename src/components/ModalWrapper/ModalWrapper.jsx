@@ -12,4 +12,5 @@ const ModalWrapper = ({ children }) => (
 ModalWrapper.propTypes = {
   children: PropTypes.array.isRequired,
 };
+
 export default ModalWrapper;

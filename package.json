@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.10.2",
     "@material-ui/icons": "^4.9.1",
+    "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -15,8 +16,11 @@
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.0.1",
     "react-form-validator-core": "^0.6.5",
+    "react-redux": "^7.2.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
     "semantic-ui-react": "^0.88.2"
   },
   "scripts": {

@@ -40,7 +40,7 @@ const routes = [
     main: () => <ConfirmCheckout />,
   },
   {
-    path: '/welcome',
+    path: '/',
     exact: true,
     main: () => <Welcome />,
   },

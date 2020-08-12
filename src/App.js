@@ -23,7 +23,6 @@ import Layout from './components/layout/layout';
 function App() {
   return (
 	<div className="light-theme">
-
 		<Router>
 			<Layout>
 				<Switch>
