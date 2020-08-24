@@ -7,9 +7,10 @@ export const jobSlice = createSlice({
   initialState: {
     cost: 99.00,
     jobs: null,
-    jobDrafts: null,
+    jobDrafts: [],
     currentJob: null,
   },
+
   reducers: {
     addNewJob: (state) => {
       state.cost += 3;
@@ -21,6 +22,15 @@ export const jobSlice = createSlice({
 
     addAsync: (state, action) => {
       state.cost += action.payload;
+    },
+
+    saveCurrentJobProgress: (state, action) => {
+      const { payload } = action;
+      if (payload !== null) {
+        state.currentJob = { ...payload };
+        // const { currentJob } = state;
+        // currentJob.title = 'eben';
+      }
     },
 
     addJobAsDraft: (state, action) => {
@@ -36,12 +46,14 @@ export const jobSlice = createSlice({
     },
 
     removeAllJobDrafts: (state) => {
-      state.jobDrafts = null;
+      state.jobDrafts = [];
     },
   },
 });
 
-export const { addNewJob, addJobAsDraft, removeAllJobDrafts } = jobSlice.actions;
+export const {
+  addNewJob, addJobAsDraft, saveCurrentJobProgress, removeAllJobDrafts,
+} = jobSlice.actions;
 
 // export const addNewJobAsDraft = (job) => (dispatch) => {
 //   dispatch(addJobAsDraft(job));
@@ -50,5 +62,6 @@ export const { addNewJob, addJobAsDraft, removeAllJobDrafts } = jobSlice.actions
 
 export const selectJobCount = (state) => state.job.cost;
 export const selectJobDrafts = (state) => state.job.jobDrafts;
+export const selectCurrentJob = (state) => state.job.currentJob;
 
 export default jobSlice.reducer;

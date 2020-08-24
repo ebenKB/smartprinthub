@@ -6,11 +6,15 @@ import {
 } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import { ValidatorForm } from 'react-form-validator-core';
+import { connect } from 'react-redux';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
 import FormGroup from '../../../components/form-group/form-group';
 import { ReactComponent as MomoIcon } from '../../../svg/bank.svg';
 import OrderSummary from '../../../components/OrderSummary/OrderSummary';
+import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
+import appSettings from '../../../app/mockdata/appsettings';
+// import ProcessingPayment from '../../../components/ProcessingPayment/ProcessingPayment';
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -33,6 +37,9 @@ class Checkout extends React.Component {
         '056': 'tigo',
         '020': 'vodafone',
         '050': 'vodafone',
+      },
+      options: {
+        canPreviewJob: false,
       },
     };
   }
@@ -76,58 +83,80 @@ class Checkout extends React.Component {
       ...state,
       loading: true,
     }));
-    const response = await fetch('https://api.paystack.co/charge', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        Authorization: 'Bearer sk_test_8dd50ac866d13c77b22725bab98052d0625574d6',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: 'some@body.nice',
-        firstname: 'Ebenezer',
-        lastname: 'Adjei',
-        amount: '7000',
-        currency: 'GHS',
-        metadata: {
-          custom_fields: [
-            {
-              value: 'makurdi',
-              display_name: 'Donation for',
-              variable_name: 'donation_for',
-            },
-          ],
-        },
-        mobile_money: {
-          phone: '0551234987',
-          provider: 'mtn',
-        },
-      }),
-    });
-    let { data } = await response.json();
-    const { reference } = data;
+    // const response = await fetch('https://api.paystack.co/charge', {
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   headers: {
+    //     Authorization: 'Bearer sk_test_8dd50ac866d13c77b22725bab98052d0625574d6',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     email: 'some@body.nice',
+    //     firstname: 'Ebenezer',
+    //     lastname: 'Adjei',
+    //     amount: '100',
+    //     currency: 'GHS',
+    //     metadata: {
+    //       custom_fields: [
+    //         {
+    //           value: 'online payment',
+    //           display_name: 'online payment',
+    //           variable_name: 'online payment',
+    //         },
+    //       ],
+    //     },
+    //     mobile_money: {
+    //       phone: '0551234987',
+    //       provider: 'mtn',
+    //     },
+    //   }),
+    // });
+    // let { data } = await response.json();
+    // const { reference } = data;
 
-    console.log('The payment was successful', reference);
-    const verifyResponse = await fetch(`https://api.paystack.co/charge/${reference}`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-        Authorization: 'Bearer sk_test_8dd50ac866d13c77b22725bab98052d0625574d6',
-        'Content-Type': 'application/json',
-      },
-    });
-    data = await verifyResponse.json();
-    const { status } = data.data;
-    if (status === 'success') {
-      this.setState((state) => ({
-        ...state,
-        loading: false,
-      }));
-      const { history } = this.props;
-      const { location: { pathname } } = history;
-      history.push(`${pathname}/confirm`);
-    }
+    // const verifyResponse = await fetch(`https://api.paystack.co/charge/${reference}`, {
+    //   method: 'GET',
+    //   mode: 'cors',
+    //   headers: {
+    //     Authorization: 'Bearer sk_test_8dd50ac866d13c77b22725bab98052d0625574d6',
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+    // data = await verifyResponse.json();
+    // const { status } = data.data;
+    // if (status === 'success') {
+    this.setState((state) => ({
+      ...state,
+      loading: false,
+    }));
+    const { history } = this.props;
+    const { location: { pathname } } = history;
+    history.push(`${pathname}/confirm`);
   };
+
+  toggleJobPreview = () => {
+    this.setState((state) => ({
+      ...state,
+      options: {
+        ...state.options,
+        canPreviewJob: !state.options.canPreviewJob,
+      },
+    }));
+  }
+
+  getTotalJobCost = () => {
+    const { jobDrafts, currentJob } = this.props;
+    const initialValue = 0;
+    if (jobDrafts) {
+      const val = [
+        ...jobDrafts, currentJob].reduce((accum, x) => (accum + x.totalCost), initialValue);
+      return val;
+    }
+    return currentJob.totalCost;
+  };
+
+  getTransactionFee = () => appSettings.jobChargeRate * this.getTotalJobCost();
+
 
   render() {
     const {
@@ -135,7 +164,10 @@ class Checkout extends React.Component {
       provider,
       loading,
       paymentOption,
+      options,
     } = this.state;
+    const { canPreviewJob } = options;
+    const { jobDratfs, currentJob } = this.props;
     const ServiceProviders = [
       {
         key: '1',
@@ -155,6 +187,10 @@ class Checkout extends React.Component {
     ];
     return (
 	<AppMainContent>
+		{/* <ProcessingPayment /> */}
+		{canPreviewJob && (
+			<PreviewJobs closeAction={this.toggleJobPreview} />
+		)}
 		<div className="checkout-content__wrapper">
 			<AppContentWrapper
 				heading="Payment Details"
@@ -226,6 +262,7 @@ class Checkout extends React.Component {
 						<Button
 							size="small"
 							content="Preview Job"
+							onClick={this.toggleJobPreview}
 						/>
 						<Button
 							positive
@@ -237,11 +274,22 @@ class Checkout extends React.Component {
 					</div>
 				</ValidatorForm>
 			</AppContentWrapper>
-			<OrderSummary />
+			<OrderSummary
+				totalCost={this.getTotalJobCost()}
+				fee={this.getTransactionFee()}
+				jobs={[...jobDratfs, currentJob]}
+				grossTotalCost={this.getTotalJobCost() + this.getTransactionFee()}
+			/>
 		</div>
 	</AppMainContent>
     );
   }
 }
 
-export default withRouter(Checkout);
+const mapStateToProps = (state) => ({
+  jobDratfs: state.job.jobDrafts,
+  currentJob: state.job.currentJob,
+});
+
+
+export default connect(mapStateToProps, null)(withRouter(Checkout));

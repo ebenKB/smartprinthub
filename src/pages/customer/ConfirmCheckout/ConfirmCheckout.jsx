@@ -10,10 +10,10 @@ const ConfirmCheckout = () => (
 			<CheckIcon className="big icon" />
 			<div className="caption-item">
 				<h1>Success</h1>
-				<p>Your payment has been completed successful.</p>
+				<p>Your payment has been completed successfully.</p>
 			</div>
 			<h3>Your job has been submitted for printing.</h3>
-			<h3>Your tracking ID is #0909</h3>
+			<h3>Your job tracking ID is #0909</h3>
 		</div>
 		<div className="m-t-20 text-center">
 			<Link to="/jobs">

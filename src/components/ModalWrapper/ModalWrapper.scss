@@ -1,9 +1,47 @@
 .modal-wrapper {
   position: absolute;
-  background: red;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
   z-index: 100;
+}
+
+.modal-wrapper__overlay {
+  position: absolute;
+  background: var(--black);
+  width: inherit;
+  height: inherit;
+  opacity: 0.5;
+}
+
+.modal-content {
+  margin: auto;
+  position: absolute;
+  // background: var(--white);
+  // padding: 20px;
+  width: inherit;
+  height: inherit;
+}
+
+.preview-header {
+  padding: 20px;
+  width: 100%;
+  background: var(--white);
+  position: absolute;
+  text-align: right;
+  z-index: 100;
+}
+
+.modal-close {
+  position: absolute;
+  right: 40px;
+  top: 20px;
+  background: var(--white);
+  padding: 4px;
+  border-radius: 4px;
+
+  svg {
+    height: auto;
+  }
 }

@@ -21,6 +21,14 @@ body {
   color: var(--blue);
 }
 
+.app-success {
+  color: var(--primary);
+}
+
+.app-warning{
+  color: var(--warning);
+}
+
 .app-danger {
   color: var(--dark-red)
 }
@@ -33,6 +41,10 @@ svg.app-primary {
   color: var(--faint);
 }
 
+.sm-caption {
+  font-size: 0.9rem;
+}
+
 .small.icon {
   width: 16px;
   height: auto !important;
@@ -41,6 +53,14 @@ svg.app-primary {
 .x-small.icon {
   width: 10px;
   height: auto !important;
+}
+
+.icon {
+  height: auto;
+}
+
+.icon-12 {
+  width: 12px
 }
 
 .flex {
@@ -53,6 +73,10 @@ svg.app-primary {
 
 .flex.center {
   align-items: center;
+}
+
+.flex.space-out {
+  justify-content: space-between;
 }
 
 .flex.reverse {

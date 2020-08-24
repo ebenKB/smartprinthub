@@ -9,6 +9,7 @@ import InputValidator from '../form-fields/input-validator/input-validator';
 import './form-group.scss';
 import Textarea from '../form-fields/textarea/textarea';
 import Dropzone from '../dropzone/dropzone';
+import DropdownValidator from '../form-fields/dropdown-validator/dropdown-validator';
 
 const FormGroup = ({
   type,
@@ -22,12 +23,12 @@ const FormGroup = ({
   options = [
     {
       key: '1',
-      text: 'Emmanuel',
+      text: 'Sample data 1',
       value: '1',
     },
     {
       key: '2',
-      text: 'Elorm',
+      text: 'Sample data 2',
       value: '2',
     },
   ], ...rest
@@ -52,7 +53,17 @@ const FormGroup = ({
 		selection
 		options={options}
 		/* className={`md-dropdown ${rest.classes}`} */
-		className={`${rest.classes}`}
+		className={`${classes}`}
+		{...rest}
+	/>
+      );
+    } else if (type === 'dropdown-validator') {
+      return (
+	<DropdownValidator
+		placeholder={placeholder}
+		selection
+		options={options}
+		className={`${classes}`}
 		{...rest}
 	/>
       );

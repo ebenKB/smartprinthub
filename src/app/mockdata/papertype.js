@@ -32,7 +32,7 @@ const paperTypes = [
     name: 'FLEXI',
     commonName: 'Banner',
     unitPrice: 1.3,
-    defaultSizes: [
+    defaultSizes: [ // has many default sizes// optional -- a default size has a commoon size ID
       {
         id: 22,
         name: 'A4',

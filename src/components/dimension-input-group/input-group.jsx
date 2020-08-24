@@ -8,19 +8,21 @@ import './dimension-input-group.scss';
 
 const InputGroup = ({
   label,
-  labelName,
   value1,
   value2,
   name1,
   name2,
-  placeholder1,
-  placeholder2,
   inline,
   center,
-  classes,
   options,
+  labelName,
+  unitsValue,
+  classes = '',
+  placeholder1,
+  placeholder2,
   selectedPaper,
   paperSizeType,
+  paperSizeValue,
   handleDropDownChange,
   handlePaperSizeTypeChange,
   ...rest
@@ -58,8 +60,8 @@ const InputGroup = ({
 						selection
 						options={selectedPaper.defaultSizes
 						  .map((s) => ({ text: s.name, value: s.name, key: s.id }))}
-						defaultValue={rest.defaultValue}
-						className={`md-dropdown ${rest.classes}`}
+						value={paperSizeValue}
+						className={`md-dropdown ${classes}`}
 						onChange={(e, { value }) => handleDropDownChange(value)}
 					/>
 				</div>
@@ -72,6 +74,7 @@ const InputGroup = ({
 						selection
 						options={options}
 						onChange={(e, { value }) => handleDropDownChange(value)}
+						defaultValue={unitsValue}
 					/>
 					<InputValidator
 						value={value1}

@@ -1,24 +1,22 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/jsx-fragments */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { ValidatorComponent } from 'react-form-validator-core';
-import { Input } from 'semantic-ui-react';
-// import FormError from '../../snippets/error-icon/error-icon';
+import { Dropdown } from 'semantic-ui-react';
 import ErrorIcon from '../../ErrorIcon/ErrorIcon';
 
-class InputValidator extends ValidatorComponent {
+class DropdownValidator extends ValidatorComponent {
   render() {
     const {
-      errorMessages, validators, requiredError, validatorListener, instantValidate, ...rest
+      errorMessages, validators, requiredError, validatorListener, ...rest
     } = this.props;
     return (
-	<Fragment>
-		<Input
+	<div>
+		<Dropdown
 			{...rest}
 			ref={(r) => { this.input = r; }}
 		/>
-		<>{this.getErrorText()}</>
-	</Fragment>
+		{this.getErrorText()}
+	</div>
     );
   }
 
@@ -39,4 +37,4 @@ class InputValidator extends ValidatorComponent {
   }
 }
 
-export default InputValidator;
+export default DropdownValidator;

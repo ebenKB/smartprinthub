@@ -1,23 +1,30 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { ValidatorForm } from 'react-form-validator-core';
 import { Button } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import FormGroup from '../../../components/form-group/form-group';
 import DimensionInputGroup from '../../../components/dimension-input-group/input-group';
 import Divider from '../../../components/divider/divider';
 import AddItem from '../../../components/add-item/add-item';
-import CompanyDirectory from '../../../components/company-directory/company-directory';
+import CompanyDirectory from '../../../components/floating-company-directory/floating-company-directory';
 import getDimensionInFeet from '../../../utils/dimension';
 import amountToText from '../../../utils/app';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
 import Help from '../../../components/Help/help';
-import { addJobAsDraft } from '../../../redux/slices/job';
+import { addJobAsDraft, saveCurrentJobProgress, selectCurrentJob } from '../../../redux/slices/job';
 import samplePaperTypes from '../../../app/mockdata/papertype';
-import samplePaperSizes from '../../../app/mockdata/paperSizes';
+// import samplePaperSizes from '../../../app/mockdata/paperSizes';
+import CommonSizes from '../../../app/mockdata/commonsizes';
 import sampleUnits from '../../../app/mockdata/units';
+import { ReactComponent as ForwardArrow } from '../../../svg/forward-arrow.svg';
+import SelectCompany from '../../../components/SelectCompany/SelectCompany';
+import ShowCompanyDetails from '../../../components/ShowCompanyDetails/ShowCompanyDetails';
+import DropdownValidator from '../../../components/form-fields/dropdown-validator/dropdown-validator';
+
 
 class CreateJob extends Component {
   constructor(props) {
@@ -25,6 +32,7 @@ class CreateJob extends Component {
     this.state = {
       options: {
         canShowCompanyDirectory: false,
+        canCreateJob: false,
       },
       tenant: {
         name: 'Best Starts Print Limited',
@@ -37,7 +45,7 @@ class CreateJob extends Component {
         },
       },
       paperTypes: samplePaperTypes,
-      paperSizes: samplePaperSizes,
+      paperSizes: CommonSizes,
       units: sampleUnits,
       allJobs: [],
       job: {
@@ -51,21 +59,68 @@ class CreateJob extends Component {
         selectedPaper: null,
         paperSizeType: 'default', // or custom
         unit: null,
+        file: null,
+        laminated: false,
       },
     };
     this.ref = React.createRef();
   }
+
+  componentDidMount() {
+    const { currentJob, jobDrafts } = this.props;
+    if (currentJob) {
+      this.setState((state) => ({
+        ...state,
+        job: { ...currentJob },
+      }));
+    }
+
+    if (jobDrafts) {
+      this.setState((state) => ({
+        ...state,
+        allJobs: [...jobDrafts],
+      }));
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+    console.log('The component will unmount', this.interval);
+  }
+
+  sayHello = () => {
+    const { saveJobProgress } = this.props;
+    const { job } = this.state;
+    console.log('We can say hello', job);
+    this.interval = setInterval(() => {
+      console.log('Time is running');
+      saveJobProgress(job);
+    }, 3000);
+  }
+
+  // componentDidUpdate(prevProps) {
+  //   console.log('The component has updated', prevProps);
+  //   // Check if the user has any saved jobs and restore them
+  //   const { currentJob } = prevProps;
+  //   const { job } = this.state;
+  //   // eslint-disable-next-line react/destructuring-assignment
+  //   if (currentJob !== job) {
+  //     console.log('The are not equal');
+  //     // const { saveJobProgress } = this.props;
+  //     // saveJobProgress(job);
+  //   } else {
+  //     console.log('They are equal');
+  //   }
+  // }
 
   /**
    * Compute the cost of job based on the dimensions on the paper selected
    * and the unit cost of the paper.
    */
   computeCost = () => {
+    const { job } = this.state;
     const {
-      unit, job,
-    } = this.state;
-    const {
-      width, height, quantity, selectedPaper, paperSizeType,
+      width, height, quantity, selectedPaper, paperSizeType, unit,
     } = job;
     const newJob = job;
     if (paperSizeType === 'default' && selectedPaper) {
@@ -86,6 +141,8 @@ class CreateJob extends Component {
       ...state,
       job: newJob,
     }));
+    const { saveJobProgress } = this.props;
+    saveJobProgress(newJob);
   };
 
   handlePaperSelectionChange = (e, data) => {
@@ -121,10 +178,30 @@ class CreateJob extends Component {
     }));
   }
 
+  handleJobCompanyChange = (newCompany) => {
+    console.log('This is the detials of the company', newCompany);
+    const updatedJob = {
+      ...this.state.job,
+      company: newCompany,
+    };
+    this.setState((state) => ({
+      ...state,
+      job: {
+        // ...state.job,
+        // company: newCompany,
+        ...updatedJob,
+      },
+    }));
+
+    const { saveJobProgress } = this.props;
+    saveJobProgress(updatedJob);
+  }
+
   // check when the units of measurement change or
   // when the default paper size changes.
   handleDimensionUnitChange = (data) => {
-    const { units, paperSizeType, job } = this.state;
+    const { units, job } = this.state;
+    const { paperSizeType } = job;
     if (paperSizeType === 'default') {
       const updatedJob = {
         ...job,
@@ -139,7 +216,10 @@ class CreateJob extends Component {
       const selectedOption = units.find((u) => u.id === data);
       this.setState((state) => ({
         ...state,
-        unit: selectedOption,
+        job: {
+          ...state.job,
+          unit: selectedOption,
+        },
       }), () => this.computeCost());
     }
   }
@@ -174,17 +254,24 @@ class CreateJob extends Component {
   };
 
   addJob = () => {
+    const { job } = this.state;
+    const { addNewJobAsDraft } = this.props;
     this.setState((state) => ({
       ...state,
-      allJobs: [...state.allJobs, state.job],
+      allJobs: [...state.allJobs, job],
     }));
 
+    addNewJobAsDraft(job);
     this.clearAllFields();
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('We want to submit');
+    // const { addNewJobAsDraft } = this.props;
+    const { job } = this.state;
+    // addNewJobAsDraft(job);
+    const { saveJobProgress } = this.props;
+    saveJobProgress(job);
     const { history } = this.props;
     history.push('/job/checkout');
   };
@@ -200,186 +287,237 @@ class CreateJob extends Component {
     }));
   };
 
+  handleContinueJobSettings = () => {
+    this.setState((state) => ({
+      ...state,
+      options: {
+        ...state.options,
+        canCreateJob: true,
+      },
+    }));
+  };
+
+  // This is only application when the user selects default paper sizes
+  getDefaultPaperSize = () => {
+    const { job: { selectedPaper, paperSizeType, height } } = this.state;
+    if (selectedPaper) {
+      const { defaultSizes } = selectedPaper;
+      if (paperSizeType === 'default') {
+        const paperSize = defaultSizes.find((s) => s.name === height);
+        if (paperSize) {
+          return paperSize.name;
+        }
+      }
+    }
+    return null;
+  }
+
   render() {
     const {
-      options: { canShowCompanyDirectory },
+      options: { canShowCompanyDirectory, canCreateJob },
       allJobs, paperTypes, ref, job: {
-        quantity, title, width, height, comment, totalCost, selectedPaper, paperSizeType,
+        quantity,
+        title, width, height, comment, totalCost, selectedPaper, paperSizeType, company, unit,
       },
     } = this.state;
 
-    const { jobDratfs, addNewJobAsDraft } = this.props;
-
     return (
 	<div>
-		{/* <Layout> */}
-
-		<AppMainContent
-			hasAside
-			aside={<Help />}
-		>
-			<AppContentWrapper
-				heading="New Job"
+		{!canCreateJob && (
+			<SelectCompany
+				setCompany={this.handleJobCompanyChange}
+				handleAction={this.handleContinueJobSettings}
+			/>
+		)}
+		{canCreateJob && (
+			<AppMainContent
+				hasAside
+				aside={<Help />}
 			>
-				<ValidatorForm
-					ref={ref}
-					onSubmit={() => {}}
+				<AppContentWrapper
+					heading="New Job"
 				>
-					<div className="">
-						<Divider type="faint" title="Company" />
-						<div className="m-t-20">
-							<Button
-								content="Open company directory"
-								onClick={() => this.toggleCompanyDirectoryForm(true)}
-								className="transparent app-primary"
+					<ValidatorForm
+						ref={ref}
+						onSubmit={() => {}}
+					>
+						<div className="">
+							<Divider type="thick" title="Company" />
+							<div className="m-t-20">
+								<ShowCompanyDetails company={company} />
+								<div className="flex center space-out m-t-20">
+									<div>Open company directory to select company</div>
+									<Button
+										content="Open company directory"
+										onClick={() => this.toggleCompanyDirectoryForm(true)}
+										className="transparent app-primary"
+									/>
+								</div>
+								{canShowCompanyDirectory && (
+									<CompanyDirectory
+										handleCloseAction={() => this.toggleCompanyDirectoryForm(false)}
+										handleAction={(value) => this.handleJobCompanyChange(value)}
+									/>
+								)}
+							</div>
+						</div>
+						<Divider
+							type="thick"
+							title="Job Details"
+							classes="m-t-40"
+						/>
+						<div className="m-b-20 m-t-20">
+							<FormGroup
+								center
+								type="text"
+								label="Job Title *"
+								value={title}
+								name="title"
+								onChange={this.handleInputChange}
+								placeholder="Enter Job Title"
+								validators={['required', 'minStringLength: 8']}
+								errorMessages={['Job Title is required', 'Title is too short']}
+								instantValidate
 							/>
-							to select a company
-							{canShowCompanyDirectory && (
-								<CompanyDirectory
-									handleCloseAction={() => this.toggleCompanyDirectoryForm(false)}
+						</div>
+						<div className="m-b-20 m-t-20">
+							<FormGroup
+								center
+								type="dropdown-validator"
+								label="Job Type *"
+								placeholder="Select job type"
+								options={paperTypes.map((p) => ({ key: p.id, text: `${p.name} (${p.commonName})`, value: p.id }))}
+								onChange={this.handlePaperSelectionChange}
+								instantValidate
+								validators={['required']}
+								errorMessages={['Job Type is required']}
+								value={selectedPaper && selectedPaper.id}
+							/>
+						</div>
+						<div className="m-b-20">
+							<DimensionInputGroup
+								classes=""
+								inline
+								placeholder1="Width"
+								placeholder2="Height"
+								label="Size *"
+								name1="width"
+								name2="height"
+								value1={width}
+								value2={height}
+								labelName="size"
+								unitsValue={unit && unit.id}
+								selectedPaper={selectedPaper}
+								paperSizeType={paperSizeType}
+								paperSizeValue={this.getDefaultPaperSize()}
+								options={this.transformUnits()}
+								onChange={this.handleInputChange}
+								handlePaperSizeTypeChange={this.handlePaperSizeTypeChange}
+								handleDropDownChange={this.handleDimensionUnitChange}
+							/>
+						</div>
+						<div className="m-b-20">
+							<FormGroup
+								classes="small"
+								center
+								type="text"
+								label="Quantity *"
+								name="quantity"
+								value={quantity}
+								placeholder="How many pieces do you want?"
+								onChange={this.handleInputChange}
+								instantValidate
+								validators={['required']}
+								errorMessages={['Quantity is required']}
+							/>
+						</div>
+						<div className="m-b-20">
+							<FormGroup
+								classes="small"
+								center
+								type="amount"
+								amountLabel="GHC"
+								label="Cost"
+								name="totalCost"
+								placeholder="Cost of Job"
+								value={totalCost}
+							/>
+						</div>
+						<div className="m-b-20">
+							<FormGroup
+								classes="small"
+								center
+								type="dropzone"
+								label="File *"
+								placeholder="Add file to be printed"
+							/>
+						</div>
+						<div className="m-b-20">
+							<FormGroup
+								center
+								type="textarea"
+								label="Special comments"
+								placeholder="Special comments"
+								rows={3}
+								cols={73}
+								value={comment}
+								name="comment"
+								onChange={this.handleCommentChange}
+							/>
+						</div>
+						<div className="m-t-20 m-b-20">
+							<Divider type="thick" title="Summary" />
+							<div className="m-t-10">
+								Job Drafts:
+								{allJobs.length}
+							</div>
+						</div>
+						<AddItem
+							title="Add new job"
+							classes="app-primary text-right m-t-20 m-b-20"
+							iconClasses="small icon m-r-5"
+							parentClasses="text-right"
+							handleClick={this.addJob}
+						/>
+						<div className="m-t-40 text-right inline center">
+							<Link to="/jobs">
+								<Button
+									default
+									size="small"
+									content="Cancel"
 								/>
-							)}
+							</Link>
+							<Button
+								size="small"
+								content={(
+									<span className="flex-inline">
+										<span>Continue</span>
+										<ForwardArrow className="icon icon-12 m-l-5" />
+									</span>
+								)}
+								positive
+								className="flex center"
+								onClick={this.handleSubmit}
+							/>
 						</div>
-					</div>
-					<Divider
-						type="faint"
-						title={`Job Details ${allJobs && allJobs.length > 0 && allJobs.length}`}
-						classes="m-t-40"
-					/>
-					<div className="m-b-20 m-t-20">
-						<FormGroup
-							center
-							type="text"
-							label="Job Title"
-							value={title}
-							name="title"
-							onChange={this.handleInputChange}
-							placeholder="Enter Job Title"
-						/>
-					</div>
-					<div className="m-b-20 m-t-20">
-						<FormGroup
-							center
-							type="dropdown"
-							label="Job Type"
-							placeholder="Select job type"
-							options={paperTypes.map((p) => ({ key: p.id, text: `${p.name} (${p.commonName})`, value: p.id }))}
-							onChange={this.handlePaperSelectionChange}
-						/>
-					</div>
-					<div className="m-b-20">
-						<DimensionInputGroup
-							classes="smallx"
-							inline
-							placeholder1="Width"
-							placeholder2="Height"
-							label="Size"
-							name1="width"
-							name2="height"
-							value1={width}
-							value2={height}
-							labelName="size"
-							selectedPaper={selectedPaper}
-							paperSizeType={paperSizeType}
-							options={this.transformUnits()}
-							onChange={this.handleInputChange}
-							handlePaperSizeTypeChange={this.handlePaperSizeTypeChange}
-							handleDropDownChange={this.handleDimensionUnitChange}
-						/>
-					</div>
-					<div className="m-b-20">
-						<FormGroup
-							classes="small"
-							center
-							type="text"
-							label="Quantity"
-							name="quantity"
-							value={quantity}
-							placeholder="How many pieces do you want?"
-							onChange={this.handleInputChange}
-						/>
-					</div>
-					<div className="m-b-20">
-						<FormGroup
-							classes="small"
-							center
-							type="amount"
-							amountLabel="GHC"
-							label="Cost"
-							name="totalCost"
-							placeholder="Cost of Job"
-							value={totalCost}
-						/>
-					</div>
-					<div className="m-b-20">
-						<FormGroup
-							classes="small"
-							center
-							type="dropzone"
-							label="File"
-							placeholder="Add file to be printed"
-						/>
-					</div>
-					<div className="m-b-20">
-						<FormGroup
-							center
-							type="textarea"
-							label="Special comments"
-							placeholder="Special comments"
-							rows={3}
-							cols={73}
-							value={comment}
-							name="comment"
-							onChange={this.handleCommentChange}
-						/>
-					</div>
-					<div className="m-t-20 m-b-20">
-						<Divider type="faint" title="Summary" />
-						<div className="m-t-10">
-							Job Drafts:
-							{allJobs.length}
-						</div>
-					</div>
-					<h1>
-						Job drafts are Here
-						{jobDratfs && jobDratfs.length}
-					</h1>
-					<button type="button" onClick={() => addNewJobAsDraft({ name: 'Creator', cost: 100 })}>Add job</button>
-					<AddItem
-						title="Add new job"
-						classes="app-primary text-right m-t-20 m-b-20"
-						iconClasses="small icon m-r-5"
-						parentClasses="text-right"
-						handleClick={this.addJob}
-					/>
-					<div className="m-t-40 text-right inline center">
-						<Button
-							default
-							size="small"
-							content="Save as Draft"
-						/>
-						<Button
-							positive
-							size="small"
-							content="Continue"
-							onClick={this.handleSubmit}
-						/>
-					</div>
-				</ValidatorForm>
-			</AppContentWrapper>
-		</AppMainContent>
-		{/* </Layout> */}
+					</ValidatorForm>
+				</AppContentWrapper>
+			</AppMainContent>
+		)}
 	</div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  jobDratfs: state.job.jobDrafts,
+  jobDrafts: state.job.jobDrafts,
+  // currentJob: selectCurrentJob(state),
+  currentJob: state.job.currentJob,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addNewJobAsDraft: (job) => dispatch(addJobAsDraft(job)),
+  saveJobProgress: (job) => dispatch(saveCurrentJobProgress(job)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CreateJob));

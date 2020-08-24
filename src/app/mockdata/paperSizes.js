@@ -3,7 +3,7 @@ const paperSizes = [
     name: 'A4',
     width: 144,
     height: 200,
-    unitCose: 1.40,
+    unitCost: 1.40,
     defaultSizes: [
       {
         name: 'A4',

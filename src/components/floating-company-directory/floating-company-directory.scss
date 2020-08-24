@@ -12,13 +12,17 @@
 
   .company-directory__header {
     background:rgb(243, 243, 243);
-    padding: 15px;
+    padding: 25px;
     justify-content: space-between;
   }
 
   .content {
     position: relative;
     height: 96vh;
+
+    .content__body {
+      // padding: 20px;
+    }
   }
 
   .footer {

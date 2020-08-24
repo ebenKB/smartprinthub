@@ -1,0 +1,12 @@
+.preview-wrapper {
+  width: 70%;
+  height: 100vh;
+  margin: auto;
+  background: var(--white);
+  padding: 40px;
+  overflow-y: scroll;
+}
+
+.preiview-item img {
+  width: 100%;
+}

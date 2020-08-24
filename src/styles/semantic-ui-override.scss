@@ -21,3 +21,11 @@
 .ui.button.light {
   font-weight: 300;
 }
+
+.ui.checkbox.custom label{
+  color: var(--dark);
+}
+
+.ui.selection.dropdown.custom.dark {
+  background: var(--light-gray);
+}

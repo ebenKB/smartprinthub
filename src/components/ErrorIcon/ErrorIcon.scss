@@ -1,0 +1,11 @@
+.field-error {
+  font-size: 12px;
+  color: var(--dark-red);
+  margin-top: 4px;
+
+  .icon {
+    // fill: red;
+    margin: 0 5px;
+    font-size: 0.9rem;
+  }
+}
