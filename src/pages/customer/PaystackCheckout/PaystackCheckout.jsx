@@ -1,0 +1,114 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable react/no-this-in-sfc */
+/* eslint-disable react/forbid-prop-types */
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { Button } from 'semantic-ui-react';
+import AppMainContent from '../../../components/app-main-content/app-main-content';
+import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
+import OrderSummary from '../../../components/OrderSummary/OrderSummary';
+import appSettings from '../../../app/mockdata/appsettings';
+import PaystackCheckoutComponent from '../../../components/PaystackCheckout/PaystackCheckout';
+import User from '../../../app/mockdata/user';
+import ToastNotification from '../../../components/ToastNotification/ToastNotificaton';
+import './PaystackCheckout.scss';
+
+const PaystackCheckout = ({ jobDrafts, currentJob }) => {
+  const history = useHistory();
+  const [notification, setNotification] = useState({
+    message: null,
+    type: null,
+  });
+
+  const computeTotalCost = () => {
+    const initialValue = 0;
+    if (jobDrafts) {
+      const val = [
+        ...jobDrafts, currentJob].reduce((accum, x) => (accum + x.totalCost), initialValue);
+      return val;
+    }
+    return currentJob.totalCost;
+  };
+
+  const getTransactionFee = () => parseFloat(
+    (appSettings.jobChargeRate * computeTotalCost()).toFixed(2),
+  );
+
+  const completePayment = (reference) => {
+    if (reference.message === 'Approved') {
+      const { location: { pathname } } = history;
+      history.push(`${pathname}/confirm`);
+    }
+  };
+
+  const computeGrossTotal = () => (computeTotalCost() + getTransactionFee());
+
+  const closePayment = () => {
+    setNotification({
+      type: 'error',
+      message: 'Sorry! Your payment was not completed',
+    });
+  };
+
+  const goBack = () => {
+    history.goBack();
+  };
+
+  const { email, phone } = User;
+  const { message, type } = notification;
+
+  return (
+	<div className="paystack-checkout__wrapper">
+		{message && type && (
+			<ToastNotification type={type} message={message} />
+		)}
+		<AppMainContent>
+			<AppContentWrapper
+				heading="Complete Payment"
+			>
+				<OrderSummary
+					totalCost={computeTotalCost()}
+					fee={getTransactionFee()}
+					jobs={[...jobDrafts, currentJob]}
+					grossTotalCost={computeGrossTotal()}
+				/>
+				<p className="sm-caption">If you are ready to send the job, click pay and follow the instructions</p>
+				<div className="text-right m-t-40 flex flex-center checkout-btns">
+					<Button
+						size="small"
+						content="Cancel"
+						onClick={goBack}
+					/>
+					<Button
+						size="small"
+						content="Preview Job"
+					/>
+					<PaystackCheckoutComponent
+						handleSuccess={completePayment}
+						handleClose={closePayment}
+						options={{
+					  amount: (computeGrossTotal() * 100),
+					  email,
+					  phone,
+						}}
+					/>
+				</div>
+			</AppContentWrapper>
+		</AppMainContent>
+	</div>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  jobDrafts: state.job.jobDrafts,
+  currentJob: state.job.currentJob,
+});
+
+PaystackCheckout.propTypes = {
+  jobDrafts: PropTypes.array.isRequired,
+  currentJob: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps, null)(PaystackCheckout);

@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import './checkout.scss';
@@ -14,7 +15,10 @@ import { ReactComponent as MomoIcon } from '../../../svg/bank.svg';
 import OrderSummary from '../../../components/OrderSummary/OrderSummary';
 import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
 import appSettings from '../../../app/mockdata/appsettings';
+import PaystackCheckout from '../../../components/PaystackCheckout/PaystackCheckout';
+import ToastNotification from '../../../components/ToastNotification/ToastNotificaton';
 // import ProcessingPayment from '../../../components/ProcessingPayment/ProcessingPayment';
+
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -40,6 +44,10 @@ class Checkout extends React.Component {
       },
       options: {
         canPreviewJob: false,
+      },
+      notification: {
+        message: null,
+        type: null,
       },
     };
   }
@@ -78,60 +86,26 @@ class Checkout extends React.Component {
     }
   }
 
-  completePayment = async () => {
-    this.setState((state) => ({
-      ...state,
-      loading: true,
-    }));
-    // const response = await fetch('https://api.paystack.co/charge', {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   headers: {
-    //     Authorization: 'Bearer sk_test_8dd50ac866d13c77b22725bab98052d0625574d6',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     email: 'some@body.nice',
-    //     firstname: 'Ebenezer',
-    //     lastname: 'Adjei',
-    //     amount: '100',
-    //     currency: 'GHS',
-    //     metadata: {
-    //       custom_fields: [
-    //         {
-    //           value: 'online payment',
-    //           display_name: 'online payment',
-    //           variable_name: 'online payment',
-    //         },
-    //       ],
-    //     },
-    //     mobile_money: {
-    //       phone: '0551234987',
-    //       provider: 'mtn',
-    //     },
-    //   }),
-    // });
-    // let { data } = await response.json();
-    // const { reference } = data;
-
-    // const verifyResponse = await fetch(`https://api.paystack.co/charge/${reference}`, {
-    //   method: 'GET',
-    //   mode: 'cors',
-    //   headers: {
-    //     Authorization: 'Bearer sk_test_8dd50ac866d13c77b22725bab98052d0625574d6',
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
-    // data = await verifyResponse.json();
-    // const { status } = data.data;
-    // if (status === 'success') {
+  completePayment = async (reference) => {
     this.setState((state) => ({
       ...state,
       loading: false,
     }));
-    const { history } = this.props;
-    const { location: { pathname } } = history;
-    history.push(`${pathname}/confirm`);
+    if (reference.message === 'Approved') {
+      const { history } = this.props;
+      const { location: { pathname } } = history;
+      history.push(`${pathname}/confirm`);
+    }
+  };
+
+  closePayment = () => {
+    this.setState((state) => ({
+      ...state,
+      notification: {
+        type: 'error',
+        message: 'Sorry! payment could not be completed',
+      },
+    }));
   };
 
   toggleJobPreview = () => {
@@ -162,10 +136,11 @@ class Checkout extends React.Component {
     const {
       phone,
       provider,
-      loading,
       paymentOption,
       options,
+      notification,
     } = this.state;
+    const { message, type } = notification;
     const { canPreviewJob } = options;
     const { jobDratfs, currentJob } = this.props;
     const ServiceProviders = [
@@ -187,9 +162,11 @@ class Checkout extends React.Component {
     ];
     return (
 	<AppMainContent>
-		{/* <ProcessingPayment /> */}
 		{canPreviewJob && (
 			<PreviewJobs closeAction={this.toggleJobPreview} />
+		)}
+		{message && type && (
+			<ToastNotification type={type} message={message} />
 		)}
 		<div className="checkout-content__wrapper">
 			<AppContentWrapper
@@ -252,7 +229,7 @@ class Checkout extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="m-t-20 text-right flex-center">
+					<div className="m-t-20 text-right flex flex-center checkout-btns">
 						<Link to="/job/create">
 							<Button
 								size="small"
@@ -264,12 +241,21 @@ class Checkout extends React.Component {
 							content="Preview Job"
 							onClick={this.toggleJobPreview}
 						/>
-						<Button
+						{/* <Button
 							positive
 							size="small"
 							content="Pay And Send Job"
 							onClick={this.completePayment}
 							loading={loading}
+						/> */}
+						<PaystackCheckout
+							handleSuccess={this.completePayment}
+							handleClose={this.closePayment}
+							options={{
+							  amount: this.getTotalJobCost(),
+							  email: 'customer@example.com',
+							  phone: 'xxxxxxxxxx',
+							  }}
 						/>
 					</div>
 				</ValidatorForm>

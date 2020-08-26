@@ -4,11 +4,18 @@ const CreateJob = lazy(() => import('../pages/customer/create-job/create-job'));
 const ViewJobs = lazy(() => import('../pages/customer/jobs/view-jobs/view-jobs'));
 const ShowJob = lazy(() => import('../pages/customer/jobs/show/show-job'));
 const UserSettings = lazy(() => import('../pages/customer/settings/settings'));
-const Checkout = lazy(() => import('../pages/customer/checkout/checkout'));
+// const Checkout = lazy(() => import('../pages/customer/checkout/checkout'));
+const Checkout = lazy(() => import('../pages/customer/PaystackCheckout/PaystackCheckout'));
 const Welcome = lazy(() => import('../pages/welcome/welcome'));
 const ConfirmCheckout = lazy(() => import('../pages/customer/ConfirmCheckout/ConfirmCheckout'));
+const CompanyDetails = lazy(() => import('../pages/company/ViewCompanyDetails/ViewCompanyDetails'));
 
 const routes = [
+  {
+    path: '/company/:id',
+    exact: true,
+    main: () => <CompanyDetails />,
+  },
   {
     path: '/job/create',
     exact: true,

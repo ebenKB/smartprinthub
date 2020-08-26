@@ -62,16 +62,35 @@ class CreateJob extends Component {
         file: null,
         laminated: false,
       },
+      paymentOrder: {
+        reference: '',
+        status: '',
+        transaction: '',
+        message: '',
+        amount: null,
+      },
     };
+
     this.ref = React.createRef();
   }
 
   componentDidMount() {
     const { currentJob, jobDrafts } = this.props;
+    console.log('This is the current job', currentJob);
     if (currentJob) {
       this.setState((state) => ({
         ...state,
         job: { ...currentJob },
+      }));
+    }
+
+    if (currentJob.company) {
+      this.setState((state) => ({
+        ...state,
+        options: {
+          ...state.options,
+          canCreateJob: true,
+        },
       }));
     }
 
@@ -91,9 +110,7 @@ class CreateJob extends Component {
   sayHello = () => {
     const { saveJobProgress } = this.props;
     const { job } = this.state;
-    console.log('We can say hello', job);
     this.interval = setInterval(() => {
-      console.log('Time is running');
       saveJobProgress(job);
     }, 3000);
   }
@@ -179,7 +196,6 @@ class CreateJob extends Component {
   }
 
   handleJobCompanyChange = (newCompany) => {
-    console.log('This is the detials of the company', newCompany);
     const updatedJob = {
       ...this.state.job,
       company: newCompany,
@@ -187,8 +203,6 @@ class CreateJob extends Component {
     this.setState((state) => ({
       ...state,
       job: {
-        // ...state.job,
-        // company: newCompany,
         ...updatedJob,
       },
     }));
@@ -267,9 +281,7 @@ class CreateJob extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    // const { addNewJobAsDraft } = this.props;
     const { job } = this.state;
-    // addNewJobAsDraft(job);
     const { saveJobProgress } = this.props;
     saveJobProgress(job);
     const { history } = this.props;
@@ -277,7 +289,6 @@ class CreateJob extends Component {
   };
 
   toggleCompanyDirectoryForm = (value) => {
-    // const { options: { canShowCompanyDirectory } } = this.state;
     this.setState((state) => ({
       ...state,
       options: {
@@ -348,7 +359,7 @@ class CreateJob extends Component {
 								<div className="flex center space-out m-t-20">
 									<div>Open company directory to select company</div>
 									<Button
-										content="Open company directory"
+										content="Select new company"
 										onClick={() => this.toggleCompanyDirectoryForm(true)}
 										className="transparent app-primary"
 									/>
@@ -511,7 +522,6 @@ class CreateJob extends Component {
 
 const mapStateToProps = (state) => ({
   jobDrafts: state.job.jobDrafts,
-  // currentJob: selectCurrentJob(state),
   currentJob: state.job.currentJob,
 });
 

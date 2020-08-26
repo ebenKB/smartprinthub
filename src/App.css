@@ -17,6 +17,10 @@ body {
   color: white;
 }
 
+.container.large {
+  width: 80%;
+}
+
 .app-primary {
   color: var(--blue);
 }

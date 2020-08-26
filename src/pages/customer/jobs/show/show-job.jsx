@@ -1,14 +1,14 @@
 import React from 'react';
 import { Button, Label } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import Divider from '../../../../components/divider/divider';
 import AppMainContent from '../../../../components/app-main-content/app-main-content';
 import AppWrapperLite from '../../../../components/app-wrapper-lite/app-wrapper-lite';
 import './show-job.scss';
 import FileHandler from '../../../../components/FileHandler/FileHandler';
-import { Link } from 'react-router-dom';
 
 const ShowJob = () => (
-	<>
+	<div className="large container">
 		<AppMainContent
 			heading="Job details"
 		>
@@ -41,8 +41,12 @@ const ShowJob = () => (
 					<div>Circle - Kokomlemle</div>
 					<div className="bold app-primary">+233 548086391</div>
 				</div>
-				<div className="m-t-20 text-right">
-					<Button size="small" positive>View Profile</Button>
+				<div className="m-t-20">
+					<div className="flex reverse">
+						<Link to="/company/1">
+							<div className="bold">View Company Details</div>
+						</Link>
+					</div>
 				</div>
 			</AppWrapperLite>
 			<AppWrapperLite>
@@ -64,7 +68,7 @@ const ShowJob = () => (
 				</Link>
 			</div>
 		</AppMainContent>
-	</>
+	</div>
 );
 
 export default ShowJob;

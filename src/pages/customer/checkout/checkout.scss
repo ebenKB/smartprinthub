@@ -15,3 +15,8 @@
   grid-template-columns: calc(70% - 30px) 30%;
   column-gap: 30px;
 }
+
+
+.checkout-btns {
+  justify-content: flex-end;
+}
