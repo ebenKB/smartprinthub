@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
 						handleToggleAction={() => setHasShrunk(!hasShrunk)}
 					/>
 					<HeaderOffset />
-					<div className="main-content__body">
+					<div className="main-content__bodys">
 						{children}
 					</div>
 				</div>

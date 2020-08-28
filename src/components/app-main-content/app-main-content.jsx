@@ -5,7 +5,7 @@ import './app-main-content.scss';
 
 const AppMainContent = ({ children, aside, hasAside = false }) => (
 	<div>
-		<div className={`app-main-content ${hasAside === true ? 'split' : 'single'}`}>
+		<div className={`main-content__body app-main-content ${hasAside === true ? 'split' : 'single'}`}>
 			<div>{children}</div>
 			<div>
 				<div>{aside}</div>

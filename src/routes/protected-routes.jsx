@@ -4,6 +4,7 @@ const CreateJob = lazy(() => import('../pages/customer/create-job/create-job'));
 const ViewJobs = lazy(() => import('../pages/customer/jobs/view-jobs/view-jobs'));
 const ShowJob = lazy(() => import('../pages/customer/jobs/show/show-job'));
 const UserSettings = lazy(() => import('../pages/customer/settings/settings'));
+const Settings = lazy(() => import('../pages/Settings/Settings'));
 // const Checkout = lazy(() => import('../pages/customer/checkout/checkout'));
 const Checkout = lazy(() => import('../pages/customer/PaystackCheckout/PaystackCheckout'));
 const Welcome = lazy(() => import('../pages/welcome/welcome'));
@@ -33,6 +34,11 @@ const routes = [
   },
   {
     path: '/user/settings',
+    exact: true,
+    main: () => <Settings />,
+  },
+  {
+    path: '/user/settings/old',
     exact: true,
     main: () => <UserSettings />,
   },
