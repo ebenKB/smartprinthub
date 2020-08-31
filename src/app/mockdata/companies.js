@@ -9,6 +9,7 @@ for (let i = 0; i < 10; i++) {
     id: 1,
     name: Faker.company.companyName(),
     email: Faker.internet.email(),
+    logo: Faker.image.business(),
     phone: Faker.phone.phoneNumber(),
     settings: {
       useUnitSizeForAll: false,

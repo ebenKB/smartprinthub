@@ -29,3 +29,7 @@
 .ui.selection.dropdown.custom.dark {
   background: var(--light-gray);
 }
+
+.ui.form .field>label{
+  color: var(--dark);
+}

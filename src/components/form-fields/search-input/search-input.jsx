@@ -22,7 +22,7 @@ const SearchInput = () => {
 		<Fragment>
 			<Icon className="dark small icon" />
 			<Input
-				classes="custom search tiny"
+				classes="search tiny"
 				placeholder="Enter item to search"
 				type="search"
 				focus={focus}

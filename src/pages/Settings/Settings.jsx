@@ -7,9 +7,14 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { useHistory, useParams } from 'react-router-dom';
 import UserSettings from '../UserSettings/UserSettings';
+import CompanySettings from '../CompanySettings/CompanySettings';
+import JobSettings from '../JobSettings/JobSettings';
+import PaymentSettings from '../PaymentSettings/PaymentSettings';
+
 
 function TabPanel(props) {
   const {
@@ -25,8 +30,8 @@ function TabPanel(props) {
 		{...other}
 	>
 		{value === index && (
-			<Box p={3}>
-				<Typography>{children}</Typography>
+			<Box>
+				{children}
 			</Box>
 		)}
 	</div>
@@ -46,10 +51,9 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
   },
 }));
 
@@ -71,28 +75,46 @@ const StyledTabs = withStyles({
     '& > span': {
       maxWidth: '80%',
       width: '100%',
-      backgroundColor: '#21ba45',
+      backgroundColor: '#3f51b5',
     },
   },
 })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 export default function SimpleTabs() {
+  const indexToTabName = {
+    profile: 0,
+    company: 1,
+    job: 2,
+    payment: 3,
+  };
+
   const classes = useStyles();
   const customizedClasses = CustomStyles();
-  const [value, setValue] = React.useState(0);
+  const history = useHistory();
+  const { page } = useParams();
+  const [selectedTabValue, setSelectedTabValue] = React.useState(indexToTabName[page]);
+
+  const tabNameToIndex = {
+    0: 'profile',
+    1: 'company',
+    2: 'job',
+    3: 'payment',
+  };
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setSelectedTabValue(newValue);
+    history.push(`/settings/${tabNameToIndex[newValue]}`);
   };
 
   return (
 	<div className={`m-t-15 ${classes.root}`}>
 		<AppBar position="static">
 			<StyledTabs
-				value={value}
+				value={selectedTabValue}
 				onChange={handleChange}
 				aria-label="scrollable force settings"
 				indicatorColor="primary"
+				textColor="primary"
 				variant="scrollable"
 				scrollButtons="on"
 				className={customizedClasses.customized}
@@ -103,17 +125,25 @@ export default function SimpleTabs() {
 				<Tab label="Payment Options" {...a11yProps(3)} />
 			</StyledTabs>
 		</AppBar>
-		<TabPanel value={value} index={0}>
-			<UserSettings />
+		<TabPanel value={selectedTabValue} index={0}>
+			<div className="m-t-20">
+				<UserSettings />
+			</div>
 		</TabPanel>
-		<TabPanel value={value} index={1}>
-			Company content here
+		<TabPanel value={selectedTabValue} index={1}>
+			<div className="m-t-20">
+				<CompanySettings />
+			</div>
 		</TabPanel>
-		<TabPanel value={value} index={2}>
-			Job Settings
+		<TabPanel value={selectedTabValue} index={2}>
+			<div className="m-t-20">
+				<JobSettings />
+			</div>
 		</TabPanel>
-		<TabPanel value={value} index={3}>
-			Payment Options content here
+		<TabPanel value={selectedTabValue} index={3}>
+			<div className="m-t-20">
+				<PaymentSettings />
+			</div>
 		</TabPanel>
 	</div>
   );

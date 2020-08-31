@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom';
 import './App.css';
 
@@ -67,6 +68,7 @@ function App() {
 							</Suspense>
 						</Route>
 					))}
+					<Redirect exact from="/settings" to="/settings/profile" />
 					{/* <Route path="*">
 						<h1>No match found</h1>
 					</Route> */}

@@ -23,15 +23,8 @@ const UserProfile = () => (
 			<Divider type="faint" />
 			<div className="dropdown-item__wrapper">
 				<div className="dropdown-item">
-					<Link to="/" className="link">
+					<Link to="/settings" className="link">
 						My Profile
-					</Link>
-				</div>
-			</div>
-			<div className="dropdown-item__wrapper">
-				<div className="dropdown-item">
-					<Link to="/" className="link">
-						Settings
 					</Link>
 				</div>
 			</div>

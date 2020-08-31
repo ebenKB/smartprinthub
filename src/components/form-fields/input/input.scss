@@ -15,15 +15,23 @@
   padding: 0.75em 0.8em;
 }
 
-.ui.input.custom > input {
+.ui.input.custom > input,
+.ui.form .ui.input.custom {
   background: var(--kt-black);
-  border: 1px solid #575754;
+  // border: 1px solid #575754;
   color: var(--kt-white);
-  padding-left: 50px;
+  border-radius: 2px;
 }
 
+.ui.form input {
+  padding: 0.8rem !important;
+}
 // remove unwanted outline from input
 .ui.form .ui.input input:focus {
   border-radius: 2px;
   // border: 1px solid var(--kt-green);
+}
+
+.ui.input.custom.search input {
+  padding-left: 3rem;
 }

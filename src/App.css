@@ -17,8 +17,21 @@ body {
   color: white;
 }
 
+.container.opaque {
+  background: var(--white);
+}
+
 .container.large {
   width: 80%;
+}
+
+.container.medium {
+  width: 65%;
+  max-width: 80rem;
+}
+
+.container.center {
+  margin: auto;
 }
 
 .app-primary {
@@ -50,7 +63,7 @@ svg.app-primary {
 }
 
 .small.icon {
-  width: 16px;
+  width: 16px !important;
   height: auto !important;
 }
 

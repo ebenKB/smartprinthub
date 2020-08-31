@@ -6,17 +6,18 @@ import './input.scss';
 class CustomInput extends React.Component {
   render() {
     const {
-      type, value, name, classes, action = '', ...rest
+      type, value, name, classes='', action = '', ...rest
     } = this.props;
 
     const getInput = () => {
       if (type !== '' && type.toLowerCase() === 'search') {
         return (
 	<Input
+    size="small"
 		type={type}
 		value={value}
 		name={name}
-		className={classes}
+		className={`custom ${classes}`}
 		action="Search"
 		{...rest}
 	/>
@@ -24,10 +25,11 @@ class CustomInput extends React.Component {
       }
       return (
 	<Input
+    size="large"
 		type={type}
 		value={value}
 		name={name}
-		className={classes}
+    className={`custom ${classes}`}
 		{...rest}
 	/>
       );
