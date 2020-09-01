@@ -84,7 +84,7 @@ class CreateJob extends Component {
       }));
     }
 
-    if (currentJob.company) {
+    if (currentJob && currentJob.company) {
       this.setState((state) => ({
         ...state,
         options: {

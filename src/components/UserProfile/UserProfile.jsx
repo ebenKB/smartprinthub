@@ -28,7 +28,11 @@ const UserProfile = () => {
 			<Divider type="faint" />
 			<div className="dropdown-item__wrapper">
 				<div className="dropdown-item">
+<<<<<<< HEAD
 					<Link to={`/${accountType}/settings`} className="link">
+=======
+					<Link to="/user/settings" className="link">
+>>>>>>> refactor application routes
 						My Profile
 					</Link>
 				</div>

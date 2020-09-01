@@ -19,15 +19,15 @@ import './App.css';
 
 import ProtectedRoutes from './routes/protected-routes';
 import DefaultRoutes from './routes/default-routes';
-import Layout from './components/layout/layout';
+// import Layout from './components/layout/layout';
+import LayoutRoute from './components/LayoutRoute/LayoutRoute';
 
 function App() {
   return (
 	<div className="light-theme">
 		<Router>
-			<Layout>
-				<Switch>
-					{/* <Route exact path="/">
+			<Switch>
+				{/* <Route exact path="/">
 					<Welcome />
 				</Route>
 				<Route exact path="/job/:id">
@@ -45,36 +45,43 @@ function App() {
 				<Route path="/signin">
 					<SignIn />
 				</Route> */}
-					{DefaultRoutes.map((route, index) => (
-						<Route
-							key={index}
-							path={route.path}
-							exact={route.exact}
-						>
-							<Suspense fallback={<h3>Loading</h3>}>
-								<route.main />
-							</Suspense>
-						</Route>
-					))}
+				{DefaultRoutes.map((route, index) => (
+					<Route
+						key={index}
+						path={route.path}
+						exact={route.exact}
+					>
+						<Suspense fallback={<h3>Loading</h3>}>
+							<route.main />
+						</Suspense>
+					</Route>
+				))}
 
-					{ProtectedRoutes.map((route, index) => (
-						<Route
-							key={index}
-							path={route.path}
-							exact={route.exact}
-						>
-							<Suspense fallback={null}>
+				{/* {ProtectedRoutes.map((route, index) => (
+					<Route
+						key={index}
+						path={route.path}
+						exact={route.exact}
+					>
+						<Suspense fallback={null}>
+							<LayoutRoute>
 								<route.main />
-							</Suspense>
-						</Route>
-					))}
-					<Redirect exact from="/user/settings" to="/user/settings/profile" />
-					{/* <Route path="*">
+							</LayoutRoute>
+						</Suspense>
+					</Route>
+				))} */}
+				{ProtectedRoutes.map((route) => (
+					<LayoutRoute
+						component={route.main}
+						path={route.path}
+					/>
+				))}
+				<Redirect exact from="/settings" to="/settings/profile" />
+				{/* <Route path="*">
 						<h1>No match found</h1>
 					</Route> */}
 
-				</Switch>
-			</Layout>
+			</Switch>
 		</Router>
 	</div>
   );

@@ -1,4 +1,5 @@
 import React, { lazy } from 'react';
+// import Test from '../pages/customer/create-job/create-job';
 
 const CreateJob = lazy(() => import('../pages/customer/create-job/create-job'));
 const ViewJobs = lazy(() => import('../pages/customer/jobs/view-jobs/view-jobs'));
@@ -12,6 +13,11 @@ const ConfirmCheckout = lazy(() => import('../pages/customer/ConfirmCheckout/Con
 const CompanyDetails = lazy(() => import('../pages/company/ViewCompanyDetails/ViewCompanyDetails'));
 
 const routes = [
+  {
+    path: '/test',
+    exact: true,
+    main: () => <h1>This is a test component</h1>,
+  },
   {
     path: '/company/:id',
     exact: true,
