@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-filename-extension */
 import React, { Suspense } from 'react';
 import {
@@ -10,16 +9,9 @@ import {
 } from 'react-router-dom';
 import './App.css';
 
-// import SignIn from './components/signin/signin';
-// import Checkout from './pages/customer/checkout/checkout';
-// import ViewJobs from './pages/customer/jobs/view-jobs/view-jobs';
-// import Welcome from './pages/welcome/welcome';
-// import ShowJob from './pages/customer/jobs/show/show-job';
-// import UserSetings from './pages/customer/settings/settings';
-
 import ProtectedRoutes from './routes/protected-routes';
 import DefaultRoutes from './routes/default-routes';
-// import Layout from './components/layout/layout';
+import ProtectedCompanyRoutes from './routes/company-protected-routes';
 import LayoutRoute from './components/LayoutRoute/LayoutRoute';
 
 function App() {
@@ -27,24 +19,6 @@ function App() {
 	<div className="light-theme">
 		<Router>
 			<Switch>
-				{/* <Route exact path="/">
-					<Welcome />
-				</Route>
-				<Route exact path="/job/:id">
-					<ShowJob />
-				</Route>
-				<Route path="/checkout">
-					<Checkout />
-				</Route>
-				<Route path="/jobs/view">
-					<ViewJobs />
-				</Route>
-				<Route path="/user/profile">
-					<UserSetings />
-				</Route>
-				<Route path="/signin">
-					<SignIn />
-				</Route> */}
 				{DefaultRoutes.map((route, index) => (
 					<Route
 						key={index}
@@ -56,31 +30,26 @@ function App() {
 						</Suspense>
 					</Route>
 				))}
-
-				{/* {ProtectedRoutes.map((route, index) => (
-					<Route
-						key={index}
-						path={route.path}
-						exact={route.exact}
-					>
-						<Suspense fallback={null}>
-							<LayoutRoute>
-								<route.main />
-							</LayoutRoute>
-						</Suspense>
-					</Route>
-				))} */}
-				{ProtectedRoutes.map((route) => (
+				{ProtectedCompanyRoutes.map((route, index) => (
 					<LayoutRoute
+						key={index}
 						component={route.main}
 						path={route.path}
+						exact
 					/>
 				))}
-				<Redirect exact from="/settings" to="/settings/profile" />
-				{/* <Route path="*">
-						<h1>No match found</h1>
-					</Route> */}
-
+				{ProtectedRoutes.map((route, index) => (
+					<LayoutRoute
+						key={index}
+						component={route.main}
+						path={route.path}
+						exact
+					/>
+				))}
+				<Redirect from="/user/settings" to="/user/settings/profile" />
+				<Route path="*">
+					<Redirect to="/" />
+				</Route>
 			</Switch>
 		</Router>
 	</div>

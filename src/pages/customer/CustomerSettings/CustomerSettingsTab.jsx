@@ -2,49 +2,19 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
+// import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-// import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import UserSettings from '../UserSettings/UserSettings';
-import CompanySettings from '../CompanySettings/CompanySettings';
-import JobSettings from '../JobSettings/JobSettings';
-import PaymentSettings from '../PaymentSettings/PaymentSettings';
-import { selectAccountType } from '../../redux/slices/app';
-
-
-function TabPanel(props) {
-  const {
-    children, value, index, ...other
-  } = props;
-
-  return (
-	<div
-		role="tabpanel"
-		hidden={value !== index}
-		id={`simple-tabpanel-${index}`}
-		aria-labelledby={`simple-tab-${index}`}
-		{...other}
-	>
-		{value === index && (
-			<Box>
-				{children}
-			</Box>
-		)}
-	</div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
+import UserSettings from '../../UserSettings/UserSettings';
+import CompanySettings from '../../company/CompanySettings';
+import JobSettings from '../CustomerJobSettings/JobSettings';
+import PaymentSettings from '../../PaymentSettings/PaymentSettings';
+import { selectAccountType } from '../../../redux/slices/app';
+import TabPanel from '../../../components/TabPanel/TablPanel';
+import StyledTabs from '../../../components/MaterialTab/MaterialTab';
 
 function a11yProps(index) {
   return {
@@ -64,23 +34,24 @@ const CustomStyles = makeStyles(() => ({
     backgroundColor: '#ffff',
     color: '#000',
   },
+
   indicator: {
     backgroundColor: 'green',
   },
 }));
 
-const StyledTabs = withStyles({
-  indicator: {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-    '& > span': {
-      maxWidth: '80%',
-      width: '100%',
-      backgroundColor: '#3f51b5',
-    },
-  },
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
+// const StyledTabs = withStyles({
+//   indicator: {
+//     display: 'flex',
+//     justifyContent: 'center',
+//     backgroundColor: 'transparent',
+//     '& > span': {
+//       maxWidth: '80%',
+//       width: '100%',
+//       backgroundColor: '#3f51b5',
+//     },
+//   },
+// })((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 export default function SimpleTabs() {
   const indexToTabName = {

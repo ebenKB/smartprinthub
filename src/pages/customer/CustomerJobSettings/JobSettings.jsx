@@ -1,5 +1,5 @@
 import React from 'react';
-import RoundContentWrapper from '../../components/round-content-wrapper/round-content-wrapper';
+import RoundContentWrapper from '../../../components/round-content-wrapper/round-content-wrapper';
 
 const JobSettings = () => (
 	<div className="shadow-border medium center opaque container m-b-40 p-all-40">

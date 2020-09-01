@@ -1,11 +1,11 @@
 import React from 'react';
-import CompanySettings from '../pages/CompanySettings/CompanySettings';
+import CompanySettingsTab from '../pages/company/CompanySettingsTab/CompanySettingsTab';
 
 const routes = [
   {
     path: '/company/settings/:page',
     exact: true,
-    main: () => <CompanySettings />,
+    main: () => <CompanySettingsTab />,
   },
 ];
 
