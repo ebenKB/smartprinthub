@@ -1,5 +1,5 @@
 body {
-  background: rgb(241, 241, 241);
+  background: var(--dark-blue);
 }
 
 .signin-wrapper {
@@ -7,7 +7,6 @@ body {
   min-height: 250px;
   margin: auto;
   padding-top: calc(55vh - 250px);
-
 };
 
 .sign-wrapper__content {
