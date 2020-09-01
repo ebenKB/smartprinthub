@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Flag } from '../../svg/flag.svg';
 import { ReactComponent as List } from '../../svg/list.svg';
 import { ReactComponent as Box } from '../../svg/box.svg';
+import Can from '../Can/Can';
 
 const Navigation = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -36,12 +37,26 @@ const Navigation = () => {
 					onClick={handleClick}
 					className="m-b-10"
 				/>
-				<Accordion.Content active={activeIndex === 0} className="menu-option">
-					<Link to="/job/create">Create new</Link>
-				</Accordion.Content>
-				<Accordion.Content active={activeIndex === 0} className="menu-option">
-					<Link to="/jobs">View all</Link>
-				</Accordion.Content>
+				<Can
+					perform="job:create"
+					userRole="customer"
+					yes={() => (
+						<Accordion.Content active={activeIndex === 0} className="menu-option">
+							<Link to="/job/create">Create new</Link>
+						</Accordion.Content>
+					)}
+					no={() => null}
+				/>
+				<Can
+					perform="job:view"
+					userRole="customer"
+					yes={() => (
+						<Accordion.Content active={activeIndex === 0} className="menu-option">
+							<Link to="/jobs">View all</Link>
+						</Accordion.Content>
+					)}
+					no={() => null}
+				/>
 			</Menu.Item>
 		</Accordion>
 		<Accordion as={Menu} vertical>

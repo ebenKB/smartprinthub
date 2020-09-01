@@ -68,7 +68,7 @@ function App() {
 							</Suspense>
 						</Route>
 					))}
-					<Redirect exact from="/settings" to="/settings/profile" />
+					<Redirect exact from="/user/settings" to="/user/settings/profile" />
 					{/* <Route path="*">
 						<h1>No match found</h1>
 					</Route> */}

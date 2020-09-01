@@ -10,10 +10,12 @@ import Tab from '@material-ui/core/Tab';
 // import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import UserSettings from '../UserSettings/UserSettings';
 import CompanySettings from '../CompanySettings/CompanySettings';
 import JobSettings from '../JobSettings/JobSettings';
 import PaymentSettings from '../PaymentSettings/PaymentSettings';
+import { selectAccountType } from '../../redux/slices/app';
 
 
 function TabPanel(props) {
@@ -88,6 +90,7 @@ export default function SimpleTabs() {
     payment: 3,
   };
 
+  const accountType = useSelector(selectAccountType);
   const classes = useStyles();
   const customizedClasses = CustomStyles();
   const history = useHistory();
@@ -103,7 +106,7 @@ export default function SimpleTabs() {
 
   const handleChange = (event, newValue) => {
     setSelectedTabValue(newValue);
-    history.push(`/settings/${tabNameToIndex[newValue]}`);
+    history.push(`/${accountType}/settings/${tabNameToIndex[newValue]}`);
   };
 
   return (

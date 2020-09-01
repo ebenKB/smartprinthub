@@ -14,6 +14,7 @@ import PaystackCheckoutComponent from '../../../components/PaystackCheckout/Pays
 import User from '../../../app/mockdata/user';
 import ToastNotification from '../../../components/ToastNotification/ToastNotificaton';
 import './PaystackCheckout.scss';
+import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
 
 const PaystackCheckout = ({ jobDrafts, currentJob }) => {
   const history = useHistory();
@@ -21,6 +22,8 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
     message: null,
     type: null,
   });
+
+  const [canPreviewJob, setCanPreviewJob] = useState(false);
 
   const computeTotalCost = () => {
     const initialValue = 0;
@@ -64,6 +67,7 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
 		{message && type && (
 			<ToastNotification type={type} message={message} />
 		)}
+		{canPreviewJob && (<PreviewJobs closeAction={() => setCanPreviewJob(!canPreviewJob)} />)}
 		<AppMainContent>
 			<AppContentWrapper
 				heading="Complete Payment"
@@ -84,6 +88,7 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
 					<Button
 						size="small"
 						content="Preview Job"
+						onClick={() => setCanPreviewJob(true)}
 					/>
 					<PaystackCheckoutComponent
 						handleSuccess={completePayment}

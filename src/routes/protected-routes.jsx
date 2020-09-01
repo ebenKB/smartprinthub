@@ -33,7 +33,7 @@ const routes = [
     main: () => <ShowJob />,
   },
   {
-    path: '/settings/:page',
+    path: '/user/settings/:page',
     exact: true,
     main: () => <Settings />,
   },

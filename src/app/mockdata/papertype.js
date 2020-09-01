@@ -83,6 +83,33 @@ const paperTypes = [
       },
     ],
   },
+  {
+    id: 4,
+    name: 'Bond Paper',
+    commonName: 'A4 sheet',
+    defaultSizes: [
+      {
+        id: 37,
+        name: 'A4',
+        unitCost: 0.5,
+      },
+      {
+        id: 38,
+        name: 'A3',
+        unitCost: 1.5,
+      },
+      {
+        id: 39,
+        name: 'A2',
+        unitCost: 2.5,
+      },
+      {
+        id: 40,
+        name: 'A1',
+        unitCost: 3.5,
+      },
+    ],
+  },
 ];
 
 export default paperTypes;

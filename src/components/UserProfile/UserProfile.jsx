@@ -1,10 +1,15 @@
 import React from 'react';
 import './UserProfile.scss';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Divider from '../divider/divider';
 import { ReactComponent as DownArrow } from '../../svg/down-arrow.svg';
+import { selectAccountType } from '../../redux/slices/app';
 
-const UserProfile = () => (
+const UserProfile = () => {
+  const accountType = useSelector(selectAccountType);
+
+  return (
 	<div className="user-profile">
 		<div className="target flex-inline">
 			<span>Eben_KB</span>
@@ -23,7 +28,7 @@ const UserProfile = () => (
 			<Divider type="faint" />
 			<div className="dropdown-item__wrapper">
 				<div className="dropdown-item">
-					<Link to="/settings" className="link">
+					<Link to={`/${accountType}/settings`} className="link">
 						My Profile
 					</Link>
 				</div>
@@ -57,6 +62,7 @@ const UserProfile = () => (
 			</div>
 		</div>
 	</div>
-);
+  );
+};
 
 export default UserProfile;
