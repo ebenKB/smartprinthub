@@ -7,7 +7,7 @@ import Layout from '../layout/layout';
 
 const LayoutRoute = ({ component: Component, ...rest }) => {
   useEffect(() => {
-    console.log('These are the rest of the props', Component, rest);
+    console.log('Rendering...');
   }, []);
   return (
 	<Route
