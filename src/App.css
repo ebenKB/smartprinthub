@@ -110,6 +110,10 @@ svg.app-primary {
   height: auto;
 }
 
+.medium.fluid.logo {
+  width: 50%;
+}
+
 .dark.icon {
   fill: var(--dark);
 }
