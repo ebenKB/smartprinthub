@@ -7,7 +7,7 @@ const defaultRoutes = [
   {
     path: '/signin',
     exact: true,
-    main: <SignIn />,
+    main: () => <SignIn />,
   },
 ];
 

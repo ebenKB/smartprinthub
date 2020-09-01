@@ -51,7 +51,7 @@ function App() {
 							path={route.path}
 							exact={route.exact}
 						>
-							<Suspense fallback={null}>
+							<Suspense fallback={<h3>Loading</h3>}>
 								<route.main />
 							</Suspense>
 						</Route>
