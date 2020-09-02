@@ -1,5 +1,5 @@
 import React from 'react';
-import CompanySettingsTab from '../pages/company/CompanySettingsTab/CompanySettingsTab';
+import CompanySettingsTab from '../pages/company/CompanySettingsTabpane/CompanySettingsTabpane';
 
 const routes = [
   {

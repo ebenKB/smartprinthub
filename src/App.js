@@ -9,7 +9,8 @@ import {
 } from 'react-router-dom';
 import './App.css';
 
-import ProtectedRoutes from './routes/protected-routes';
+import GeneralProtectedRouted from './routes/general-protected-routes';
+import ProtectedUserRoutes from './routes/customer-protected-routes';
 import DefaultRoutes from './routes/default-routes';
 import ProtectedCompanyRoutes from './routes/company-protected-routes';
 import LayoutRoute from './components/LayoutRoute/LayoutRoute';
@@ -30,23 +31,35 @@ function App() {
 						</Suspense>
 					</Route>
 				))}
+				{GeneralProtectedRouted.map((route, index) => (
+					<LayoutRoute
+						key={index}
+						component={route.main}
+						path={route.path}
+						exact
+						owner="general"
+					/>
+				))}
 				{ProtectedCompanyRoutes.map((route, index) => (
 					<LayoutRoute
 						key={index}
 						component={route.main}
 						path={route.path}
 						exact
+						owner="company"
 					/>
 				))}
-				{ProtectedRoutes.map((route, index) => (
+				{ProtectedUserRoutes.map((route, index) => (
 					<LayoutRoute
 						key={index}
 						component={route.main}
 						path={route.path}
 						exact
+						owner="user"
 					/>
 				))}
 				<Redirect from="/user/settings" to="/user/settings/profile" />
+				<Redirect from="/company/settings" to="/company/settings/profile" />
 				<Route path="*">
 					<Redirect to="/" />
 				</Route>

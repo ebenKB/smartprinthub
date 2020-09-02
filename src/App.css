@@ -31,7 +31,8 @@ body {
 }
 
 .container.center {
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .app-primary {

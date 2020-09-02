@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import StyledTabs from '../../../components/MaterialTab/MaterialTab';
 import TabPanel from '../../../components/TabPanel/TablPanel';
 import { selectAccountType } from '../../../redux/slices/app';
+import CompanyPayoutSettingsTab from '../PayoutSettingsTab/CompanyPayoutSettingsTab';
 
 const CompanySettingsTab = () => {
   const { page } = useParams();
@@ -23,10 +24,16 @@ const CompanySettingsTab = () => {
 
   const indexToTabName = {
     profile: 0,
+    business: 1,
+    job: 2,
+    payout: 3,
   };
 
   const tabNameToIndex = {
     0: 'profile',
+    1: 'business',
+    2: 'job',
+    3: 'payout',
   };
 
   const [selectedTabValue, setSelectedTabValue] = useState(indexToTabName[page]);
@@ -71,14 +78,22 @@ const CompanySettingsTab = () => {
 				className={customizedClasses.customized}
 			>
 				<Tab label="Profile" {...a11yProps(0)} />
-				<Tab label="Job Settings" {...a11yProps(1)} />
+				<Tab label="Business" {...a11yProps(1)} />
+				<Tab label="Job Settings" {...a11yProps(2)} />
+				<Tab label="Payout Accounts" {...a11yProps(3)} />
 			</StyledTabs>
 		</AppBar>
 		<TabPanel value={selectedTabValue} index={0}>
 			<h1>Hello</h1>
 		</TabPanel>
 		<TabPanel value={selectedTabValue} index={1}>
+			<h1>Company/business settings here</h1>
+		</TabPanel>
+		<TabPanel value={selectedTabValue} index={2}>
 			<h1>here</h1>
+		</TabPanel>
+		<TabPanel value={selectedTabValue} index={3}>
+			<CompanyPayoutSettingsTab />
 		</TabPanel>
 	</div>
   );

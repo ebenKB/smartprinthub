@@ -9,7 +9,7 @@ import Tab from '@material-ui/core/Tab';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UserSettings from '../../UserSettings/UserSettings';
-import CompanySettings from '../../company/CompanySettings';
+import CompanySettings from '../../company/BusinessSettingsTab/BusinessSettingsTab';
 import JobSettings from '../CustomerJobSettings/JobSettings';
 import PaymentSettings from '../../PaymentSettings/PaymentSettings';
 import { selectAccountType } from '../../../redux/slices/app';
