@@ -1,16 +1,15 @@
 import React from 'react';
-import RoundContentWrapper from '../../../components/round-content-wrapper/round-content-wrapper';
+import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
 
 const JobSettings = () => (
-	<div className="shadow-border medium center opaque container m-b-40 p-all-40">
-		<RoundContentWrapper
-			heading="Company Details"
-		>
-			<div className="m-t-20">
-				<p>Job settings are here</p>
-			</div>
-		</RoundContentWrapper>
-	</div>
+	<RoundContentWrapper
+		heading="Job Settings"
+		classes="medium center container"
+	>
+		<div className="m-t-20">
+			<p>Job settings are here</p>
+		</div>
+	</RoundContentWrapper>
 );
 
 export default JobSettings;

@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-// import jobReducer from '../reducers/job';
 
 export const jobSlice = createSlice({
   name: 'job',

@@ -1,0 +1,44 @@
+/* eslint-disable react/forbid-prop-types */
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import Divider from '../divider/divider';
+import './RoundContentWrapper.scss';
+
+const RoundContentWrapper = ({
+  children, heading, classes, isRounded, hasShadow,
+}) => {
+  const getClasses = () => {
+    let allClassess = `content-wrapper p-all-40 ${classes}`;
+    if (isRounded) {
+      allClassess = `${allClassess} rounded`;
+    }
+    if (hasShadow) {
+      allClassess = `${allClassess} shadow-border`;
+    }
+    return allClassess;
+  };
+
+  return (
+	<div className={getClasses()}>
+		<h3>{heading}</h3>
+		<Divider type="faint" />
+		{children}
+	</div>
+  );
+};
+
+RoundContentWrapper.propTypes = {
+  children: PropTypes.object.isRequired,
+  heading: PropTypes.string.isRequired,
+  classes: PropTypes.string,
+  isRounded: PropTypes.bool,
+  hasShadow: PropTypes.bool,
+};
+
+RoundContentWrapper.defaultProps = {
+  classes: '',
+  isRounded: false,
+  hasShadow: true,
+};
+
+export default RoundContentWrapper;

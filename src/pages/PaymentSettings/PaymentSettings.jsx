@@ -1,16 +1,15 @@
 import React from 'react';
-import RoundContentWrapper from '../../components/round-content-wrapper/round-content-wrapper';
+import RoundContentWrapper from '../../components/RoundContentWrapper/RoundContentWrapper';
 
 const PaymentSettings = () => (
-	<div className="shadow-border medium center opaque container m-b-40 p-all-40">
-		<RoundContentWrapper
-			heading="Payment Details"
-		>
-			<div className="m-t-20">
-				<p>Payment settings are here</p>
-			</div>
-		</RoundContentWrapper>
-	</div>
+	<RoundContentWrapper
+		heading="Payment Details"
+		classes="medium center container"
+	>
+		<div className="m-t-20">
+			<p>Payment settings are here</p>
+		</div>
+	</RoundContentWrapper>
 );
 
 export default PaymentSettings;

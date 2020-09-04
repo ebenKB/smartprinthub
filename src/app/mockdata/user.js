@@ -12,6 +12,14 @@ const user = {
   account: {
     discount: 0.0,
   },
+  role: {
+    name: 'admin',
+    description: 'This roles grants the user the ability to manage everything in the account.',
+  },
+  permission: [
+    'job-view', 'job-accept', 'job-reject', 'job-update-cost', 'user-invite', 'user-block', 'user-unblock',
+    'user-remove',
+  ],
 };
 
 export default user;

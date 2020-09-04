@@ -8,7 +8,10 @@ import { useSelector } from 'react-redux';
 import StyledTabs from '../../../components/MaterialTab/MaterialTab';
 import TabPanel from '../../../components/TabPanel/TablPanel';
 import { selectAccountType } from '../../../redux/slices/app';
-import CompanyPayoutSettingsTab from '../PayoutSettingsTab/CompanyPayoutSettingsTab';
+import BusinessSettingsTab from '../BusinessSettingsTab/BusinessSettingsTab';
+import CompanyPayoutSettingsTab from '../PayoutSettingsTab/PayoutSettingsTab';
+import UserProfileTab from '../UserProfileTab/UserProfileTab';
+import JobSettingsTab from '../JobSettingsTab/JobSettingsTab';
 
 const CompanySettingsTab = () => {
   const { page } = useParams();
@@ -55,7 +58,6 @@ const CompanySettingsTab = () => {
     },
   }));
 
-
   const customizedClasses = CustomStyles();
   const classes = useStyles();
 
@@ -84,13 +86,13 @@ const CompanySettingsTab = () => {
 			</StyledTabs>
 		</AppBar>
 		<TabPanel value={selectedTabValue} index={0}>
-			<h1>Hello</h1>
+			<UserProfileTab />
 		</TabPanel>
 		<TabPanel value={selectedTabValue} index={1}>
-			<h1>Company/business settings here</h1>
+			<BusinessSettingsTab />
 		</TabPanel>
 		<TabPanel value={selectedTabValue} index={2}>
-			<h1>here</h1>
+			<JobSettingsTab />
 		</TabPanel>
 		<TabPanel value={selectedTabValue} index={3}>
 			<CompanyPayoutSettingsTab />

@@ -1,0 +1,34 @@
+.business-tab__wrapper {
+  display: grid;
+  grid-template-columns: calc(60% - 40px) 40%;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  column-gap: 40px;
+
+  .opaque {
+    background: var(--white);
+  }
+}
+
+.fluid-form {
+  display: grid;
+  grid-template-columns: 180px auto;
+}
+
+ .input-caption{
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  display: block;
+  color: var(--dark-light);
+ }
+ 
+ .input-caption.pad {
+  margin-top: -10px;
+ }
+
+ @media only screen and (min-width: 1680px) {
+   .business-tab__wrapper {
+     grid-template-columns: calc(65% - 40px) 35%;
+   }
+ }

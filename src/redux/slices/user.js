@@ -9,6 +9,7 @@ export const appSlice = createSlice({
     phone: '+233548086391',
     firstname: 'Samuel',
     lastname: 'Anderson',
+    language: 'english',
   },
 });
 

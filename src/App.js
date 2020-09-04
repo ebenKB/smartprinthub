@@ -58,8 +58,8 @@ function App() {
 						owner="user"
 					/>
 				))}
-				<Redirect from="/user/settings" to="/user/settings/profile" />
-				<Redirect from="/company/settings" to="/company/settings/profile" />
+				<Redirect from="/user/settings" strict exact to="/user/settings/profile" />
+				<Redirect from="/company/settings" strict exact to="/company/settings/profile" />
 				<Route path="*">
 					<Redirect to="/" />
 				</Route>

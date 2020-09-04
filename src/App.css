@@ -63,6 +63,10 @@ svg.app-primary {
   font-size: 0.9rem;
 }
 
+.xsm-caption {
+  font-size: 0.8rem;
+}
+
 .small.icon {
   width: 16px !important;
   height: auto !important;

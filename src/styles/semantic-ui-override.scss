@@ -1,5 +1,5 @@
 .ui.input>input{
-  border-radius: 2px;
+  border-radius: 0px;
 }
 
 .ui.button {
@@ -32,4 +32,9 @@
 
 .ui.form .field>label{
   color: var(--dark);
+}
+
+.ui.table thead th{
+  color: var(--dark);
+  padding: 1.25em .8em
 }
