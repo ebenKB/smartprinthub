@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Accordion, Menu } from 'semantic-ui-react';
+// import { Accordion, Menu } from 'semantic-ui-react';
 import './navigation.scss';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Flag } from '../../svg/flag.svg';
 import { ReactComponent as List } from '../../svg/list.svg';
 import { ReactComponent as Box } from '../../svg/box.svg';
-import Can from '../Can/Can';
+import { ReactComponent as PlusIcon } from '../../svg/plus.svg';
+// import Can from '../Can/Can';
 
 const Navigation = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -17,7 +18,40 @@ const Navigation = () => {
   };
   return (
 	<div className="nav-wrapper">
-		<Accordion as={Menu} vertical>
+		<div className="link-item">
+			<Link to="/" className="flex center">
+				<Flag className="nav-icon" />
+				<span className="nav-caption">Welcome</span>
+			</Link>
+		</div>
+		<div className="nav-label">JOBS</div>
+		<div className="link-item">
+			<Link to="/job/create" className="flex center link">
+				<PlusIcon className="nav-icon" />
+				<span className="nav-caption">Create new</span>
+			</Link>
+		</div>
+		<div className="link-item">
+			<Link to="/jobs" className="flex center link">
+				<List className="nav-icon" />
+				<span className="nav-caption">View all</span>
+			</Link>
+		</div>
+		<div className="nav-label">COMPANY</div>
+		<div className="link-item">
+			<Link to="/jobs" className="flex center link">
+				<Box className="nav-icon" />
+				<span className="nav-caption">View all</span>
+			</Link>
+		</div>
+		<div className="link-item">
+			<Link to="/" className="flex center link">
+				<PlusIcon className="nav-icon" />
+				<span className="nav-caption">Add new</span>
+			</Link>
+		</div>
+
+		{/* <Accordion as={Menu} vertical>
 			<div className="ui menu default-bg">
 				<Link to="/" className="item flex center">
 					<Flag className="nav-icon" />
@@ -80,7 +114,7 @@ const Navigation = () => {
 					<Link to="/rfx/new">View all</Link>
 				</Accordion.Content>
 			</Menu.Item>
-		</Accordion>
+		</Accordion> */}
 	</div>
   );
 };

@@ -1,6 +1,23 @@
 .nav-wrapper {
   color: white;
   padding: 20px;
+
+  .nav-label {
+    color: #a3a3a3;
+  }
+
+  .link-item {
+    padding: 4px 0;
+    
+    .link {
+      color: var(--off-white);
+    }
+  }
+
+  .nav-label {
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
 }
 
 // override default accordion style
