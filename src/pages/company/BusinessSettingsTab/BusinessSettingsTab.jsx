@@ -144,6 +144,7 @@ const CompanySettings = () => {
 			<RoundContentWrapper
 				heading="Business Logo"
 				classes="opaque"
+				isRounded
 			>
 				<div className="sm-caption m-t-20">
 					Please make sure that your image fits well on all backgrounds.
