@@ -37,6 +37,12 @@ const Navigation = () => {
 				<span className="nav-caption">View all</span>
 			</Link>
 		</div>
+		<div className="link-item">
+			<Link to="/company/jobs" className="flex center link">
+				<List className="nav-icon" />
+				<span className="nav-caption">Company jobs</span>
+			</Link>
+		</div>
 		<div className="nav-label">COMPANY</div>
 		<div className="link-item">
 			<Link to="/jobs" className="flex center link">

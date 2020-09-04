@@ -14,6 +14,7 @@ import ProtectedUserRoutes from './routes/customer-protected-routes';
 import DefaultRoutes from './routes/default-routes';
 import ProtectedCompanyRoutes from './routes/company-protected-routes';
 import LayoutRoute from './components/LayoutRoute/LayoutRoute';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 
 function App() {
   return (
@@ -61,7 +62,8 @@ function App() {
 				<Redirect from="/user/settings" strict exact to="/user/settings/profile" />
 				<Redirect from="/company/settings" strict exact to="/company/settings/profile" />
 				<Route path="*">
-					<Redirect to="/" />
+					{/* <Redirect to="/" /> */}
+					<PageNotFound />
 				</Route>
 			</Switch>
 		</Router>
