@@ -5,7 +5,7 @@ import Divider from '../divider/divider';
 import './RoundContentWrapper.scss';
 
 const RoundContentWrapper = ({
-  children, heading, classes, isRounded, hasShadow,
+  children, heading, classes, isRounded, hasShadow, hasDivider,
 }) => {
   const getClasses = () => {
     let allClassess = `content-wrapper p-all-40 ${classes}`;
@@ -21,7 +21,7 @@ const RoundContentWrapper = ({
   return (
 	<div className={getClasses()}>
 		<h3>{heading}</h3>
-		<Divider type="faint" />
+		{hasDivider && <Divider type="faint" />}
 		{children}
 	</div>
   );
@@ -33,12 +33,14 @@ RoundContentWrapper.propTypes = {
   classes: PropTypes.string,
   isRounded: PropTypes.bool,
   hasShadow: PropTypes.bool,
+  hasDivider: PropTypes.bool,
 };
 
 RoundContentWrapper.defaultProps = {
   classes: '',
   isRounded: false,
   hasShadow: true,
+  hasDivider: true,
 };
 
 export default RoundContentWrapper;

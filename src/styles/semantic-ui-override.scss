@@ -38,3 +38,10 @@
   color: var(--dark);
   padding: 1.25em .8em
 }
+
+
+::placeholder {
+  color: var(--dark) !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+}

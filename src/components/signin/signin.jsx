@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './signin.scss';
 import Input from './form-fields/input';
 import logo from '../../images/smartprintlogo.png';
+import RoundContentWrapper from '../RoundContentWrapper/RoundContentWrapper';
 
 
 const SignIn = () => {
@@ -24,21 +25,27 @@ const SignIn = () => {
 
   return (
 	<div className="signin-wrapper">
-		<div className="bold sign-wrapper__logo-wrapper text-center m-t-20 m-b-20">
+		<div className="mini container center text-center">
 			<img src={logo} alt="logo" className="medium fluid logo" />
 		</div>
-		<div className="sign-wrapper__content">
-			<div className="form-item">
-				<Input
-					classes="fluid"
-					placeholder="Enter email"
-					type="text"
-					name="email"
-					value={user.email}
-					handleChange={handleChange}
-				/>
-			</div>
+
+		<RoundContentWrapper
+			isRounded
+			hasDivider={false}
+			heading=""
+			classes="mini container center opaque"
+		>
 			<Form>
+				<div className="form-item">
+					<Input
+						classes="fluid"
+						placeholder="Enter email"
+						type="text"
+						name="email"
+						value={user.email}
+						handleChange={handleChange}
+					/>
+				</div>
 				<div className="form-item">
 					<Input
 						classes="fluid"
@@ -53,19 +60,19 @@ const SignIn = () => {
 					<Button
 						color="green"
 						className="fluid"
-						size="small"
+						size="large"
 						content="Login"
 						onClick={handleSubmit}
 					/>
 				</div>
 			</Form>
-		</div>
-		<p className="m-t-20">
-			Dont have an account?
-			<Link to="/">
-          &nbsp;Signup
-			</Link>
-		</p>
+			<div className="sm-caption m-t-10">
+				Dont have an account?&nbsp;
+				<Link to="/signup">
+					Signup
+				</Link>
+			</div>
+		</RoundContentWrapper>
 	</div>
   );
 };
