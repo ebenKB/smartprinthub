@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Label } from 'semantic-ui-react';
-import './list-item.scss';
+import './JobListItem.scss';
 
 
 const ListItem = ({

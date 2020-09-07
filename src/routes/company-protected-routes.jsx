@@ -1,6 +1,7 @@
 import React from 'react';
 import CompanySettingsTab from '../pages/company/CompanySettingsTabpane/CompanySettingsTabpane';
 import EditPayoutAccount from '../pages/company/EditPayoutAccount/EditPayoutAccount';
+import ViewJobs from '../pages/company/ViewsJobs/ViewJobs';
 
 const routes = [
   {
@@ -14,7 +15,7 @@ const routes = [
   },
   {
     path: '/company/jobs',
-    main: () => <div>Show all company jobs here</div>,
+    main: () => <ViewJobs />,
   },
 ];
 

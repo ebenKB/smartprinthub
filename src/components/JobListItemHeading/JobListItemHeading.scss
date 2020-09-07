@@ -1,0 +1,13 @@
+.job-list__heading {
+  display: grid ;
+  column-gap: 10px;
+  width: 100%;
+  background: var(--offwhite);
+  margin-bottom: 20px ;
+  padding: 15px;
+  font-weight: bold;
+
+  &.five {
+    grid-template-columns: calc(50% - 40px) 10% 10% 20% 10%;
+  }
+}
