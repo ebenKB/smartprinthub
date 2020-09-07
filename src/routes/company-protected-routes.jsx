@@ -12,6 +12,10 @@ const routes = [
     path: '/company/settings/payout/edit',
     main: () => <EditPayoutAccount />,
   },
+  {
+    path: '/company/jobs',
+    main: () => <div>Show all company jobs here</div>,
+  },
 ];
 
 export default routes;

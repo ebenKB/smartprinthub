@@ -4,7 +4,7 @@ export const appSlice = createSlice({
   name: 'user',
   initialState: {
     isAuthenticated: true,
-    role: 'regular',
+    role: 'user',
     email: 'example@email.com',
     phone: '+233548086391',
     firstname: 'Samuel',
@@ -14,5 +14,6 @@ export const appSlice = createSlice({
 });
 
 export const selectAuthentication = (state) => state.user.isAuthenticated;
+export const selectUserRole = (state) => state.user.role;
 
 export default appSlice.reducer;

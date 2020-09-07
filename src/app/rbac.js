@@ -4,7 +4,8 @@ const rules = {
       'job:create',
       'job:edit',
       'job:delete',
-      'job:view',
+      'job:view-all',
+      'company:add',
     ],
   },
   company: {

@@ -2,20 +2,24 @@ import React, { useState } from 'react';
 // import { Accordion, Menu } from 'semantic-ui-react';
 import './navigation.scss';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { ReactComponent as Flag } from '../../svg/flag.svg';
 import { ReactComponent as List } from '../../svg/list.svg';
 import { ReactComponent as Box } from '../../svg/box.svg';
 import { ReactComponent as PlusIcon } from '../../svg/plus.svg';
-// import Can from '../Can/Can';
+import Can from '../Can/Can';
+import { selectAccountType } from '../../redux/slices/app';
 
 const Navigation = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const accountType = useSelector(selectAccountType);
 
   const handleClick = (e, titleProps) => {
     const { index } = titleProps;
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex);
   };
+
   return (
 	<div className="nav-wrapper">
 		<div className="link-item">
@@ -25,37 +29,65 @@ const Navigation = () => {
 			</Link>
 		</div>
 		<div className="nav-label">JOBS</div>
-		<div className="link-item">
-			<Link to="/job/create" className="flex center link">
-				<PlusIcon className="nav-icon" />
-				<span className="nav-caption">Create new</span>
-			</Link>
-		</div>
-		<div className="link-item">
-			<Link to="/jobs" className="flex center link">
-				<List className="nav-icon" />
-				<span className="nav-caption">View all</span>
-			</Link>
-		</div>
-		<div className="link-item">
-			<Link to="/company/jobs" className="flex center link">
-				<List className="nav-icon" />
-				<span className="nav-caption">Company jobs</span>
-			</Link>
-		</div>
+		<Can
+			perform="job:create"
+			userRole={accountType}
+			yes={() => (
+				<div className="link-item">
+					<Link to="/job/create" className="flex center link">
+						<PlusIcon className="nav-icon" />
+						<span className="nav-caption">Create new</span>
+					</Link>
+				</div>
+			)}
+			no={() => null}
+		/>
+		<Can
+			perform="job:view"
+			userRole={accountType}
+			yes={() => (
+				<div className="link-item">
+					<Link to="/company/jobs" className="flex center link">
+						<List className="nav-icon" />
+						<span className="nav-caption">View Jobs</span>
+					</Link>
+				</div>
+			)}
+			no={() => null}
+		/>
+		<Can
+			perform="job:view-all"
+			userRole={accountType}
+			yes={() => (
+				<div className="link-item">
+					<Link to="/jobs" className="flex center link">
+						<List className="nav-icon" />
+						<span className="nav-caption">View all</span>
+					</Link>
+				</div>
+			)}
+			no={() => null}
+		/>
 		<div className="nav-label">COMPANY</div>
 		<div className="link-item">
-			<Link to="/jobs" className="flex center link">
+			<Link to="/companies" className="flex center link">
 				<Box className="nav-icon" />
-				<span className="nav-caption">View all</span>
+				<span className="nav-caption">View companies</span>
 			</Link>
 		</div>
-		<div className="link-item">
-			<Link to="/" className="flex center link">
-				<PlusIcon className="nav-icon" />
-				<span className="nav-caption">Add new</span>
-			</Link>
-		</div>
+		<Can
+			perform="company:add"
+			userRole={accountType}
+			yes={() => (
+				<div className="link-item">
+					<Link to="/" className="flex center link">
+						<PlusIcon className="nav-icon" />
+						<span className="nav-caption">Add new</span>
+					</Link>
+				</div>
+			)}
+			no={() => null}
+		/>
 
 		{/* <Accordion as={Menu} vertical>
 			<div className="ui menu default-bg">
