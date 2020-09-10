@@ -5,7 +5,9 @@ import ModalWrapper from '../ModalWrapper/ModalWrapper';
 import RoundContentWrapper from '../RoundContentWrapper/RoundContentWrapper';
 
 const RejectJobModal = ({ handleCloseAction }) => (
-	<ModalWrapper>
+	<ModalWrapper
+		closeAction={handleCloseAction}
+	>
 		<RoundContentWrapper
 			heading="Reject Job"
 			classes="mini container center opaque m-t-100"
@@ -14,7 +16,7 @@ const RejectJobModal = ({ handleCloseAction }) => (
 			<h3>Are you sure you want to reject the job</h3>
 			<p>If you reject the job, it means you do not want to print it.</p>
 			<div className="text-right m-t-20">
-				<Button content="No. Cancel" />
+				<Button content="No. Cancel" onClick={handleCloseAction} />
 				<Button content="Yes. Reject Job" negative onClick={handleCloseAction} />
 			</div>
 		</RoundContentWrapper>

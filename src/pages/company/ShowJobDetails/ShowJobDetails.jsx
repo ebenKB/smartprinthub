@@ -8,16 +8,19 @@ import CircularLabel from '../../../components/CircularLabel/CircularLabel';
 import ReviseJobCostModal from '../../../components/ReviseJobCostModal/ReviseJobCostModal';
 import ReviewJobModal from '../../../components/ReviewJobModal/ReviewJobModal';
 import RejectJobModal from '../../../components/RejectJobModal/RejectJobModal';
+import AcceptJobModal from '../../../components/AcceptJobModal/AcceptJobModal';
 
 const ShowJobDetails = () => {
   const [canReviseJob, setCanReviseJob] = useState(false);
   const [canReviseJobCost, setCanReviseJobCost] = useState(false);
   const [canRejectJob, setCanRejectJob] = useState(false);
+  const [canAcceptJob, setCanAcceptJob] = useState(false);
 
   const closeModal = () => {
     setCanReviseJob(false);
     setCanReviseJobCost(false);
     setCanRejectJob(false);
+    setCanAcceptJob(false);
   };
 
   return (
@@ -84,11 +87,14 @@ const ShowJobDetails = () => {
 						size="tiny"
 						content={(
 							<span>
-								<span><DownloadIcon className="x-small icon m-r-5" /></span>
+								<span>
+									<DownloadIcon className="x-small icon m-r-5" />
+								</span>
 								<span>Download (30kb)</span>
 							</span>
 						)}
 						positive
+						onClick={() => setCanAcceptJob(true)}
 					/>
 				</div>
 			</div>
@@ -101,6 +107,7 @@ const ShowJobDetails = () => {
 			{canReviseJob && <ReviseJobCostModal handleCloseAction={closeModal} />}
 			{canReviseJobCost && <ReviewJobModal handleCloseAction={closeModal} />}
 			{canRejectJob && <RejectJobModal handleCloseAction={closeModal} />}
+			{canAcceptJob && <AcceptJobModal handleCloseAction={closeModal} />}
 			<div className="text-right m-t-40">
 				<Button
 					basic
