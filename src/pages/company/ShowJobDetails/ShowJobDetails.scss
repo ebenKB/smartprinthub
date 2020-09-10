@@ -1,0 +1,14 @@
+.download-options {
+  svg {
+    fill: var(--white);
+  }
+}
+
+.job-details {
+  display: grid;
+  grid-template-columns: 1fr 10fr 5fr;
+  column-gap: 10px;
+  position: relative;
+  padding: 15px;
+  align-items: center;
+}

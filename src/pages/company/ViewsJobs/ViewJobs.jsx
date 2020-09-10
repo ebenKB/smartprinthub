@@ -108,14 +108,15 @@ const ViewJobs = () => {
 					</Menu>
 				</div>
 				{jobs.map((job) => (
+          <Link to={`/company/jobs/${job.id}`}>
 					<JobListItem
 						key={job.id}
 						label={{ text: job.jobType.substring(0, 1), color: job.labelColor }}
 						status={job.status}
-						className="six m-b-20"
+						className="six"
 					>
 						<div>
-							<Link to="/jobs/view/:id">
+							<Link to={`/company/jobs/${job.id}`}>
 								<h3 className="caption">{job.title}</h3>
 							</Link>
 							You created this job and assinged it to
@@ -124,6 +125,7 @@ const ViewJobs = () => {
 						<div>{job.jobType}</div>
 						<div>{job.createdAt}</div>
 					</JobListItem>
+          </Link>
 				))}
 				<div className="m-t-40 m-b-40">
 					<Divider />

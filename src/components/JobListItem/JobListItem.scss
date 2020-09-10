@@ -1,9 +1,8 @@
-.tile {
-  position: relative;
-  padding: 15px;
-  box-sizing: border-box;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+.job-list__wrapper {
+  // padding: 15px;
+  // box-sizing: border-box;
+  // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  // border-radius: 4px;
   display: grid;
   column-gap: 10px;
   align-items: center;
@@ -13,17 +12,17 @@
     margin: 4px 0;
   }
 
-  .ui.label {
-    width: 50px;
-    height: 50px;
+  // .ui.label {
+  //   width: 50px;
+  //   height: 50px;
 
-    .content {
-      position: absolute;
-      top: 44%;
-      left: 32px;
-      font-size: 1.8rem;
-    }
-  }
+  //   .content {
+  //     position: absolute;
+  //     top: 44%;
+  //     left: 32px;
+  //     font-size: 1.8rem;
+  //   }
+  // }
 
   .status_pending {
     color: var(--blue);

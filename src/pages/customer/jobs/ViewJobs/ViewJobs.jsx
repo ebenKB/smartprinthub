@@ -29,7 +29,7 @@ const ViewJobs = () => {
 						key={job.id}
 						label={{ text: job.jobType.substring(0, 1), color: job.labelColor }}
 						status={job.status}
-						className="five m-b-20"
+						className="five"
 					>
 						<div>
 							<Link to="/jobs/view/:id">

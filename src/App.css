@@ -123,6 +123,10 @@ svg.app-primary {
   height: auto;
 }
 
+.big.text {
+  font-size: 2rem;
+}
+
 .medium.fluid.logo {
   width: 50%;
 }
