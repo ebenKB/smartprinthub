@@ -58,7 +58,7 @@ const SignIn = () => {
 			<Form>
 				<div className="form-item">
 					<Input
-						classes="fluid"
+						classes="with-caption fluid"
 						placeholder="Enter email"
 						type="text"
 						name="email"
@@ -68,7 +68,7 @@ const SignIn = () => {
 				</div>
 				<div className="form-item">
 					<Input
-						classes="fluid"
+						classes="with-caption fluid"
 						placeholder="Enter password"
 						type="password"
 						name="password"

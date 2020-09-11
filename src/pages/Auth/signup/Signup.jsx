@@ -29,10 +29,10 @@ const Signup = () => {
 					<Input type="text" placeholder="Enter your surname" fluid />
 				</div> */}
 				<div className="m-t-20">
-					<Input type="email" placeholder="Enter your email" fluid />
+					<Input type="email" placeholder="Enter your email" fluid className="with-caption" />
 				</div>
 				<div className="m-t-20">
-					<Input type="password" placeholder="Choose a password" fluid />
+					<Input type="password" placeholder="Choose a password" fluid className="with-caption" />
 				</div>
 				<div className="m-t-20">
 					<Button content="Create my account" positive fluid size="large" />

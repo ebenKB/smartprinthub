@@ -6,12 +6,12 @@ const routes = [
   {
     path: '/',
     exact: true,
-    main: () => <Welcome />,
+    main: () => <div>Home</div>,
   },
   {
     path: '/welcome',
     exact: true,
-    main: () => <div>hello</div>,
+    main: () => <Welcome />,
   },
 ];
 

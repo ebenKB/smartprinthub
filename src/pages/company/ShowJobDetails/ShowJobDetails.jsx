@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Label } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
 // import { ReactComponent as DownloadIcon } from '../../../svg/download.svg';
@@ -16,12 +17,17 @@ const ShowJobDetails = () => {
   const [canReviseJobCost, setCanReviseJobCost] = useState(false);
   const [canRejectJob, setCanRejectJob] = useState(false);
   const [canAcceptJob, setCanAcceptJob] = useState(false);
+  const history = useHistory();
 
   const closeModal = () => {
     setCanReviseJob(false);
     setCanReviseJobCost(false);
     setCanRejectJob(false);
     setCanAcceptJob(false);
+  };
+
+  const goBack = () => {
+    history.goBack();
   };
 
   return (
@@ -118,7 +124,13 @@ const ShowJobDetails = () => {
 				<Button
 					basic
 					size="small"
-					content="Reurn Job For Review"
+					content="Go Back"
+					onClick={goBack}
+				/>
+				<Button
+					basic
+					size="small"
+					content="Return Job For Review"
 					onClick={() => setCanReviseJob(true)}
 				/>
 				<Button

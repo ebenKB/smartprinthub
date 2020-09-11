@@ -15,7 +15,8 @@ import { ReactComponent as Done } from '../../../svg/done.svg';
 
 import './ViewJobs.scss';
 import SearchAndFilterWrapper from '../../../components/SearchAndFilterWrapper/SearchAndFilterWrapper';
-import SearchInput from '../../../components/form-fields/search-input/search-input';
+// import SearchInput from '../../../components/form-fields/search-input/search-input';
+import SearchInputLite from '../../../components/form-fields/SearchInputLite/SearchInputLite';
 
 const ViewJobs = () => {
   const options = [
@@ -99,13 +100,14 @@ const ViewJobs = () => {
           <Dropdown text="Filter" options={options} simple item />
         </Menu>
       </div>
-      {/* <SearchInput /> */}
+    {/* <SearchInput /> */}
+    <SearchInputLite />
     </SearchAndFilterWrapper>
 		<AppMainContent
 			heading="Jobs"
 		>
 			<div>
-				<JobListItemHeading classes="five">
+				<JobListItemHeading classes="m-t-80 five">
 					<div>DESCRIPTION</div>
 					<div>COST</div>
 					<div>TYPE</div>
