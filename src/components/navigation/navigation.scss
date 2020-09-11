@@ -11,6 +11,11 @@
     
     .link {
       color: var(--off-white);
+
+      &.nav-selected {
+        color: var(--blue);
+        font-weight: bold;
+      }
     }
   }
 
@@ -50,6 +55,7 @@
     fill: var(--white);
     margin-right: 5px;
     width: 15px;
+    height: auto;
   }
 }
 

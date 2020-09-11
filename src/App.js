@@ -39,6 +39,7 @@ function App() {
 						path={route.path}
 						exact
 						owner="general"
+						title={route.title}
 					/>
 				))}
 				{ProtectedCompanyRoutes.map((route, index) => (
@@ -48,6 +49,7 @@ function App() {
 						path={route.path}
 						exact
 						owner="company"
+						title={route.title}
 					/>
 				))}
 				{ProtectedUserRoutes.map((route, index) => (
@@ -57,6 +59,7 @@ function App() {
 						path={route.path}
 						exact
 						owner="user"
+						title={route.title}
 					/>
 				))}
 				<Redirect from="/user/settings" strict exact to="/user/settings/profile" />

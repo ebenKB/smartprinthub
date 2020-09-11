@@ -14,6 +14,8 @@ import { ReactComponent as Timer } from '../../../svg/loop.svg';
 import { ReactComponent as Done } from '../../../svg/done.svg';
 
 import './ViewJobs.scss';
+import SearchAndFilterWrapper from '../../../components/SearchAndFilterWrapper/SearchAndFilterWrapper';
+import SearchInput from '../../../components/form-fields/search-input/search-input';
 
 const ViewJobs = () => {
   const options = [
@@ -91,6 +93,14 @@ const ViewJobs = () => {
 
   return (
 	<div>
+    <SearchAndFilterWrapper>
+      <div className="">
+        <Menu compact size="small" secondary>
+          <Dropdown text="Filter" options={options} simple item />
+        </Menu>
+      </div>
+      {/* <SearchInput /> */}
+    </SearchAndFilterWrapper>
 		<AppMainContent
 			heading="Jobs"
 		>
@@ -102,11 +112,6 @@ const ViewJobs = () => {
 					<div>DATE</div>
 					<div>STATUS</div>
 				</JobListItemHeading>
-				<div className="m-b-20 text-right">
-					<Menu compact size="small">
-						<Dropdown text="Filter" options={options} simple item />
-					</Menu>
-				</div>
 				{jobs.map((job) => (
           <Link to={`/company/jobs/${job.id}`}>
 					<JobListItem

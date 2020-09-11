@@ -27,6 +27,7 @@ const SearchInput = () => {
 				type="search"
 				focus={focus}
 				onChange={handleChange}
+				size="mini"
 			/>
 		</Fragment>
 		{

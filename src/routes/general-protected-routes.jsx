@@ -8,6 +8,11 @@ const routes = [
     exact: true,
     main: () => <Welcome />,
   },
+  {
+    path: '/welcome',
+    exact: true,
+    main: () => <div>hello</div>,
+  },
 ];
 
 export default routes;

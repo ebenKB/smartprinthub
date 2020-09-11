@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Button, Label } from 'semantic-ui-react';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
-import { ReactComponent as DownloadIcon } from '../../../svg/download.svg';
+// import { ReactComponent as DownloadIcon } from '../../../svg/download.svg';
 import './ShowJobDetails.scss';
 import CircularLabel from '../../../components/CircularLabel/CircularLabel';
 import ReviseJobCostModal from '../../../components/ReviseJobCostModal/ReviseJobCostModal';
 import ReviewJobModal from '../../../components/ReviewJobModal/ReviewJobModal';
 import RejectJobModal from '../../../components/RejectJobModal/RejectJobModal';
 import AcceptJobModal from '../../../components/AcceptJobModal/AcceptJobModal';
+import FileItemHandler from '../../../components/FileItemHandler/FileItemHandler';
 
 const ShowJobDetails = () => {
   const [canReviseJob, setCanReviseJob] = useState(false);
@@ -28,10 +29,10 @@ const ShowJobDetails = () => {
 		hasAside
 		aside={<div>We can put some help content here</div>}
 	>
-		<h1>Birthday Cards and Flyers</h1>
 		<RoundContentWrapper
 			heading="Job Details"
 			isRounded
+			classes="opaque container center"
 		>
 			<div className="m-t-20 job-details">
 				<div className="flex center">
@@ -39,7 +40,7 @@ const ShowJobDetails = () => {
 				</div>
 				<div>
 					<d className="bold big text">Banner</d>
-					<div>Sent 60 minutes ago</div>
+					<div className="">Sent 60 minutes ago</div>
 				</div>
 				<div className="flex center">
 					<span className="bold big text">GHC 98.89</span>
@@ -50,7 +51,7 @@ const ShowJobDetails = () => {
 			</div>
 		</RoundContentWrapper>
 		<RoundContentWrapper
-			classes="m-t-40"
+			classes="m-t-40 opaque container center"
 			heading="Job owner"
 			isRounded
 		>
@@ -60,31 +61,31 @@ const ShowJobDetails = () => {
 					<div>example@email.com</div>
 					<div>+233548086391</div>
 				</p>
-				<div className="m-t-20 text-right">
+				{/* <div className="m-t-20 text-right">
 					<Button
 						basic
-						size="tiny"
+						size="small"
 						content="View Details"
 						className="app-transparent"
 					/>
-				</div>
+				</div> */}
 			</div>
 		</RoundContentWrapper>
 		<RoundContentWrapper
 			heading="Download options"
 			isRounded
-			classes="m-t-40 download-options"
+			classes="m-t-40 download-options opaque container center"
 		>
 			<div className="m-t-20">
 				<p>If you download this job, it will be added to your list of jobs.</p>
-				<div className="text-right">
+				{/* <div className="text-right">
 					<Button
 						basic
-						size="tiny"
+						size="small"
 						content="Preview"
 					/>
 					<Button
-						size="tiny"
+						size="small"
 						content={(
 							<span>
 								<span>
@@ -96,13 +97,18 @@ const ShowJobDetails = () => {
 						positive
 						onClick={() => setCanAcceptJob(true)}
 					/>
+				</div> */}
+				<div className="text-rights">
+					<FileItemHandler
+						handleDownloadAction={() => setCanAcceptJob(true)}
+					/>
 				</div>
 			</div>
 		</RoundContentWrapper>
 		<RoundContentWrapper
 			heading="Actions"
 			isRounded
-			classes="m-t-40 m-b-40"
+			classes="m-t-40 m-b-40 opaque container center"
 		>
 			{canReviseJob && <ReviseJobCostModal handleCloseAction={closeModal} />}
 			{canReviseJobCost && <ReviewJobModal handleCloseAction={closeModal} />}
@@ -111,18 +117,18 @@ const ShowJobDetails = () => {
 			<div className="text-right m-t-40">
 				<Button
 					basic
-					size="tiny"
+					size="small"
 					content="Reurn Job For Review"
 					onClick={() => setCanReviseJob(true)}
 				/>
 				<Button
 					basic
-					size="tiny"
+					size="small"
 					content="Revise cost"
 					onClick={() => setCanReviseJobCost(true)}
 				/>
 				<Button
-					size="tiny"
+					size="small"
 					content="Reject Job"
 					negative
 					onClick={() => setCanRejectJob(true)}

@@ -10,10 +10,14 @@ export const appSlice = createSlice({
     firstname: 'Samuel',
     lastname: 'Anderson',
     language: 'english',
+    settings: {
+      canShowIntro: false,
+    },
   },
 });
 
 export const selectAuthentication = (state) => state.user.isAuthenticated;
 export const selectUserRole = (state) => state.user.role;
+export const selectUserSettings = (state) => state.user.settings;
 
 export default appSlice.reducer;

@@ -45,11 +45,13 @@ const routes = [
     path: '/job/checkout',
     exact: true,
     main: () => <Checkout />,
+    title: 'Checkout',
   },
   {
     path: '/job/checkout/confirm',
     exact: true,
     main: () => <ConfirmCheckout />,
+    title: 'Confirm Checkout',
   },
 ];
 

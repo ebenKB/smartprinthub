@@ -1,6 +1,6 @@
 .header {
   background:rgb(243, 243, 243);
-  padding: 6px 0;
+  padding: 10px 0;
   position: fixed;
   width: 100%;
   margin: auto;
@@ -17,6 +17,11 @@
   align-items: center;
 }
 
+.app-container__shrink {
+  .header .content {
+    grid-template-columns: 85% 15%;
+  }
+}
 .header-offset {
   position: relative;
   height: 60px;

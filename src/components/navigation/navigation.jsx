@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 // import { Accordion, Menu } from 'semantic-ui-react';
 import './navigation.scss';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ReactComponent as Flag } from '../../svg/flag.svg';
 import { ReactComponent as List } from '../../svg/list.svg';
 import { ReactComponent as Box } from '../../svg/box.svg';
 import { ReactComponent as PlusIcon } from '../../svg/plus.svg';
+import { ReactComponent as TransIcon } from '../../svg/transaction.svg';
+import { ReactComponent as HomeIcon } from '../../svg/home.svg';
 import Can from '../Can/Can';
 import { selectAccountType } from '../../redux/slices/app';
 
@@ -23,10 +25,23 @@ const Navigation = () => {
   return (
 	<div className="nav-wrapper">
 		<div className="link-item">
-			<Link to="/" className="flex center">
+			<NavLink to="/" exact activeClassName="nav-selected" className="flex center link">
+				<HomeIcon className="nav-icon" />
+				<span className="nav-caption">Home</span>
+			</NavLink>
+		</div>
+		<div className="link-item">
+			<NavLink to="/welcome" exact activeClassName="nav-selected" className="flex center link">
 				<Flag className="nav-icon" />
 				<span className="nav-caption">Welcome</span>
-			</Link>
+			</NavLink>
+		</div>
+		<div className="nav-label">PAYMENTS</div>
+		<div className="link-item">
+			<NavLink to="/company/transactions" className="flex center link">
+				<TransIcon className="nav-icon" />
+				<span className="nav-caption">Transactions</span>
+			</NavLink>
 		</div>
 		<div className="nav-label">JOBS</div>
 		<Can
@@ -34,10 +49,10 @@ const Navigation = () => {
 			userRole={accountType}
 			yes={() => (
 				<div className="link-item">
-					<Link to="/job/create" className="flex center link">
+					<NavLink to="/job/create" activeClassName="nav-selected" className="flex center link">
 						<PlusIcon className="nav-icon" />
 						<span className="nav-caption">Create new</span>
-					</Link>
+					</NavLink>
 				</div>
 			)}
 			no={() => null}
@@ -47,10 +62,10 @@ const Navigation = () => {
 			userRole={accountType}
 			yes={() => (
 				<div className="link-item">
-					<Link to="/company/jobs" className="flex center link">
+					<NavLink to="/company/jobs" activeClassName="nav-selected" className="flex center link">
 						<List className="nav-icon" />
 						<span className="nav-caption">View Jobs</span>
-					</Link>
+					</NavLink>
 				</div>
 			)}
 			no={() => null}
@@ -60,30 +75,30 @@ const Navigation = () => {
 			userRole={accountType}
 			yes={() => (
 				<div className="link-item">
-					<Link to="/jobs" className="flex center link">
+					<NavLink to="/jobs" exact activeClassName="nav-selected" className="flex center link">
 						<List className="nav-icon" />
 						<span className="nav-caption">View all</span>
-					</Link>
+					</NavLink>
 				</div>
 			)}
 			no={() => null}
 		/>
 		<div className="nav-label">COMPANY</div>
 		<div className="link-item">
-			<Link to="/companies" className="flex center link">
+			<NavLink to="/companies" exact activeClassName="nav-selected" className="flex center link">
 				<Box className="nav-icon" />
 				<span className="nav-caption">View companies</span>
-			</Link>
+			</NavLink>
 		</div>
 		<Can
 			perform="company:add"
 			userRole={accountType}
 			yes={() => (
 				<div className="link-item">
-					<Link to="/" className="flex center link">
+					<NavLink to="/" exact activeClassName="nav-selected" className="flex center link">
 						<PlusIcon className="nav-icon" />
 						<span className="nav-caption">Add new</span>
-					</Link>
+					</NavLink>
 				</div>
 			)}
 			no={() => null}

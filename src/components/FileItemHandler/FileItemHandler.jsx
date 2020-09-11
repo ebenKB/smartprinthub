@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import './FileItemHandler.scss';
 import { Button } from 'semantic-ui-react';
 
+import { PropTypes } from 'prop-types';
 import ImagePreview from '../ImagePreview/ImagePreview';
 
-const FileItemHandler = () => {
+const FileItemHandler = ({ handleDownloadAction }) => {
   const [canPreview, setCanPreview] = useState(false);
 
   const closePreview = () => {
@@ -12,7 +13,7 @@ const FileItemHandler = () => {
   };
 
   return (
-	<div className="shadow-border file-item__wrapper">
+	<div className="shadow-border file-item__wrapper flex- center">
 		<div className="file-item__icon">
 			<span className="icon-text bold">JPG</span>
 		</div>
@@ -28,7 +29,11 @@ const FileItemHandler = () => {
 			<div className="file-item__options">
 				<div className="file-item__options-body bold">
 					<span>
-						<Button content="Download" className="transparent" />
+						<Button
+							content="Download"
+							className="transparent"
+							onClick={handleDownloadAction}
+						/>
 					</span>
 					<span className="m-r-5 m-l-5">|</span>
 					<span>
@@ -48,6 +53,10 @@ const FileItemHandler = () => {
 		)}
 	</div>
   );
+};
+
+FileItemHandler.propTypes = {
+  handleDownloadAction: PropTypes.func.isRequired,
 };
 
 export default FileItemHandler;

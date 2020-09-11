@@ -4,6 +4,7 @@ export const appSlice = createSlice({
   name: 'app',
   initialState: {
     accountType: 'company',
+    pageTitle: 'Redux Dashboard',
   },
 });
 
