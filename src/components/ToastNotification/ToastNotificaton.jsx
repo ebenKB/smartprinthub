@@ -6,10 +6,11 @@ import { PropTypes } from 'prop-types';
 
 const ToastNotificaton = ({ message = 'ddd', type = 'info' }) => {
   const toastOptions = {
-    autoClose: 20000,
+    autoClose: 5000,
     type: toast.TYPE.SUCCESS,
     position: toast.POSITION.TOP_RIGHT,
   };
+
   const getToast = () => {
     switch (type) {
       case 'success': {

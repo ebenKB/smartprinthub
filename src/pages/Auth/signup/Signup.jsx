@@ -9,7 +9,8 @@ import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundCo
 import Logo from '../../../images/smartprintlogo.png';
 
 
-const Signup = () => (
+const Signup = () => {
+  return (
 	<div className="signup-container">
 		<div className="mini container center text-center">
 			<img src={Logo} alt="logo" className="medium fluid logo" />
@@ -47,6 +48,7 @@ const Signup = () => (
 			</Form>
 		</RoundContentWrapper>
 	</div>
-);
+  );
+};
 
 export default Signup;
