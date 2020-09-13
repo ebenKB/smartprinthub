@@ -11,6 +11,8 @@ import ReviewJobModal from '../../../components/ReviewJobModal/ReviewJobModal';
 import RejectJobModal from '../../../components/RejectJobModal/RejectJobModal';
 import AcceptJobModal from '../../../components/AcceptJobModal/AcceptJobModal';
 import FileItemHandler from '../../../components/FileItemHandler/FileItemHandler';
+import Help from '../../../components/Help/Help';
+import Helps from '../../../utils/help/JobActions';
 
 const ShowJobDetails = () => {
   const [canReviseJob, setCanReviseJob] = useState(false);
@@ -33,7 +35,7 @@ const ShowJobDetails = () => {
   return (
 	<AppMainContent
 		hasAside
-		aside={<div>We can put some help content here</div>}
+		aside={<Help helps={Helps} />}
 	>
 		<RoundContentWrapper
 			heading="Job Details"

@@ -1,23 +1,19 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
-import { Divider } from 'semantic-ui-react';
+// import { Divider } from 'semantic-ui-react';
+import { PropTypes } from 'prop-types';
+import HelpItem from '../HelpItem/HelpItem';
+import Divider from '../divider/divider';
 
-const help = () => (
+const Help = ({ helps }) => (
 	<div>
-		<div className="m-b-20">
-			<h5 className="no-pad">Help 1</h5>
-			<Divider type="faint" />
-			<p className="p-t-10">
-				We can put some content here. There is some help for you.
-			</p>
-		</div>
-		<div>
-			<h5 className="no-pad">Help 2</h5>
-			<Divider type="faint" />
-			<p className="p-t-10">
-				We can put some content here. There is some help for you.
-			</p>
-		</div>
+		<Divider type="thick" title="HELP" classes="m-b-10" />
+		{helps.map((help, index) => <HelpItem help={help} key={index} />)}
 	</div>
 );
 
-export default help;
+Help.propTypes = {
+  helps: PropTypes.array.isRequired,
+};
+export default Help;
