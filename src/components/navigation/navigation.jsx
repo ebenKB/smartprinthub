@@ -38,7 +38,7 @@ const Navigation = () => {
 		</div>
 		<div className="nav-label">PAYMENTS</div>
 		<div className="link-item">
-			<NavLink to="/company/transactions" className="flex center link">
+			<NavLink to="/company/transactions" activeClassName="nav-selected" className="flex center link">
 				<TransIcon className="nav-icon" />
 				<span className="nav-caption">Transactions</span>
 			</NavLink>
