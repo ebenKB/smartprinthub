@@ -116,8 +116,8 @@ const ShowJobDetails = () => {
 			isRounded
 			classes="m-t-40 m-b-40 opaque container center"
 		>
-			{canReviseJob && <ReviseJobCostModal handleCloseAction={closeModal} />}
-			{canReviseJobCost && <ReviewJobModal handleCloseAction={closeModal} />}
+			{canReviseJob && <ReviewJobModal handleCloseAction={closeModal} />}
+			{canReviseJobCost && <ReviseJobCostModal handleCloseAction={closeModal} />}
 			{canRejectJob && <RejectJobModal handleCloseAction={closeModal} />}
 			{canAcceptJob && <AcceptJobModal handleCloseAction={closeModal} />}
 			<div className="text-right m-t-40">
