@@ -27,6 +27,7 @@ const cellStyles = makeStyles({
   root: {
     fontFamily: 'Helvetica Neue',
     fontSize: '1.15rem',
+    color: 'var(--dark)',
   },
 });
 
