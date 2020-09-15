@@ -59,7 +59,7 @@ const rows = [
 
 export default function StickyHeadTable() {
   return (
-	<AppMainContent>
+	<AppMainContent parentClasses="app-pad">
 		<TableWrapper
 			rows={rows}
 			columns={columns}

@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import './app-main-content.scss';
-// import AppContentWrapper from '../app-content-wrapper/app-content-wrapper';
 
-const AppMainContent = ({ children, aside, hasAside = false }) => (
+const AppMainContent = ({
+  children, aside, padTop = false, hasAside = false, mainClasses = '', asideClasses = '', parentClasses = '',
+}) => (
 	<div>
-		<div className={`main-content__body app-main-content ${hasAside === true ? 'split' : 'single'}`}>
-			<div>{children}</div>
+		<div className={`main-content__body app-main-content
+      ${parentClasses} 
+      ${padTop === true ? 'padTop' : ''} 
+      ${hasAside === true ? 'split' : 'single'}`}
+  >
+			<div className={`main-body ${mainClasses}`}>{children}</div>
 			<div>
-				<div>{aside}</div>
+				<div className={`aside-content ${asideClasses}`}>{aside}</div>
 			</div>
 		</div>
 	</div>

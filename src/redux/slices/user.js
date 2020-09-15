@@ -28,10 +28,14 @@ export const userSlice = createSlice({
         firstname,
       });
     },
+    logout: (state) => ({
+      ...state,
+      isAuthenticated: false,
+    }),
   },
 });
 
-export const { login } = userSlice.actions;
+export const { login, logout } = userSlice.actions;
 
 export const authenticateUser = (user) => (dispatch) => {
   // authenticate the user from the api here

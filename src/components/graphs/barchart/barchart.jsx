@@ -20,6 +20,7 @@ class BarChart extends Component {
           barThickness: 40,
           maxBarThickness: 60,
           backgroundColor: this.props.color,
+          borderWidth: 2,
         }],
       },
       options: {
@@ -28,6 +29,24 @@ class BarChart extends Component {
             showZero: false,
             render: 'value',
           },
+        },
+        title: {
+          fontSize: '24',
+          text: 'Total Revenue: GHS 300.90',
+          display: true,
+        },
+        scales: {
+          ticks: {
+            beginAtZero: true,
+          },
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+            },
+          }],
+          // scaleLabel: {
+          //   fontColor: '#000000',
+          // },
         },
       },
     });

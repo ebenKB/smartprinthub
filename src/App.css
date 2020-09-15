@@ -19,7 +19,12 @@ body {
   color: white;
 }
 
-.container.opaque {
+.app-pad {
+  padding: 40px;
+}
+
+.container.opaque,
+.background.opaque {
   background: var(--white);
 }
 
@@ -166,6 +171,10 @@ h6.no-pad {
   background: transparent;
   border: none;
   padding: 0;
+}
+
+.app.border.bottom {
+  border-bottom: 1px solid rgba(212, 212, 213, 0.7);
 }
 
 .shadow-border {

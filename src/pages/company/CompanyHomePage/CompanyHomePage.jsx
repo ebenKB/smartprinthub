@@ -1,87 +1,97 @@
 import React from 'react';
 import GraphItem from '../../../components/graph-item/graph-item';
 import Doughnut from '../../../components/graphs/doughnut/doughnut';
-import Divider from '../../../components/divider/divider';
 import './CompanyHomePage.scss';
+import BarChart from '../../../components/graphs/barchart/barchart';
+import AppMainContent from '../../../components/app-main-content/app-main-content';
+import PayoutStatistics from '../PayoutStatistics/PayoutStatistics';
+import CaptionWithBorder from '../../../components/CaptionWithBorder/CaptionWithBorder';
 
 const CompanyHomePage = () => (
-	<div className="m-t-20 very large center container">
-		<h2>Bar graph is here</h2>
-		<p className="m-t-40">
-			Show a statistics of the jobs here
-		</p>
-		<Divider title="Job statistics" type="thick" />
-		<div className="flex job-graph__grid">
-			<div className="m-t-40">
-				<GraphItem
-					title="Total Jobs Pending"
-					subtitle="Jobs pending since 30 days"
-				>
-					<Doughnut
-						className="graph-continer"
-						data={
+	<AppMainContent
+		hasAside
+		aside={<PayoutStatistics />}
+		padTop={false}
+		mainClasses="background opaque"
+	>
+		<div className="very large opaque background m-b-40">
+			<CaptionWithBorder
+				classes="p-l-40"
+				caption="Last 30 Days"
+			/>
+			<div className="app-pad">
+				<div className="payment-chart__wrapper">
+					<BarChart
+						data={[{ value: 45, label: 'Mon.' }, { value: 20, label: 'Tue' }, { value: 30, label: 'Wed' }, { value: 50, label: 'Thurs' }, { value: 60, label: 'Fri' }, { value: 60, label: 'Sat' }]}
+						title="Revenue"
+						color="rgba(34, 139, 34, 0.2)"
+					/>
+				</div>
+				<div className="flex job-graph__grid m-t-40">
+					<GraphItem
+						title="Total Jobs Pending"
+						subtitle="Jobs received in the last 30 days"
+					>
+						<Doughnut
+							className="graph-continer"
+							data={
             [
-              { label: 'Jobs Pending', value: 24 },
+              { label: 'Jobs Pending', value: 54 },
             ]
           }
-						title="Some chart data here"
-						colors={['#0666d0', '#70ccd1']}
-					/>
-				</GraphItem>
-			</div>
-			<div className="m-t-40">
-				<GraphItem
-					title="Jobs Printed"
-					subtitle="Jobs printed in the last 30 days"
-				>
-					<Doughnut
-						className="graph-continer"
-						data={
+							title="Some chart data here"
+							colors={['rgba(6, 102, 208, 0.25)', '#70ccd1']}
+						/>
+					</GraphItem>
+					<GraphItem
+						title="Jobs Printed"
+						subtitle="Jobs printed in the last 30 days"
+					>
+						<Doughnut
+							className="graph-continer"
+							data={
             [
               { label: 'Jobs Printed', value: 24 },
             ]
           }
-						title="Some chart data here"
-						colors={['#03b447', '#70ccd1']}
-					/>
-				</GraphItem>
-			</div>
-			<div className="m-t-40">
-				<GraphItem
-					title="Total Jobs Rejected"
-					subtitle="Jobs Rejected in the last 30 days"
-				>
-					<Doughnut
-						className="graph-continer"
-						data={
+							title="Some chart data here"
+							colors={['rgba(3, 180, 71, 0.25)', '#70ccd1']}
+						/>
+					</GraphItem>
+					<GraphItem
+						title="Total Jobs Rejected"
+						subtitle="Jobs Rejected in the last 30 days"
+					>
+						<Doughnut
+							className="graph-continer"
+							data={
             [
               { label: 'Jobs Rejected', value: 4 },
             ]
           }
-						title="Some chart data here"
-						colors={['#de7163', '#70ccd1']}
-					/>
-				</GraphItem>
-			</div>
-			<div className="m-t-40">
-				<GraphItem
-					title="Total Jobs Received"
-					subtitle="Jobs received in the last 30 days"
-				>
-					<Doughnut
-						className="graph-continer"
-						data={
+							title="Some chart data here"
+							colors={['rgba(222, 113, 99, 85)', '#70ccd1']}
+						/>
+					</GraphItem>
+					<GraphItem
+						title="Total Jobs Received"
+						subtitle="Jobs received in the last 30 days"
+					>
+						<Doughnut
+							className="graph-continer"
+							data={
             [
               { label: 'Jobs Received', value: 54 },
             ]
           }
-						title="Some chart data here"
-						colors={['grey', '#70ccd1']}
-					/>
-				</GraphItem>
+							title="Some chart data here"
+							colors={['grey', '#70ccd1']}
+						/>
+					</GraphItem>
+				</div>
 			</div>
 		</div>
-	</div>
+	</AppMainContent>
 );
 
 export default CompanyHomePage;

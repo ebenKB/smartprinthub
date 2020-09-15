@@ -1,13 +1,20 @@
 import React from 'react';
 import './UserProfile.scss';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button } from 'semantic-ui-react';
 import Divider from '../divider/divider';
 import { ReactComponent as DownArrow } from '../../svg/down-arrow.svg';
 import { selectAccountType } from '../../redux/slices/app';
+import { logout } from '../../redux/slices/user';
 
 const UserProfile = () => {
   const accountType = useSelector(selectAccountType);
+  const disptach = useDispatch();
+
+  const handleLogout = () => {
+    disptach(logout());
+  };
 
   return (
 	<div className="user-profile">
@@ -56,9 +63,7 @@ const UserProfile = () => {
 				</div>
 			</div>
 			<div className="dropdown-item">
-				<Link to="/" className="link">
-					Logout
-				</Link>
+				<Button className="transparent" content="Logout" onClick={handleLogout} />
 			</div>
 		</div>
 	</div>

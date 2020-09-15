@@ -12,10 +12,8 @@ import { ReactComponent as DownArrow } from '../../../svg/down-arrow-alt.svg';
 import { ReactComponent as Close } from '../../../svg/close-alt-2.svg';
 import { ReactComponent as Timer } from '../../../svg/loop.svg';
 import { ReactComponent as Done } from '../../../svg/done.svg';
-
 import './ViewJobs.scss';
 import SearchAndFilterWrapper from '../../../components/SearchAndFilterWrapper/SearchAndFilterWrapper';
-// import SearchInput from '../../../components/form-fields/search-input/search-input';
 import SearchInputLite from '../../../components/form-fields/SearchInputLite/SearchInputLite';
 
 const ViewJobs = () => {
@@ -100,14 +98,15 @@ const ViewJobs = () => {
           <Dropdown text="Filter" options={options} simple item />
         </Menu>
       </div>
-    {/* <SearchInput /> */}
     <SearchInputLite />
     </SearchAndFilterWrapper>
 		<AppMainContent
 			heading="Jobs"
+			parentClasses="app-pad"
+			padTop
 		>
 			<div>
-				<JobListItemHeading classes="m-t-80 five">
+				<JobListItemHeading classes="m-t-10 five">
 					<div>DESCRIPTION</div>
 					<div>COST</div>
 					<div>TYPE</div>
