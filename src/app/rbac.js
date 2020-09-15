@@ -16,6 +16,7 @@ const rules = {
       'job:update_cost',
       'profile:view',
       'profile:update',
+      'company_home:view',
     ],
     dynamic: {
       'account:sweep': ({ accountType, userRole }) => {

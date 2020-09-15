@@ -35,7 +35,7 @@ function createData(status, jobs, name, code, population, size) {
 }
 
 const rows = [
-  createData('Completed', 10, 'Cecelia Frimpong Ansah', 78.99, 'MTN Mobile Money', 'Monday September 12, 2020'),
+  createData(<span>Pending</span>, 10, 'Cecelia Frimpong Ansah', 78.99, 'MTN Mobile Money', 'Monday September 12, 2020'),
   createData('Pending', 10, 'Danniella Ansah', 90.45, 'Tigo Cash', 'Monday September 12, 2020'),
   createData('Completed', 10, 'Elizabeth Aggrey', 45.80, 'MTN Mobile Money', 'Monday September 12, 2020'),
   createData('Completed', 10, 'Felecia Ampomaa', 78.99, 'MTN Mobile Money', 'Tuesday September 15, 2020'),

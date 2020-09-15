@@ -1,0 +1,18 @@
+.graph-item  {
+  border: 1px solid #DFDFDF;
+  padding: 10px;
+  // height: 300px;
+  // width: 400px;
+  height: 100%;
+  margin-left: 4px;
+
+  .caption-icon {
+    visibility: hidden;
+  }
+}
+
+.graph-item:hover {
+  .caption-icon {
+    visibility: visible;
+  }
+}
