@@ -17,10 +17,10 @@ class BarChart extends Component {
         datasets: [{
           label: this.props.title,
           data: this.props.data.map((d) => d.value),
-          barThickness: 40,
+          // barThickness: 25,
           maxBarThickness: 60,
           backgroundColor: this.props.color,
-          borderWidth: 2,
+          borderWidth: 1.5,
         }],
       },
       options: {
@@ -44,9 +44,12 @@ class BarChart extends Component {
               beginAtZero: true,
             },
           }],
-          // scaleLabel: {
-          //   fontColor: '#000000',
-          // },
+          xAxes: [{
+            offset: true,
+            gridLines: {
+              offsetGridLines: true,
+            },
+          }],
         },
       },
     });

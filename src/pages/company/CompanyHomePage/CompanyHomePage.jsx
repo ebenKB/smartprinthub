@@ -1,4 +1,5 @@
 import React from 'react';
+import { format } from 'date-fns';
 import GraphItem from '../../../components/graph-item/graph-item';
 import Doughnut from '../../../components/graphs/doughnut/doughnut';
 import './CompanyHomePage.scss';
@@ -6,6 +7,7 @@ import BarChart from '../../../components/graphs/barchart/barchart';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import PayoutStatistics from '../PayoutStatistics/PayoutStatistics';
 import CaptionWithBorder from '../../../components/CaptionWithBorder/CaptionWithBorder';
+import SampleTransactions from '../../../app/mockdata/transactions';
 
 const CompanyHomePage = () => (
 	<AppMainContent
@@ -22,7 +24,7 @@ const CompanyHomePage = () => (
 			<div className="app-pad">
 				<div className="payment-chart__wrapper">
 					<BarChart
-						data={[{ value: 45, label: 'Mon.' }, { value: 20, label: 'Tue' }, { value: 30, label: 'Wed' }, { value: 50, label: 'Thurs' }, { value: 60, label: 'Fri' }, { value: 60, label: 'Sat' }]}
+						data={SampleTransactions.map((t) => ({ value: t.value, label: format(new Date(t.date), 'E do MMM') }))}
 						title="Revenue"
 						color="rgba(34, 139, 34, 0.2)"
 					/>
