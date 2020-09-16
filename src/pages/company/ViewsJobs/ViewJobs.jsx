@@ -93,6 +93,10 @@ const ViewJobs = () => {
     },
   ];
 
+  const markJobAsComplete = (job) => {
+    console.log('We want to mark the job as cmplete', job);
+  };
+
   return (
 	<div>
     <SearchAndFilterWrapper>
@@ -138,6 +142,7 @@ const ViewJobs = () => {
               <Checkbox
                 label="Mark as complete"
                 checked={job.status.toLowerCase() === 'completed'}
+                onClick={() => markJobAsComplete(job)}
               />
             </div>
 					</JobListItem>
