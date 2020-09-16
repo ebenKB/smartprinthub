@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-indent */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Dropdown, Menu } from 'semantic-ui-react';
+import {
+  Button, Dropdown, Menu, Checkbox,
+} from 'semantic-ui-react';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import JobListItem from '../../../components/JobListItem/JobListItem';
 import jobs from '../../../app/mockdata/jobs';
@@ -15,6 +17,7 @@ import { ReactComponent as Done } from '../../../svg/done.svg';
 import './ViewJobs.scss';
 import SearchAndFilterWrapper from '../../../components/SearchAndFilterWrapper/SearchAndFilterWrapper';
 import SearchInputLite from '../../../components/form-fields/SearchInputLite/SearchInputLite';
+
 
 const ViewJobs = () => {
   const options = [
@@ -106,32 +109,38 @@ const ViewJobs = () => {
 			padTop
 		>
 			<div>
-				<JobListItemHeading classes="m-t-10 five">
+				<JobListItemHeading classes="m-t-10 six">
 					<div>DESCRIPTION</div>
 					<div>COST</div>
 					<div>TYPE</div>
 					<div>DATE</div>
 					<div>STATUS</div>
+          <div>ACTION</div>
 				</JobListItemHeading>
 				{jobs.map((job) => (
-          <Link to={`/company/jobs/${job.id}`}>
 					<JobListItem
 						key={job.id}
 						label={{ text: job.jobType.substring(0, 1), color: job.labelColor }}
 						status={job.status}
-						className="six"
+						className="seven"
 					>
 						<div>
-							<Link to={`/company/jobs/${job.id}`}>
+							<Link to={`/company/jobs/${job.id}`} className="custom-link__dark">
 								<h3 className="caption">{job.title}</h3>
+                <p>You created this job and assinged it to</p>
 							</Link>
-							You created this job and assinged it to
 						</div>
 						<span className="app-primary">{job.cost}</span>
 						<div>{job.jobType}</div>
 						<div>{job.createdAt}</div>
+            <div className={`status_${job.status.toLowerCase()}`}>{job.status}</div>
+            <div>
+              <Checkbox
+                label="Mark as complete"
+                checked={job.status.toLowerCase() === 'completed'}
+              />
+            </div>
 					</JobListItem>
-          </Link>
 				))}
 				<div className="m-t-40 m-b-40">
 					<Divider />

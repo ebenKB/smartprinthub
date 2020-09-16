@@ -36,40 +36,43 @@ const ShowJobDetails = () => {
 	<AppMainContent
 		hasAside
 		aside={<Help helps={Helps} />}
+		padTop
+		asideClasses="p-l-30 p-r-30"
 	>
-		<RoundContentWrapper
-			heading="Job Details"
-			isRounded
-			classes="opaque container center"
-		>
-			<div className="m-t-20 job-details">
-				<div className="flex center">
-					<CircularLabel label={{ color: 'green', text: 'B' }} />
+		<div className="p-l-30 p-r-30">
+			<RoundContentWrapper
+				heading="Job Details"
+				isRounded
+				classes="opaque container center"
+			>
+				<div className="m-t-20 job-details">
+					<div className="flex center">
+						<CircularLabel label={{ color: 'green', text: 'B' }} />
+					</div>
+					<div>
+						<d className="bold big text">Banner</d>
+						<div className="">Sent 60 minutes ago</div>
+					</div>
+					<div className="flex center">
+						<span className="bold big text">GHC 98.89</span>
+						<Label size="">
+							FULL PAYMENT
+						</Label>
+					</div>
 				</div>
-				<div>
-					<d className="bold big text">Banner</d>
-					<div className="">Sent 60 minutes ago</div>
-				</div>
-				<div className="flex center">
-					<span className="bold big text">GHC 98.89</span>
-					<Label size="">
-						FULL PAYMENT
-					</Label>
-				</div>
-			</div>
-		</RoundContentWrapper>
-		<RoundContentWrapper
-			classes="m-t-40 opaque container center"
-			heading="Job owner"
-			isRounded
-		>
-			<div className="m-t-20">
-				<p>
-					<div>Samuel Peter Forson</div>
-					<div>example@email.com</div>
-					<div>+233548086391</div>
-				</p>
-				{/* <div className="m-t-20 text-right">
+			</RoundContentWrapper>
+			<RoundContentWrapper
+				classes="m-t-40 opaque container center"
+				heading="Job owner"
+				isRounded
+			>
+				<div className="m-t-20">
+					<p>
+						<div>Samuel Peter Forson</div>
+						<div>example@email.com</div>
+						<div>+233548086391</div>
+					</p>
+					{/* <div className="m-t-20 text-right">
 					<Button
 						basic
 						size="small"
@@ -77,16 +80,16 @@ const ShowJobDetails = () => {
 						className="app-transparent"
 					/>
 				</div> */}
-			</div>
-		</RoundContentWrapper>
-		<RoundContentWrapper
-			heading="Download options"
-			isRounded
-			classes="m-t-40 download-options opaque container center"
-		>
-			<div className="m-t-20">
-				<p>If you download this job, it will be added to your list of jobs.</p>
-				{/* <div className="text-right">
+				</div>
+			</RoundContentWrapper>
+			<RoundContentWrapper
+				heading="Download options"
+				isRounded
+				classes="m-t-40 download-options opaque container center"
+			>
+				<div className="m-t-20">
+					<p>If you download this job, it will be added to your list of jobs.</p>
+					{/* <div className="text-right">
 					<Button
 						basic
 						size="small"
@@ -106,49 +109,50 @@ const ShowJobDetails = () => {
 						onClick={() => setCanAcceptJob(true)}
 					/>
 				</div> */}
-				<div className="text-rights">
-					<FileItemHandler
-						handleDownloadAction={() => setCanAcceptJob(true)}
+					<div className="text-rights">
+						<FileItemHandler
+							handleDownloadAction={() => setCanAcceptJob(true)}
+						/>
+					</div>
+				</div>
+			</RoundContentWrapper>
+			<RoundContentWrapper
+				heading="Actions"
+				isRounded
+				classes="m-t-40 m-b-40 opaque container center"
+			>
+				{canReviseJob && <ReviewJobModal handleCloseAction={closeModal} />}
+				{canReviseJobCost && <ReviseJobCostModal handleCloseAction={closeModal} />}
+				{canRejectJob && <RejectJobModal handleCloseAction={closeModal} />}
+				{canAcceptJob && <AcceptJobModal handleCloseAction={closeModal} />}
+				<div className="text-right m-t-40">
+					<Button
+						basic
+						size="small"
+						content="Go Back"
+						onClick={goBack}
+					/>
+					<Button
+						basic
+						size="small"
+						content="Return Job For Review"
+						onClick={() => setCanReviseJob(true)}
+					/>
+					<Button
+						basic
+						size="small"
+						content="Revise cost"
+						onClick={() => setCanReviseJobCost(true)}
+					/>
+					<Button
+						size="small"
+						content="Reject Job"
+						negative
+						onClick={() => setCanRejectJob(true)}
 					/>
 				</div>
-			</div>
-		</RoundContentWrapper>
-		<RoundContentWrapper
-			heading="Actions"
-			isRounded
-			classes="m-t-40 m-b-40 opaque container center"
-		>
-			{canReviseJob && <ReviewJobModal handleCloseAction={closeModal} />}
-			{canReviseJobCost && <ReviseJobCostModal handleCloseAction={closeModal} />}
-			{canRejectJob && <RejectJobModal handleCloseAction={closeModal} />}
-			{canAcceptJob && <AcceptJobModal handleCloseAction={closeModal} />}
-			<div className="text-right m-t-40">
-				<Button
-					basic
-					size="small"
-					content="Go Back"
-					onClick={goBack}
-				/>
-				<Button
-					basic
-					size="small"
-					content="Return Job For Review"
-					onClick={() => setCanReviseJob(true)}
-				/>
-				<Button
-					basic
-					size="small"
-					content="Revise cost"
-					onClick={() => setCanReviseJobCost(true)}
-				/>
-				<Button
-					size="small"
-					content="Reject Job"
-					negative
-					onClick={() => setCanRejectJob(true)}
-				/>
-			</div>
-		</RoundContentWrapper>
+			</RoundContentWrapper>
+		</div>
 	</AppMainContent>
   );
 };

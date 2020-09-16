@@ -12,7 +12,7 @@ const AppMainContent = ({
       ${hasAside === true ? 'split' : 'single'}`}
   >
 			<div className={`main-body ${mainClasses}`}>{children}</div>
-			<div>
+			<div className="aside-wrapper">
 				<div className={`aside-content ${asideClasses}`}>{aside}</div>
 			</div>
 		</div>

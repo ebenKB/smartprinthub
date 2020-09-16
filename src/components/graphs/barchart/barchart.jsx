@@ -32,7 +32,7 @@ class BarChart extends Component {
         },
         title: {
           fontSize: '24',
-          text: 'Total Revenue: GHS 300.90',
+          text: 'Revenue: GHS 300.90',
           display: true,
         },
         scales: {

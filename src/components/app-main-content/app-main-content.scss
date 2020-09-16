@@ -14,9 +14,13 @@
   grid-column-gap: 20px;
 }
 
+.aside-wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .aside-content {
   position: fixed;
-  width: 100%;
 }
 
 // .main-body,
