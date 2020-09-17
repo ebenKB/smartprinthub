@@ -3,8 +3,6 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
 import 'chartjs-plugin-doughnutlabel';
-// import 'chartjs-plugin-labels';
-
 
 class Doughnut extends Component {
   constructor(props) {
@@ -41,9 +39,10 @@ class Doughnut extends Component {
               {
                 text: total,
                 font: {
-                  size: '16',
+                  size: '30',
+                  weight: '900',
                 },
-                color: '#1a1a1a',
+                color: 'var(--dark)',
               },
             ],
           },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import Divider from '../../../../components/divider/divider';
+import Divider from '../../../../components/Divider/Divider';
 import AppMainContent from '../../../../components/app-main-content/app-main-content';
 import AppWrapperLite from '../../../../components/app-wrapper-lite/app-wrapper-lite';
 import './show-job.scss';
@@ -11,6 +11,7 @@ const ShowJob = () => (
 	<div className="large container">
 		<AppMainContent
 			heading="Job details"
+			parentClasses="app-pad"
 		>
 			<div className="heading-caption m-b-20">
 				<h1 className="app-primary">Birthday Cards and Posters</h1>

@@ -5,7 +5,9 @@ import { ReactComponent as CheckIcon } from '../../../svg/check.svg';
 import './ConfirmCheckout.scss';
 
 const ConfirmCheckout = () => (
-	<AppMainContent>
+	<AppMainContent
+		parentClasses="app-pad"
+	>
 		<div className="text-center checkout__wrapper">
 			<CheckIcon className="big icon" />
 			<div className="caption-item">

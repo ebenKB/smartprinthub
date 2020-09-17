@@ -4,10 +4,10 @@ import React from 'react';
 // import { Divider } from 'semantic-ui-react';
 import { PropTypes } from 'prop-types';
 import HelpItem from '../HelpItem/HelpItem';
-import Divider from '../divider/divider';
+import Divider from '../Divider/Divider';
 
-const Help = ({ helps }) => (
-	<div>
+const Help = ({ helps, classes }) => (
+	<div className={classes}>
 		<Divider type="thick" title="HELP" classes="m-b-10" />
 		{helps.map((help, index) => <HelpItem help={help} key={index} />)}
 	</div>
@@ -15,5 +15,6 @@ const Help = ({ helps }) => (
 
 Help.propTypes = {
   helps: PropTypes.array.isRequired,
+  classes: PropTypes.string.isRequired,
 };
 export default Help;

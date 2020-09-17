@@ -1,4 +1,5 @@
 import React, { lazy } from 'react';
+import Transactions from '../pages/customer/Transactions/Transactions';
 // import Test from '../pages/customer/create-job/create-job';
 
 const CreateJob = lazy(() => import('../pages/customer/CreateJob/CreateJob'));
@@ -20,21 +21,25 @@ const routes = [
     path: '/job/create',
     exact: true,
     main: () => <CreateJob />,
+    title: 'Create Job',
   },
   {
     path: '/jobs',
     exact: true,
     main: () => <ViewJobs />,
+    title: 'Jobs',
   },
   {
     path: '/jobs/view/:id',
     exact: true,
     main: () => <ShowJob />,
+    title: 'Job Details',
   },
   {
     path: '/user/settings/:page',
     exact: true,
     main: () => <Settings />,
+    title: 'Settings',
   },
   {
     path: '/user/settings/old',
@@ -52,6 +57,12 @@ const routes = [
     exact: true,
     main: () => <ConfirmCheckout />,
     title: 'Confirm Checkout',
+  },
+  {
+    path: '/user/transactions',
+    exact: true,
+    main: () => <Transactions />,
+    title: 'Transaction',
   },
 ];
 

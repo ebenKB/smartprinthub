@@ -7,6 +7,9 @@
   padding: 15px;
   font-weight: bold;
 
+  &.four {
+    grid-template-columns: calc(60% - 40px) 10% 20% 20%;
+  }
   &.five {
     grid-template-columns: calc(50% - 40px) 10% 10% 20% 10%;
   }

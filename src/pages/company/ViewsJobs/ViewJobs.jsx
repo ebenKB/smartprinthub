@@ -7,7 +7,7 @@ import {
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import JobListItem from '../../../components/JobListItem/JobListItem';
 import jobs from '../../../app/mockdata/jobs';
-import Divider from '../../../components/divider/divider';
+import Divider from '../../../components/Divider/Divider';
 import JobListItemHeading from '../../../components/JobListItemHeading/JobListItemHeading';
 import { ReactComponent as UpArrow } from '../../../svg/up-arrow.svg';
 import { ReactComponent as DownArrow } from '../../../svg/down-arrow-alt.svg';

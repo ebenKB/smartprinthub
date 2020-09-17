@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 // import { Accordion, Menu } from 'semantic-ui-react';
-import './navigation.scss';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ReactComponent as Flag } from '../../svg/flag.svg';
@@ -11,8 +10,9 @@ import { ReactComponent as TransIcon } from '../../svg/transaction.svg';
 import { ReactComponent as HomeIcon } from '../../svg/home.svg';
 import Can from '../Can/Can';
 import { selectAccountType } from '../../redux/slices/user';
+import './Navigation.scss';
 
-const Navigation = () => {
+const NavigationLinks = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const accountType = useSelector(selectAccountType);
 
@@ -38,7 +38,7 @@ const Navigation = () => {
 		</div>
 		<div className="nav-label">PAYMENTS</div>
 		<div className="link-item">
-			<NavLink to="/company/transactions" activeClassName="nav-selected" className="flex center link">
+			<NavLink to={`/${accountType}/transactions`} activeClassName="nav-selected" className="flex center link">
 				<TransIcon className="nav-icon" />
 				<span className="nav-caption">Transactions</span>
 			</NavLink>
@@ -172,4 +172,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default NavigationLinks;

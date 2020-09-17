@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
 import './BusinessSettingsTab.scss';
-import Divider from '../../../components/divider/divider';
+import Divider from '../../../components/Divider/Divider';
 import Logo from '../../../images/smartprintlogo.png';
 import FileInput from '../../../components/form-fields/FileInput/FileInput';
 // import { ReactComponent as YellowStar } from '../../../svg/yellow-star.svg';

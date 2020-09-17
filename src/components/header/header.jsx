@@ -18,7 +18,9 @@ const Header = ({ hasShrunk, handleToggleAction }) => (
 				{/* <SearchInput /> */}
 				<AppHeaderContext.Consumer>
 					{(value) => (
-						<span className="bold">{value}</span>
+						<span className="bold">
+							{value}
+						</span>
 					)}
 				</AppHeaderContext.Consumer>
 			</div>

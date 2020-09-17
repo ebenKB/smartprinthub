@@ -5,7 +5,7 @@ import logo from '../../images/smartprintlogo.png';
 import Header from '../header/header';
 import HeaderOffset from '../header/header-offset';
 import './layout.scss';
-import Navigation from '../navigation/navigation';
+import Navigation from '../Navigation/Navigation';
 // import NavToggle from '../nav-toggle/nav-toggle';
 
 const Layout = ({ children }) => {

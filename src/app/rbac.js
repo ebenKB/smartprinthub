@@ -1,5 +1,5 @@
 const rules = {
-  customer: {
+  user: {
     static: [
       'job:create',
       'job:edit',

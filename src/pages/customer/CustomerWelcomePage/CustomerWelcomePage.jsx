@@ -6,6 +6,7 @@ import AppContentWrapper from '../../../components/app-content-wrapper/app-conte
 const Welcome = () => (
 	<AppMainContent
 		hasAside
+		parentClasses="app-pad"
 	>
 		<AppContentWrapper
 			heading="Getting Started"

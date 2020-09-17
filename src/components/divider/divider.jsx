@@ -3,7 +3,7 @@ import React from 'react';
 import { Label } from 'semantic-ui-react';
 import './divider.scss';
 
-const divider = ({
+const Divider = ({
   title, type, classes = '', isNumbered = false, number = '',
 }) => {
   const getForm = () => {
@@ -30,4 +30,4 @@ const divider = ({
 };
 
 
-export default divider;
+export default Divider;

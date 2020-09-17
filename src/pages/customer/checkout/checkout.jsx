@@ -1,13 +1,13 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable react/prop-types */
-import React from './node_modules/react';
+import React from 'react';
 import './checkout.scss';
 import {
   Button, Form, Radio,
-} from './node_modules/semantic-ui-react';
-import { Link, withRouter } from './node_modules/react-router-dom';
-import { ValidatorForm } from './node_modules/react-form-validator-core';
-import { connect } from './node_modules/react-redux';
+} from 'semantic-ui-react';
+import { Link, withRouter } from 'react-router-dom';
+import { ValidatorForm } from 'react-form-validator-core';
+import { connect } from 'react-redux';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
 import FormGroup from '../../../components/form-group/form-group';
@@ -161,7 +161,9 @@ class Checkout extends React.Component {
       },
     ];
     return (
-	<AppMainContent>
+	<AppMainContent
+		parentClasses="app-pad"
+	>
 		{canPreviewJob && (
 			<PreviewJobs closeAction={this.toggleJobPreview} />
 		)}

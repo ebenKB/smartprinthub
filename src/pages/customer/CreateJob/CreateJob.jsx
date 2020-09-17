@@ -8,13 +8,14 @@ import { connect } from 'react-redux';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import FormGroup from '../../../components/form-group/form-group';
 import DimensionInputGroup from '../../../components/dimension-input-group/input-group';
-import Divider from '../../../components/divider/divider';
+import Divider from '../../../components/Divider/Divider';
 import AddItem from '../../../components/add-item/add-item';
 import CompanyDirectory from '../../../components/floating-company-directory/floating-company-directory';
 import getDimensionInFeet from '../../../utils/dimension';
 import amountToText from '../../../utils/app';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
 import Help from '../../../components/Help/Help';
+import HelpContent from '../../../utils/help/JobActions';
 import { addJobAsDraft, saveCurrentJobProgress, selectCurrentJob } from '../../../redux/slices/job';
 import samplePaperTypes from '../../../app/mockdata/papertype';
 // import samplePaperSizes from '../../../app/mockdata/paperSizes';
@@ -343,7 +344,8 @@ class CreateJob extends Component {
 		{canCreateJob && (
 			<AppMainContent
 				hasAside
-				aside={<Help />}
+				aside={<Help helps={HelpContent} classes="p-l-15 p-r-15" />}
+				parentClasses="app-pad opaque background"
 			>
 				<AppContentWrapper
 					heading="New Job"
@@ -352,7 +354,7 @@ class CreateJob extends Component {
 						ref={ref}
 						onSubmit={() => {}}
 					>
-						<div className="">
+						<div className="p-l-10 p-l-10">
 							<Divider type="thick" title="Company" />
 							<div className="m-t-20">
 								<ShowCompanyDetails company={company} />

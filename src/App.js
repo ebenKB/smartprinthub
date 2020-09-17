@@ -15,6 +15,7 @@ import DefaultRoutes from './routes/default-routes';
 import ProtectedCompanyRoutes from './routes/company-protected-routes';
 import LayoutRoute from './components/LayoutRoute/LayoutRoute';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
+import AppLoader from './components/AppLoader/AppLoader';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
 						path={route.path}
 						exact={route.exact}
 					>
-						<Suspense fallback={<h3>Loading</h3>}>
+						<Suspense fallback={<AppLoader />}>
 							<route.main />
 						</Suspense>
 					</Route>

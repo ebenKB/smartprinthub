@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import Layout from '../layout/layout';
 import { selectAuthentication, selectAccountType } from '../../redux/slices/user';
 import AppHeaderContext from '../../context/AppHeaderContext';
+import AppLoader from '../AppLoader/AppLoader';
 
 const LayoutRoute = ({
   component: Component, owner, title, ...rest
@@ -20,7 +21,7 @@ const LayoutRoute = ({
 		{...rest}
 		render={(matchProps) => (
 		  (((owner === accountType) || (owner === 'general')) && isAuth) ? (
-			<Suspense fallback={<Layout>loading</Layout>}>
+			<Suspense fallback={<Layout><AppLoader /></Layout>}>
 				<AppHeaderContext.Provider value={title}>
 					<Layout>
 						<Component {...matchProps} />

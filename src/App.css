@@ -5,7 +5,7 @@
 body {
   color: var(--faint);
   /* font-family: 'Lato', sans-serif; */
-  font-family: 'Helvetica Neue',
+  font-family: 'Helvetica Neue' !important;
 }
 
 .App-header {

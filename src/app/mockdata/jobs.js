@@ -1,6 +1,13 @@
+/**
+ * Many jobs can be created together in the same order.
+ * An order has many jobs.
+ * An order has a transaction id.
+ * The Transaction ID shows the transaction that was used to complete the order.
+ */
 const jobs = [
   {
     id: 1,
+    orderID: 2,
     title: 'Title of the job',
     status: 'Pending',
     createdAt: 'Monday, 22nd April 2020',
@@ -10,6 +17,7 @@ const jobs = [
   },
   {
     id: 2,
+    orderID: 2,
     title: 'Wedding Banner',
     status: 'Completed',
     createdAt: 'Tuesday, 22nd April 2020',
@@ -19,6 +27,7 @@ const jobs = [
   },
   {
     id: 3,
+    orderID: 2,
     title: 'Birthday Cards',
     status: 'Rejected',
     createdAt: 'Friday, 2nd April 2020',
@@ -28,6 +37,7 @@ const jobs = [
   },
   {
     id: 4,
+    orderID: 2,
     title: 'Saloon Banners',
     status: 'Queried',
     createdAt: 'Monday, 9th May 2020',
@@ -37,6 +47,7 @@ const jobs = [
   },
   {
     id: 5,
+    orderID: 2,
     title: 'For Sale Sticker',
     status: 'Pending',
     createdAt: 'Wednesday, 7th May 2020',
@@ -46,6 +57,7 @@ const jobs = [
   },
   {
     id: 6,
+    orderID: 2,
     title: 'Wedding Banner',
     status: 'Completed',
     createdAt: 'Thursday, 3rd May 2020',
@@ -55,6 +67,7 @@ const jobs = [
   },
   {
     id: 7,
+    orderID: 2,
     title: 'Phone Adevertisement',
     status: 'Completed',
     createdAt: 'Thursday, 1st May 2020',
@@ -64,6 +77,7 @@ const jobs = [
   },
   {
     id: 8,
+    orderID: 2,
     title: 'Saloon Banners',
     status: 'Queried',
     createdAt: 'Monday, 9th May 2020',
@@ -73,6 +87,7 @@ const jobs = [
   },
   {
     id: 9,
+    orderID: 2,
     title: 'Birthday Cards',
     status: 'Rejected',
     createdAt: 'Friday, 2nd April 2020',
@@ -87,7 +102,7 @@ const jobs = [
     createdAt: 'Tuesday, 22nd April 2020',
     jobType: 'Sticker',
     labelColor: 'purple',
-    cost: 2500,
+    cost: 125,
   },
 ];
 
