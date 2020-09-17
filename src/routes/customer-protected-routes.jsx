@@ -62,7 +62,7 @@ const routes = [
     path: '/user/transactions',
     exact: true,
     main: () => <Transactions />,
-    title: 'Transaction',
+    title: 'Transactions',
   },
 ];
 
