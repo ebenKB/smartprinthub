@@ -6,8 +6,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { useSelector } from 'react-redux';
 import Layout from '../layout/layout';
-import { selectAccountType } from '../../redux/slices/app';
-import { selectAuthentication } from '../../redux/slices/user';
+import { selectAuthentication, selectAccountType } from '../../redux/slices/user';
 import AppHeaderContext from '../../context/AppHeaderContext';
 
 const LayoutRoute = ({

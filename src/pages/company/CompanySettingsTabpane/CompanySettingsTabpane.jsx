@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import StyledTabs from '../../../components/MaterialTab/MaterialTab';
 import TabPanel from '../../../components/TabPanel/TablPanel';
-import { selectAccountType } from '../../../redux/slices/app';
+import { selectAccountType } from '../../../redux/slices/user';
 import BusinessSettingsTab from '../BusinessSettingsTab/BusinessSettingsTab';
 import CompanyPayoutSettingsTab from '../PayoutSettingsTab/PayoutSettingsTab';
 import UserProfileTab from '../UserProfileTab/UserProfileTab';

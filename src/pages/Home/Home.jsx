@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectAccountType } from '../../redux/slices/app';
+import { selectAccountType } from '../../redux/slices/user';
 import CompanyHomePage from '../company/CompanyHomePage/CompanyHomePage';
 import CustomerHomePage from '../customer/CustomerHomePage/CustomerHomePage';
 

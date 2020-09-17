@@ -4,6 +4,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     isAuthenticated: false,
+    accountType: 'user', // user or company
     role: 'user',
     email: 'example@email.com',
     phone: '+233548086391',
@@ -45,6 +46,7 @@ export const authenticateUser = (user) => (dispatch) => {
 export const selectAuthentication = (state) => state.user.isAuthenticated;
 export const selectUserRole = (state) => state.user.role;
 export const selectUserSettings = (state) => state.user.settings;
+export const selectAccountType = (state) => state.user.accountType;
 
 
 export default userSlice.reducer;

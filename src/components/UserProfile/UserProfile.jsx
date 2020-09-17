@@ -5,8 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'semantic-ui-react';
 import Divider from '../divider/divider';
 import { ReactComponent as DownArrow } from '../../svg/down-arrow.svg';
-import { selectAccountType } from '../../redux/slices/app';
-import { logout } from '../../redux/slices/user';
+import { logout, selectAccountType } from '../../redux/slices/user';
 
 const UserProfile = () => {
   const accountType = useSelector(selectAccountType);

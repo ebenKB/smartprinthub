@@ -12,7 +12,7 @@ import UserSettings from '../../UserSettings/UserSettings';
 import CompanySettings from '../../company/BusinessSettingsTab/BusinessSettingsTab';
 import JobSettings from '../CustomerJobSettings/JobSettings';
 import PaymentSettings from '../../PaymentSettings/PaymentSettings';
-import { selectAccountType } from '../../../redux/slices/app';
+import { selectAccountType } from '../../../redux/slices/user';
 import TabPanel from '../../../components/TabPanel/TablPanel';
 import StyledTabs from '../../../components/MaterialTab/MaterialTab';
 
