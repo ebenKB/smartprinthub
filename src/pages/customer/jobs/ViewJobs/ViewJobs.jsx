@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Divider, Button, Dropdown, Menu,
+  Divider, Button, Dropdown,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import AppMainContent from '../../../../components/app-main-content/app-main-content';
@@ -9,7 +9,8 @@ import jobs from '../../../../app/mockdata/jobs';
 import JobListHeading from '../../../../components/JobListItemHeading/JobListItemHeading';
 import './ViewJobs.scss';
 import SearchAndFilterWrapper from '../../../../components/SearchAndFilterWrapper/SearchAndFilterWrapper';
-import SearchInputLite from '../../../../components/form-fields/SearchInputLite/SearchInputLite';
+// import SearchInputLite from '../../../../components/form-fields/SearchInputLite/SearchInputLite';
+import CustomFilter from '../../../../components/CustomFilter/CustomFilter';
 
 const ViewJobs = () => {
   const viewMoreJobs = () => {
@@ -19,12 +20,11 @@ const ViewJobs = () => {
   return (
 	<div>
 		<SearchAndFilterWrapper>
-			<div className="">
-				<Menu compact size="small" secondary>
-					<Dropdown text="Filter" options={null} simple item />
-				</Menu>
-			</div>
-			<SearchInputLite />
+			<CustomFilter text="Filter">
+				<Dropdown.Item text="Job Title" />
+				<Dropdown.Item text="Date Created" />
+				<Dropdown.Item text="Status" />
+			</CustomFilter>
 		</SearchAndFilterWrapper>
 		<AppMainContent
 			heading="Jobs"
@@ -49,7 +49,7 @@ const ViewJobs = () => {
 							<Link to="/jobs/view/:id">
 								<h3 className="caption">{job.title}</h3>
 							</Link>
-							You created this job and assinged it to
+							Show the description of the job here.
 						</div>
 						<div>{job.jobType}</div>
 						<div>{job.createdAt}</div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import RoundContentWrapper from '../../components/RoundContentWrapper/RoundContentWrapper';
-
 import './UserSettings.scss';
 import CompanyLabel from '../../components/CompanyLabel/CompanyLabel';
 import EditUserProfile from '../../components/EditUserProfile/EditUserProfile';
@@ -39,6 +39,11 @@ const UserProfile = () => {
 					<CompanyLabel companyName="Shiny Colour World Limited" />
 					<CompanyLabel companyName="Shiny Colour World Limited" />
 					<CompanyLabel companyName="Shiny Colour World Limited" />
+					<div className="text-right">
+						<Link className="m-t-20" to="/companies/new">
+							<Button content="Add new" basic size="tiny" />
+						</Link>
+					</div>
 				</div>
 			</RoundContentWrapper>
 		</section>
@@ -52,7 +57,7 @@ const UserProfile = () => {
 					<div className="text-right">
 						<Button
 							negative
-							size="small"
+							size="tiny"
 							content="Delete account"
 						/>
 					</div>

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Image } from 'semantic-ui-react';
-import logo from '../../images/smartprintlogo.png';
+// import { Image } from 'semantic-ui-react';
+// import logo from '../../images/smartprintlogo.png';
 import Header from '../header/header';
 import HeaderOffset from '../header/header-offset';
 import './layout.scss';
@@ -17,7 +17,10 @@ const Layout = ({ children }) => {
 			<div className="nav-pane">
 				<div className="nav-content">
 					<div className="m-t-20">
-						<Image src={logo} size="small" />
+						{/* <Image src={logo} size="small" /> */}
+						<div className="app-primary p-l-20 bold" style={{ color: 'white' }}>
+							Logo here
+						</div>
 						<Navigation />
 					</div>
 				</div>
