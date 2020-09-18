@@ -2,6 +2,7 @@ import React, { lazy } from 'react';
 import Transactions from '../pages/customer/Transactions/Transactions';
 import AddNewCompany from '../pages/customer/AddNewCompany/AddNewCompany';
 import Companies from '../pages/customer/Companies/Companies';
+import ShowCompanyDetails from '../pages/customer/CustomerCompanyDetails/CustomerCompanyDetails';
 
 const CreateJob = lazy(() => import('../pages/customer/CreateJob/CreateJob'));
 const ViewJobs = lazy(() => import('../pages/customer/jobs/ViewJobs/ViewJobs'));
@@ -65,6 +66,11 @@ const routes = [
     path: '/companies/new',
     main: () => <AddNewCompany />,
     title: 'Add Company',
+  },
+  {
+    path: '/companies/:id',
+    main: () => <ShowCompanyDetails />,
+    title: 'Company',
   },
 ];
 
