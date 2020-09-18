@@ -15,23 +15,32 @@
   color: var(--kt-dark-grey);
 }
 
-.search-input .ui.input.custom {
-  width: 50%;
-  position: relative;
-  color: var(--kotage-white); 
-  padding: 10px 0;
+.search-input {
+  .ui.input.custom {
+    width: 50%;
+    position: relative;
+    color: var(--kotage-white); 
+    padding: 10px 0;
+
+    &.fluid {
+      width: 100%;
+    }
+  }
+
+  .search-dropdown {
+    padding: 0 10px;
+    position: absolute;
+    // width: 70%;
+    width: inherit;
+    color: var(--kt-dark-grey);
+    background: var(--offwhite);
+    border-radius: 4px;
+  }
 }
 
 .search-input .ui.input.custom.focus>input, .search-input .ui.input.custom>input:focus {
   border-color: var(--kt-off-grey);
   box-shadow: none;
-}
-
-.search-dropdown {
-  padding: 0 10px;
-  position: absolute;
-  width: 70%;
-  color: var(--kt-dark-grey);
 }
 
 .custom.search .ui.button {

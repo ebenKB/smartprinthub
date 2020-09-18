@@ -95,7 +95,7 @@ const NavigationLinks = () => {
 			userRole={accountType}
 			yes={() => (
 				<div className="link-item">
-					<NavLink to="/" exact activeClassName="nav-selected" className="flex center link">
+					<NavLink to="/companies/new" exact activeClassName="nav-selected" className="flex center link">
 						<PlusIcon className="nav-icon" />
 						<span className="nav-caption">Add new</span>
 					</NavLink>

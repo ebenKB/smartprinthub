@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-fragments */
 import React, { useState, Fragment } from 'react';
 import Input from '../input/input';
@@ -5,7 +6,7 @@ import { ReactComponent as Icon } from '../../../svg/search.svg';
 
 import './search-input.scss';
 
-const SearchInput = () => {
+const SearchInput = (props) => {
   const [focus] = useState(false);
   const [hasContent, setContent] = useState(false);
 
@@ -22,17 +23,16 @@ const SearchInput = () => {
 		<Fragment>
 			<Icon className="dark small icon" />
 			<Input
-				classes="search tiny"
-				placeholder="Enter item to search"
+				classes="search"
 				type="search"
 				focus={focus}
 				onChange={handleChange}
-				size="mini"
+				{...props}
 			/>
 		</Fragment>
 		{
     hasContent && (
-	<div className="search-dropdown">
+	<div className="search-dropdown text-left">
 		<div className="search-content">
 			<ul>
 				<li>Search option - 1</li>

@@ -1,5 +1,6 @@
 import React, { lazy } from 'react';
 import Transactions from '../pages/customer/Transactions/Transactions';
+import AddNewCompany from '../pages/customer/AddNewCompany/AddNewCompany';
 // import Test from '../pages/customer/create-job/create-job';
 
 const CreateJob = lazy(() => import('../pages/customer/CreateJob/CreateJob'));
@@ -63,6 +64,12 @@ const routes = [
     exact: true,
     main: () => <Transactions />,
     title: 'Transactions',
+  },
+  {
+    path: '/companies/new',
+    exact: true,
+    main: () => <AddNewCompany />,
+    title: 'Add Company',
   },
 ];
 

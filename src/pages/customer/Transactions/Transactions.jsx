@@ -11,7 +11,7 @@ import SearchAndFilterWrapper from '../../../components/SearchAndFilterWrapper/S
 const Transactions = () => (
 	<AppMainContent padTop>
 		<SearchAndFilterWrapper>
-			Filter
+			<span className="bold">Filter</span>
 		</SearchAndFilterWrapper>
 		<AppMainContent
 			parentClasses="app-pad"
@@ -45,6 +45,7 @@ const Transactions = () => (
 					</Tile>
 				))}
 				<div className="m-t-40  text-right">
+					<span className="m-r-5">10 out 50</span>
 					<Button content="Load more" className="transparent app-primary" />
 				</div>
 			</RoundContentWrapper>
