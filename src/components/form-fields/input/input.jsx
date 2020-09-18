@@ -1,48 +1,47 @@
-import React, { Fragment } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React from 'react';
 import { Input } from 'semantic-ui-react';
 
 import './input.scss';
 
-class CustomInput extends React.Component {
-  render() {
-    const {
-      type, value, name, classes='', action = '', ...rest
-    } = this.props;
+const CustomInput = (props) => {
+  const {
+    type, value, name, classes = '', ...rest
+  } = props;
 
-    const getInput = () => {
-      if (type !== '' && type.toLowerCase() === 'search') {
-        return (
+  const getInput = () => {
+    if (type !== '' && type.toLowerCase() === 'search') {
+      return (
 	<Input
-    size="small"
+		size="small"
 		type={type}
 		value={value}
 		name={name}
 		className={`custom ${classes}`}
-		action="Search"
-		{...rest}
-	/>
-        );
-      }
-      return (
-	<Input
-    size="large"
-		type={type}
-		value={value}
-		name={name}
-    className={`custom ${classes}`}
 		{...rest}
 	/>
       );
-    };
-
+    }
     return (
+	<Input
+		size="large"
+		type={type}
+		value={value}
+		name={name}
+		className={`custom ${classes}`}
+		{...rest}
+	/>
+    );
+  };
+
+  return (
 	<>
 		{
-      getInput()
-    }
-	</>
-    );
+    getInput()
   }
-}
+	</>
+  );
+};
 
 export default CustomInput;
