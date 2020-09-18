@@ -1,5 +1,5 @@
 import React from 'react';
-import { Label, Button } from 'semantic-ui-react';
+import { Label, Button, Dropdown } from 'semantic-ui-react';
 import { format } from 'date-fns';
 import CustomerOrders from '../../../app/mockdata/customerTransactions';
 import Tile from '../../../components/Tile/Tile';
@@ -7,14 +7,19 @@ import AppMainContent from '../../../components/app-main-content/app-main-conten
 import './Transactions.scss';
 import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
 import SearchAndFilterWrapper from '../../../components/SearchAndFilterWrapper/SearchAndFilterWrapper';
+import CustomFilter from '../../../components/CustomFilter/CustomFilter';
 
 const Transactions = () => (
 	<AppMainContent padTop>
 		<SearchAndFilterWrapper>
-			<span className="bold">Filter</span>
+			<CustomFilter text="Filter">
+				<Dropdown.Item>
+					some content here
+				</Dropdown.Item>
+			</CustomFilter>
 		</SearchAndFilterWrapper>
 		<AppMainContent
-			parentClasses="app-pad"
+			parentClasses="app-pad m-t-40"
 			mainClasses="very large container center opaque"
 		>
 			<RoundContentWrapper

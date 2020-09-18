@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import Transactions from '../pages/customer/Transactions/Transactions';
 import AddNewCompany from '../pages/customer/AddNewCompany/AddNewCompany';
-import Companies from '../pages/customer/AddNewCompany/Companies/Companies';
+import Companies from '../pages/customer/Companies/Companies';
 
 const CreateJob = lazy(() => import('../pages/customer/CreateJob/CreateJob'));
 const ViewJobs = lazy(() => import('../pages/customer/jobs/ViewJobs/ViewJobs'));
