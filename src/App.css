@@ -193,6 +193,10 @@ h6.no-pad {
   color: var(--dark)
 }
 
+.full-width {
+  width: 100%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

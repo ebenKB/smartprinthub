@@ -1,19 +1,29 @@
 import React from 'react';
+import { Button } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
-import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
+import CustomerCompanyPreview from '../../../components/CustomerCompanyPreview/CustomerCompanyPreview';
 
-const ShowCompanyDetails = () => (
-	<AppMainContent padTop mainClasses="small container center opaque">
-		<RoundContentWrapper
-			classes="opaque background app-pad"
-			isRounded
-			hasDivider={false}
-		>
-			<div>
-				<h3>Martin and Sons</h3>
+const ShowCompanyDetails = () => {
+  const history = useHistory();
+
+  const goBack = () => {
+    history.goBack();
+  };
+
+  return (
+	<AppMainContent padTop mainClasses="medium container center opaque">
+		<CustomerCompanyPreview footer={(
+			<div className="m-t-40 text-right">
+				<div className="flex flex-inline">
+					<Button content="Go Back" size="small" basic onClick={goBack} />
+					<Button content="Remove Company" size="small" negative />
+				</div>
 			</div>
-		</RoundContentWrapper>
+    )}
+		/>
 	</AppMainContent>
-);
+  );
+};
 
 export default ShowCompanyDetails;
