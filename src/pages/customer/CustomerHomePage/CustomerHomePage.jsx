@@ -13,6 +13,7 @@ const CustomerHomePage = () => (
 		/>
 		<AppMainContent
 			parentClasses="opaque background app-pad"
+			mainClasses="very large container center"
 		>
 			<GraphItems>
 				<GraphItem
