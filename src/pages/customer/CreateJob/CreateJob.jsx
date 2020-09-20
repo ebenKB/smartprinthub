@@ -350,35 +350,35 @@ class CreateJob extends Component {
 				<AppContentWrapper
 					heading="New Job"
 				>
+					<div className="p-l-10 p-l-10">
+						<Divider type="thick" title="Company" />
+						<div className="m-t-20">
+							<ShowCompanyDetails company={company} />
+							<div className="flex center space-out m-t-20">
+								<div>Open company directory to select company</div>
+								<Button
+									content="Select new company"
+									onClick={() => this.toggleCompanyDirectoryForm(true)}
+									className="transparent app-primary"
+								/>
+							</div>
+							{canShowCompanyDirectory && (
+								<CompanyDirectory
+									handleCloseAction={() => this.toggleCompanyDirectoryForm(false)}
+									handleAction={(value) => this.handleJobCompanyChange(value)}
+								/>
+							)}
+						</div>
+					</div>
+					<Divider
+						type="thick"
+						title="Job Details"
+						classes="m-t-40"
+					/>
 					<ValidatorForm
 						ref={ref}
 						onSubmit={() => {}}
 					>
-						<div className="p-l-10 p-l-10">
-							<Divider type="thick" title="Company" />
-							<div className="m-t-20">
-								<ShowCompanyDetails company={company} />
-								<div className="flex center space-out m-t-20">
-									<div>Open company directory to select company</div>
-									<Button
-										content="Select new company"
-										onClick={() => this.toggleCompanyDirectoryForm(true)}
-										className="transparent app-primary"
-									/>
-								</div>
-								{canShowCompanyDirectory && (
-									<CompanyDirectory
-										handleCloseAction={() => this.toggleCompanyDirectoryForm(false)}
-										handleAction={(value) => this.handleJobCompanyChange(value)}
-									/>
-								)}
-							</div>
-						</div>
-						<Divider
-							type="thick"
-							title="Job Details"
-							classes="m-t-40"
-						/>
 						<div className="m-b-20 m-t-20">
 							<FormGroup
 								center
@@ -501,6 +501,7 @@ class CreateJob extends Component {
 								/>
 							</Link>
 							<Button
+								as="submit"
 								size="small"
 								content={(
 									<span className="flex-inline">
