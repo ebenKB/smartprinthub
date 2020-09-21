@@ -21,6 +21,7 @@
     "react-dropzone": "^11.0.1",
     "react-form-validator-core": "^0.6.5",
     "react-google-login": "^5.1.21",
+    "react-hook-form": "^6.8.3",
     "react-paystack": "^3.0.1",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.1.2",
