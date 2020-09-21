@@ -13,6 +13,7 @@ const EditUserProfile = ({ user }) => {
 
   const handleSaveUpdate = (data) => {
     console.log('We have clicked the submit', data);
+
     setNotification(null);
   };
 
