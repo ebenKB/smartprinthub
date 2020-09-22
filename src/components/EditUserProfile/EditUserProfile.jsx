@@ -11,17 +11,13 @@ const EditUserProfile = ({ user }) => {
   const [notification, setNotification] = useState(null);
   const { control, errors, handleSubmit } = useForm();
 
-  const handleSaveUpdate = (data, e) => {
-    e.preventDefault();
+  const handleSaveUpdate = (data) => {
     console.log('We have clicked the submit', data);
     setNotification(null);
-    setNotification({
-      type: 'success',
-      message: 'Updated successfully',
-    });
   };
 
   const onError = (errs) => {
+    setNotification(null);
     if (Object.entries(errs).length > 0) {
       setNotification({
         type: 'error',
@@ -32,7 +28,6 @@ const EditUserProfile = ({ user }) => {
 
   const getNotification = () => {
     if (notification) {
-      console.log('This is the notification', notification);
       return <ToastNotificaton message={notification.message} type={notification.type} />;
     }
     return null;
