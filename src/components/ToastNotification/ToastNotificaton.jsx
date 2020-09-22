@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PropTypes } from 'prop-types';
 
-const ToastNotificaton = ({ message = 'ddd', type = 'info' }) => {
+const ToastNotificaton = ({ message = '', type = 'info' }) => {
   const toastOptions = {
     autoClose: 5000,
     type: toast.TYPE.SUCCESS,
@@ -46,6 +46,7 @@ const ToastNotificaton = ({ message = 'ddd', type = 'info' }) => {
 			newestOnTop
 			containerId="app-notification"
 			limit={10}
+			autoClose
 		/>
 	</div>
   );

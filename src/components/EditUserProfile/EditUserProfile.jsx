@@ -1,38 +1,51 @@
 /* eslint-disable react/forbid-prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { PropTypes } from 'prop-types';
 import { useForm } from 'react-hook-form';
 import RoundContentWrapper from '../RoundContentWrapper/RoundContentWrapper';
 import InputValidatorHook from '../form-fields/InputValidatorHook/InputValidatorHook';
+import ToastNotificaton from '../ToastNotification/ToastNotificaton';
 
 const EditUserProfile = ({ user }) => {
+  const [notification, setNotification] = useState(null);
   const { control, errors, handleSubmit } = useForm();
 
-  const handleInputChange = (e) => {
-    console.log('The input has changed', e);
-  };
-
-  const handleSaveUpdate = (data) => {
-    console.log('This is function to save the update', data);
+  const handleSaveUpdate = (data, e) => {
+    e.preventDefault();
+    console.log('We have clicked the submit', data);
+    setNotification(null);
+    setNotification({
+      type: 'success',
+      message: 'Updated successfully',
+    });
   };
 
   const onError = (errs) => {
-    console.log('There are errors in the form', errs);
+    if (Object.entries(errs).length > 0) {
+      setNotification({
+        type: 'error',
+        message: 'Failed to save',
+      });
+    }
+  };
+
+  const getNotification = () => {
+    if (notification) {
+      console.log('This is the notification', notification);
+      return <ToastNotificaton message={notification.message} type={notification.type} />;
+    }
+    return null;
   };
 
   return (
 	<div className="m-t-20">
+		{notification && getNotification()}
 		<RoundContentWrapper
 			heading="Personal Profile"
 			classes="medium center opaque container m-t-40 m-b-40"
 		>
 			<section className="m-t-20">
-				{errors && Object.entries(errors).map(([key, value]) => (
-					<div key={key}>
-						{value.message}
-					</div>
-				))}
 				<Form onSubmit={handleSubmit(handleSaveUpdate, onError)}>
 					<Form.Group widths="equal">
 						<InputValidatorHook
