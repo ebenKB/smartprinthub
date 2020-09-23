@@ -14,7 +14,7 @@ import CompanyDirectory from '../../../components/floating-company-directory/flo
 import getDimensionInFeet from '../../../utils/dimension';
 import amountToText from '../../../utils/app';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
-import Help from '../../../components/Help/Help';
+import Help from '../../../components/HelpWrapper/HelpWrapper';
 import HelpContent from '../../../utils/help/JobActions';
 import { addJobAsDraft, saveCurrentJobProgress, selectCurrentJob } from '../../../redux/slices/job';
 import samplePaperTypes from '../../../app/mockdata/papertype';
