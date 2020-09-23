@@ -1,17 +1,13 @@
 /* eslint-disable react/boolean-prop-naming */
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react/forbid-prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 import './PreviewJobs.scss';
 import ModalWrapper from '../ModalWrapper/ModalWrapper';
 import Divider from '../AppDivider/AppDivider';
 
-const PreviewJobs = ({ jobs, closeAction }) => {
-  useEffect(() => {
-    console.log('JOBS: ', jobs);
-  }, []);
-
+const PreviewJobs = ({ closeAction }) => {
   return (
     <ModalWrapper closeAction={closeAction}>
       <div className="preview-wrapper">
@@ -38,7 +34,7 @@ const PreviewJobs = ({ jobs, closeAction }) => {
 };
 
 PreviewJobs.propTypes = {
-  jobs: PropTypes.object.isRequired,
+  // jobs: PropTypes.object.isRequired,
   closeAction: PropTypes.func.isRequired,
 };
 
