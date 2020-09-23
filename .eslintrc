@@ -32,5 +32,7 @@
     "no-tabs": 0,
     "react/jsx-indent-props": [1, 'tab'],
     // "react/forbid-prop-types": [0, { "forbid": [], "checkContextTypes": false, "checkChildContextTypes": false }]
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
   }
 }
