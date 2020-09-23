@@ -26,10 +26,12 @@ const AddNewCompany = () => {
 			<h3 className="bold">Only companies you add to your profile can print jobs for you.</h3>
 		</div>
 		<div className="m-t-50">
-			<div className="flex flex-inline center space-out full-width">
-				<CustomFilter text="Filter">
-					content
-				</CustomFilter>
+			<div className="flex flex-inline center space-outs full-width">
+				<div className="m-r-20">
+					<CustomFilter text="Filter">
+						content
+					</CustomFilter>
+				</div>
 				<SearchInput
 					fluid
 					size="large"
