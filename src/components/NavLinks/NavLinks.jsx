@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import { Accordion, Menu } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -13,14 +13,14 @@ import { selectAccountType } from '../../redux/slices/user';
 import './NavLinks.scss';
 
 const NavigationLinks = () => {
-  const [activeIndex, setActiveIndex] = useState(-1);
+  // const [activeIndex, setActiveIndex] = useState(-1);
   const accountType = useSelector(selectAccountType);
 
-  const handleClick = (e, titleProps) => {
-    const { index } = titleProps;
-    const newIndex = activeIndex === index ? -1 : index;
-    setActiveIndex(newIndex);
-  };
+  // const handleClick = (e, titleProps) => {
+  //   const { index } = titleProps;
+  //   const newIndex = activeIndex === index ? -1 : index;
+  //   setActiveIndex(newIndex);
+  // };
 
   return (
 	<div className="nav-wrapper">

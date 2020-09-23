@@ -16,15 +16,13 @@ import amountToText from '../../../utils/app';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
 import Help from '../../../components/HelpWrapper/HelpWrapper';
 import HelpContent from '../../../utils/help/JobActions';
-import { addJobAsDraft, saveCurrentJobProgress, selectCurrentJob } from '../../../redux/slices/job';
+import { addJobAsDraft, saveCurrentJobProgress } from '../../../redux/slices/job';
 import samplePaperTypes from '../../../app/mockdata/papertype';
-// import samplePaperSizes from '../../../app/mockdata/paperSizes';
 import CommonSizes from '../../../app/mockdata/commonsizes';
 import sampleUnits from '../../../app/mockdata/units';
 import { ReactComponent as ForwardArrow } from '../../../svg/forward-arrow.svg';
 import SelectCompany from '../../../components/SelectCompany/SelectCompany';
 import ShowCompanyDetails from '../../../components/ShowCompanyDetails/ShowCompanyDetails';
-import DropdownValidator from '../../../components/form-fields/dropdown-validator/dropdown-validator';
 
 
 class CreateJob extends Component {
@@ -77,7 +75,6 @@ class CreateJob extends Component {
 
   componentDidMount() {
     const { currentJob, jobDrafts } = this.props;
-    console.log('This is the current job', currentJob);
     if (currentJob) {
       this.setState((state) => ({
         ...state,
