@@ -11,7 +11,7 @@ import ReviewJobModal from '../../../components/ReviewJobModal/ReviewJobModal';
 import RejectJobModal from '../../../components/RejectJobModal/RejectJobModal';
 import AcceptJobModal from '../../../components/AcceptJobModal/AcceptJobModal';
 import FileItemHandler from '../../../components/FileItemHandler/FileItemHandler';
-import Help from '../../../components/Help/Help';
+import Help from '../../../components/HelpWrapper/HelpWrapper';
 import Helps from '../../../utils/help/JobActions';
 
 const ShowJobDetails = () => {
