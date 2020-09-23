@@ -17,4 +17,5 @@ const routes = [
     title: 'Welcome',
   },
 ];
+
 export default routes;

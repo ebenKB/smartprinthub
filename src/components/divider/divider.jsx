@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Label } from 'semantic-ui-react';
-import './divider.scss';
+import './Divider.scss';
 
 const Divider = ({
   title, type, classes = '', isNumbered = false, number = '',
