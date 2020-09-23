@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import './PreviewJobs.scss';
 import ModalWrapper from '../ModalWrapper/ModalWrapper';
-import Divider from '../Divider/Divider';
+import Divider from '../AppDivider/AppDivider';
 
 const PreviewJobs = ({ jobs, closeAction }) => {
   useEffect(() => {

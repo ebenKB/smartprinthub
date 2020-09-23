@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import Divider from '../Divider/Divider';
+import Divider from '../AppDivider/AppDivider';
 import './RoundContentWrapper.scss';
 
 const RoundContentWrapper = ({

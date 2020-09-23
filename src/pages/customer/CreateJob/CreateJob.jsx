@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import FormGroup from '../../../components/form-group/form-group';
 import DimensionInputGroup from '../../../components/dimension-input-group/input-group';
-import Divider from '../../../components/Divider/Divider';
+import Divider from '../../../components/AppDivider/AppDivider';
 import AddItem from '../../../components/add-item/add-item';
 import CompanyDirectory from '../../../components/floating-company-directory/floating-company-directory';
 import getDimensionInFeet from '../../../utils/dimension';

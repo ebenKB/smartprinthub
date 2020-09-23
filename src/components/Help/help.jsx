@@ -4,7 +4,7 @@ import React from 'react';
 // import { Divider } from 'semantic-ui-react';
 import { PropTypes } from 'prop-types';
 import HelpItem from '../HelpItem/HelpItem';
-import Divider from '../Divider/Divider';
+import Divider from '../AppDivider/AppDivider';
 
 const Help = ({ helps, classes }) => (
 	<div className={classes}>

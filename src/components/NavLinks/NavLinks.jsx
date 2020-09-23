@@ -10,7 +10,7 @@ import { ReactComponent as TransIcon } from '../../svg/transaction.svg';
 import { ReactComponent as HomeIcon } from '../../svg/home.svg';
 import Can from '../Can/Can';
 import { selectAccountType } from '../../redux/slices/user';
-import './Navigation.scss';
+import './NavLinks.scss';
 
 const NavigationLinks = () => {
   const [activeIndex, setActiveIndex] = useState(-1);

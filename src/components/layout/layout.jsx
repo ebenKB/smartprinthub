@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Header from '../header/header';
 import HeaderOffset from '../header/header-offset';
 import './layout.scss';
-import Navigation from '../Navigation/Navigation';
+import Navigation from '../NavLinks/NavLinks';
 // import NavToggle from '../nav-toggle/nav-toggle';
 
 const Layout = ({ children }) => {

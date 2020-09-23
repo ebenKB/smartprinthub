@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import Divider from '../../../../components/Divider/Divider';
+import Divider from '../../../../components/AppDivider/AppDivider';
 import AppMainContent from '../../../../components/app-main-content/app-main-content';
 import AppWrapperLite from '../../../../components/app-wrapper-lite/app-wrapper-lite';
 import './show-job.scss';

@@ -3,7 +3,7 @@ import './UserProfile.scss';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'semantic-ui-react';
-import Divider from '../Divider/Divider';
+import Divider from '../AppDivider/AppDivider';
 import { ReactComponent as DownArrow } from '../../svg/down-arrow.svg';
 import { logout, selectAccountType } from '../../redux/slices/user';
 
