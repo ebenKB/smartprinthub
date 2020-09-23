@@ -5,7 +5,7 @@ import AppMainContent from '../../../components/app-main-content/app-main-conten
 import SearchInput from '../../../components/form-fields/search-input/search-input';
 import CustomFilter from '../../../components/CustomFilter/CustomFilter';
 import CustomerCompanyPreview from '../../../components/CustomerCompanyPreview/CustomerCompanyPreview';
-import Divider from '../../../components/Divider/Divider';
+import Divider from '../../../components/divider/divider';
 
 const AddNewCompany = () => {
   const history = useHistory();
