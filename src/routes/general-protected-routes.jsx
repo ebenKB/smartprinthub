@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import Home from '../pages/Home/Home';
 
-const Welcome = lazy(() => import('../pages/Welcome/Welcome'));
+const Welcome = lazy(() => import('../pages/customer/CustomerWelcomePage/CustomerWelcomePage'));
 
 const routes = [
   {
