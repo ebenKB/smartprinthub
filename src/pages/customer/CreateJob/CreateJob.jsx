@@ -23,6 +23,7 @@ import sampleUnits from '../../../app/mockdata/units';
 import { ReactComponent as ForwardArrow } from '../../../svg/forward-arrow.svg';
 import SelectCompany from '../../../components/SelectCompany/SelectCompany';
 import ShowCompanyDetails from '../../../components/ShowCompanyDetails/ShowCompanyDetails';
+import { fil } from 'date-fns/locale';
 
 
 class CreateJob extends Component {
@@ -148,10 +149,15 @@ class CreateJob extends Component {
       }
     } else if (paperSizeType === 'custom') {
       if (width !== '' && height !== '' && unit != null && quantity !== '') {
-        const cost = getDimensionInFeet(unit.symbol, width, height) * quantity;
-        newJob.totalCost = amountToText(cost.toFixed(2));
+        console.log("selected paper", selectedPaper)
+        const cost = getDimensionInFeet(unit.symbol, width, height) * selectedPaper.unitPrice;
+        const totalCost = cost * quantity;
+        console.log("Total cost", totalCost);
+        // newJob.totalCost = amountToText(totalCost.toFixed(2));
+        newJob.totalCost = totalCost;
       }
     }
+
     this.setState((state) => ({
       ...state,
       job: newJob,
@@ -306,6 +312,18 @@ class CreateJob extends Component {
     }));
   };
 
+  handleFileChange = (file) => {
+    if (file.length > 0) {
+      console.log("File change", file[0].data)
+      this.setState((state) => ({
+        ...state,
+        job: {
+          ...state.job,
+          file: file[0].data
+        }
+      }), () => console.log("New state", this.state))
+    }
+  }
   // This is only application when the user selects default paper sizes
   getDefaultPaperSize = () => {
     const { job: { selectedPaper, paperSizeType, height } } = this.state;
@@ -460,6 +478,8 @@ class CreateJob extends Component {
 								type="dropzone"
 								label="File *"
 								placeholder="Add file to be printed"
+                handleFileChange={this.handleFileChange}
+                multiple={false}
 							/>
 						</div>
 						<div className="m-b-20">

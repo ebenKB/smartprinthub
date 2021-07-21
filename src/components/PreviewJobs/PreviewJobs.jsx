@@ -7,12 +7,19 @@ import './PreviewJobs.scss';
 import ModalWrapper from '../ModalWrapper/ModalWrapper';
 import Divider from '../AppDivider/AppDivider';
 
-const PreviewJobs = ({ closeAction }) => {
+const PreviewJobs = ({ files, closeAction }) => {
   return (
     <ModalWrapper closeAction={closeAction}>
       <div className="preview-wrapper">
         <Divider type="thick" title="3 Jobs" classes="m-b-20" />
+        {files.map((file) => (
         <div className="preiview-item">
+          {/* <h3>{job.title}</h3> */}
+          <img src={URL.createObjectURL(file.file)} alt="" />
+        </div>
+        ))}
+
+        {/* <div className="preiview-item m-t-20">
           <h3>Birthday Cards</h3>
           <img src="https://helpx.adobe.com/content/dam/help/en/photoshop/how-to/graphic-design-basics/_jcr_content/main-pars/image/5407-graphic-design-basics_1408x792.jpg" alt="" />
         </div>
@@ -23,11 +30,7 @@ const PreviewJobs = ({ closeAction }) => {
         <div className="preiview-item m-t-20">
           <h3>Birthday Cards</h3>
           <img src="https://helpx.adobe.com/content/dam/help/en/photoshop/how-to/graphic-design-basics/_jcr_content/main-pars/image/5407-graphic-design-basics_1408x792.jpg" alt="" />
-        </div>
-        <div className="preiview-item m-t-20">
-          <h3>Birthday Cards</h3>
-          <img src="https://helpx.adobe.com/content/dam/help/en/photoshop/how-to/graphic-design-basics/_jcr_content/main-pars/image/5407-graphic-design-basics_1408x792.jpg" alt="" />
-        </div>
+        </div> */}
       </div>
     </ModalWrapper>
   );

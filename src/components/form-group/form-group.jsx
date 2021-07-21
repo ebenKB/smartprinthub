@@ -31,7 +31,8 @@ const FormGroup = ({
       text: 'Sample data 2',
       value: '2',
     },
-  ], ...rest
+  ],
+  ...rest
 }) => {
   const getElement = () => {
     if (type === 'text' || type === 'password' || type === 'number' || type === 'email') {
@@ -77,7 +78,10 @@ const FormGroup = ({
 	/>
       );
     } else if (type === 'dropzone') {
-      return (<Dropzone />);
+      return (<Dropzone 
+        onFilesChange={rest.handleFileChange} 
+        multiple={rest.multiple ? rest.multiple : false}
+      />);
     } else {
       return rest.children;
     }

@@ -67,7 +67,7 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
 		{message && type && (
 			<ToastNotification type={type} message={message} />
 		)}
-		{canPreviewJob && (<PreviewJobs closeAction={() => setCanPreviewJob(!canPreviewJob)} />)}
+		{canPreviewJob && (<PreviewJobs jobs={[...jobDrafts, currentJob]} closeAction={() => setCanPreviewJob(!canPreviewJob)} />)}
 		<AppMainContent
 			parentClasses="app-pad"
 		>

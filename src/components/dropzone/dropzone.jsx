@@ -9,11 +9,12 @@ import React, {
 } from 'react';
 import { Button } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
+import DropzoneItem from "../DropzoneItem/DropzoneItem";
 
 import './dropzone.scss';
 
 const dropzoneRef = createRef();
-function KtDropzone({ onFilesChange }) {
+function KtDropzone({ onFilesChange, ...rest }) {
   const [hasEntered, setHasEntered] = useState(false);
   const [error, setError] = useState(null);
   const [files, setFiles] = useState([]);
@@ -125,6 +126,7 @@ function KtDropzone({ onFilesChange }) {
 			onDragLeave={handleDragLeave}
 			noClick
 			ref={dropzoneRef}
+      {...rest}
 		>
 			{({ getRootProps, getInputProps }) => (
 				<section className={`dropzone text-center ${hasEntered ? 'active' : ''}`}>
