@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Divider, Grid } from 'semantic-ui-react';
 import { Link, useHistory } from 'react-router-dom';
 import './signin.scss';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,9 @@ import logo from '../../images/smartprintlogo.png';
 import RoundContentWrapper from '../RoundContentWrapper/RoundContentWrapper';
 import { authenticateUser } from '../../redux/slices/user';
 import ToastNotificaton from '../ToastNotification/ToastNotificaton';
-
+import ButtonWithFixedIcon from '../ButtonWithFixedIcon/ButtonWithFixedIcon';
+import { ReactComponent as Google } from "../../images/google.svg"
+import { ReactComponent as Facebook } from "../../images/facebook.svg"
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -86,11 +88,38 @@ const SignIn = () => {
 					/>
 				</div>
 			</Form>
-			<div className="sm-caption m-t-10">
+			<div className="sm-caption m-t-20">
 				Dont have an account?&nbsp;
 				<Link to="/signup">
 					Signup
 				</Link>
+			</div>
+			<Divider horizontal>or</Divider>
+			<div className="m-t-40">
+				<Grid>
+					<Grid.Row>
+						<ButtonWithFixedIcon
+							classes="fluid"
+							size="large"
+							content=""
+							// onClick={handleSubmit}
+							icon={<Google className="icon medium"/>}
+						>
+							<span>Continue with Google</span>
+						</ButtonWithFixedIcon>
+					</Grid.Row>
+					<Grid.Row>
+						<ButtonWithFixedIcon
+							classes="fluid"
+							size="large"
+							content=""
+							// onClick={handleSubmit}
+							icon={<Facebook className="icon medium"/>}
+						>
+							<span>Continue with Facebook</span>
+						</ButtonWithFixedIcon>
+					</Grid.Row>
+				</Grid>
 			</div>
 		</RoundContentWrapper>
 	</div>

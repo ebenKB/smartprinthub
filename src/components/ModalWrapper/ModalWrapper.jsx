@@ -3,28 +3,41 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import CancelIcon from '@material-ui/icons/Cancel';
 import './ModalWrapper.scss';
-import { Button } from 'semantic-ui-react';
+import { Button, Modal } from 'semantic-ui-react';
 // import ModalWrapperContext from '../../context/ModalWrapper.context';
 
-const ModalWrapper = ({ children, closeAction }) => {
+const ModalWrapper = ({ children, closeAction, title, open, ...rest}) => {
   const handleModalCloseAction = () => {
     closeAction();
   };
 
   return (
-	<div className="modal-wrapper">
-		<div className="modal-wrapper__overlay" />
-		<div className="modal-content">
-			<div className="modal-close">
-				<Button
-					content={<CancelIcon />}
-					className="transparent"
-					onClick={handleModalCloseAction}
-				/>
-			</div>
+	// <div className="modal-wrapper">
+	// 	<div className="modal-wrapper__overlay" />
+	// 	<div className="modal-content">
+	// 		<div className="modal-close">
+	// 			<Button
+	// 				content={<CancelIcon />}
+	// 				className="transparent"
+	// 				onClick={handleModalCloseAction}
+	// 			/>
+	// 		</div>
+	// 		{children}
+	// 	</div>
+	// </div>
+	<Modal 
+		open={open}
+		onClose={closeAction}
+		size="mini"
+		{...rest} 
+	>
+		<Modal.Header>
+			{title}
+		</Modal.Header>
+		<Modal.Content className="m-t-50">
 			{children}
-		</div>
-	</div>
+		</Modal.Content>
+	</Modal>
   );
 };
 

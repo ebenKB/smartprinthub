@@ -1,7 +1,7 @@
 import React, { lazy } from 'react';
 import Signup from '../pages/Auth/signup/Signup';
 
-const SignIn = lazy(() => import('../components/signin/signin'));
+const SignIn = lazy(() => import('../components/Signin/Signin'));
 
 
 const defaultRoutes = [

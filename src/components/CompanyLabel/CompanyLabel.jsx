@@ -6,7 +6,7 @@ import './CompanyLabel.scss';
 const CompanyLabel = ({ companyName }) => (
 	<Label size="small" className="user-company">
 		{companyName}
-		<Icon name="delete" />
+		<Icon name="trash" />
 	</Label>
 );
 

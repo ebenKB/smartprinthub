@@ -10,11 +10,11 @@ import React, {
 import { Button } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import DropzoneItem from "../DropzoneItem/DropzoneItem";
-
 import './dropzone.scss';
 
 const dropzoneRef = createRef();
-function KtDropzone({ onFilesChange, ...rest }) {
+
+function KtDropzone({ onFilesChange, singleUpload, ...rest }) {
   const [hasEntered, setHasEntered] = useState(false);
   const [error, setError] = useState(null);
   const [files, setFiles] = useState([]);
@@ -43,8 +43,9 @@ function KtDropzone({ onFilesChange, ...rest }) {
     if (newFiles.length - filteredFiles.length > 0) {
       setError(`${(newFiles.length - filteredFiles.length)} duplicate file(s) rejected`);
     }
+
     const formatedFileObject = filteredFiles.map((f) => ({
-      title: '',
+      title: f.name.split(".")[0], // get filename without extension
       data: f,
     }));
     setFiles((oldFiles) => ([...oldFiles, ...formatedFileObject]));
@@ -60,7 +61,6 @@ function KtDropzone({ onFilesChange, ...rest }) {
     });
 
     setFiles(newFiles);
-    console.log('We want to set the file title', newFile);
   };
 
   // open file explorer to select files
@@ -78,11 +78,6 @@ function KtDropzone({ onFilesChange, ...rest }) {
     setHasEntered(false);
   };
 
-  // const addMoreFiles = (e) => {
-  //   e.preventDefault();
-  //   setIsEmpty(false);
-  // };
-
   /**
    * Use this method to delete files from the dropzone
    * @param {*} file the file to be deleted
@@ -91,6 +86,36 @@ function KtDropzone({ onFilesChange, ...rest }) {
     setFiles(files.filter((x) => (x.data.name !== file.data.name)));
   };
 
+  const getFileUploadAction = (getRootProps, getInputProps) => {
+    if (singleUpload && files.length === 1) {
+      return null;
+    } else {
+      return (
+        <section className={`dropzone text-center ${hasEntered ? 'active' : ''}`}>
+        <div {...getRootProps()} className="root">
+          <input {...getInputProps()} />
+          <div>
+            <p>
+              <span className="bold">
+                Drop&nbsp;
+              </span>
+              <span>
+                your files here or&nbsp;
+              </span>
+              <Button
+                type="button"
+                onClick={openDialog}
+                className="transparent"
+              >
+                <span className="bold app-primary">browse</span>
+              </Button>
+            </p>
+          </div>
+        </div>
+      </section>
+      )
+    }
+  }
   // const { getRootProps, getInputProps, isDragActive } = useDropzone({onDrop})
   return (
 	<div
@@ -98,12 +123,12 @@ function KtDropzone({ onFilesChange, ...rest }) {
 	>
 		{files && files.length > 0 && (
 			<div className="dropzone-content active light-caption">
-				<div className="dropzone-content__heading">
+				{/* <div className="dropzone-content__heading">
 					<div className="dropzone-heading__items">
-						<div>Title</div>
+						<div>Name</div>
 						<div>Type</div>
 					</div>
-				</div>
+				</div> */}
 				<div className="dropzone-content__body">
 					{files.map((file, idx) => (
 						<DropzoneItem
@@ -129,28 +154,7 @@ function KtDropzone({ onFilesChange, ...rest }) {
       {...rest}
 		>
 			{({ getRootProps, getInputProps }) => (
-				<section className={`dropzone text-center ${hasEntered ? 'active' : ''}`}>
-					<div {...getRootProps()} className="root">
-						<input {...getInputProps()} />
-						<div>
-							<p>
-								<span className="bold">
-									Drop&nbsp;
-								</span>
-								<span>
-									your files here or&nbsp;
-								</span>
-								<Button
-									type="button"
-									onClick={openDialog}
-									className="transparent"
-								>
-									<span className="bold app-primary">browse</span>
-								</Button>
-							</p>
-						</div>
-					</div>
-				</section>
+        getFileUploadAction(getRootProps, getInputProps)
 			)}
 		</Dropzone>
 	</div>

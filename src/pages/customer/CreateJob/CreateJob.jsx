@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { ValidatorForm } from 'react-form-validator-core';
-import { Button } from 'semantic-ui-react';
+import { Button, Grid, Icon } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
@@ -16,15 +16,19 @@ import amountToText from '../../../utils/app';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
 import Help from '../../../components/HelpWrapper/HelpWrapper';
 import HelpContent from '../../../utils/help/JobActions';
-import { addJobAsDraft, saveCurrentJobProgress } from '../../../redux/slices/job';
+import { addJobAsDraft, addNewJob, removeJobFromDrafts, saveCurrentJobProgress } from '../../../redux/slices/job';
 import samplePaperTypes from '../../../app/mockdata/papertype';
 import CommonSizes from '../../../app/mockdata/commonsizes';
 import sampleUnits from '../../../app/mockdata/units';
 import { ReactComponent as ForwardArrow } from '../../../svg/forward-arrow.svg';
 import SelectCompany from '../../../components/SelectCompany/SelectCompany';
 import ShowCompanyDetails from '../../../components/ShowCompanyDetails/ShowCompanyDetails';
-import { fil } from 'date-fns/locale';
-
+import ViewJobDrafts from '../../../components/ViewJobDrafts/ViewJobDrafts';
+import { uuid } from 'uuidv4';
+import {uniqueId} from "lodash"
+import FileReader from '../../../utils/FileReader';
+import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
+import FileThumbnail from '../../../components/FileThumbnail/FileThumbnail';
 
 class CreateJob extends Component {
   constructor(props) {
@@ -33,6 +37,8 @@ class CreateJob extends Component {
       options: {
         canShowCompanyDirectory: false,
         canCreateJob: false,
+        canViewSavedJobs: false,
+        shouldDiscardFile: false,
       },
       tenant: {
         name: 'Best Starts Print Limited',
@@ -48,20 +54,7 @@ class CreateJob extends Component {
       paperSizes: CommonSizes,
       units: sampleUnits,
       allJobs: [],
-      job: {
-        totalCost: 0.0,
-        title: '',
-        width: '',
-        height: '',
-        quantity: '',
-        comment: '',
-        company: null,
-        selectedPaper: null,
-        paperSizeType: 'default', // or custom
-        unit: null,
-        file: null,
-        laminated: false,
-      },
+      job: null,
       paymentOrder: {
         reference: '',
         status: '',
@@ -70,17 +63,36 @@ class CreateJob extends Component {
         amount: null,
       },
     };
-
     this.ref = React.createRef();
   }
 
+  getFileFromBlob = async (url) => {
+    const base64 = await fetch(url);
+    const blob = await base64.blob();
+    const url2 = URL.createObjectURL(blob)
+    this.setState((state) => ({
+      ...state,
+      temp: url2
+    }))
+  }
+
   componentDidMount() {
+    const reader = new FileReader();
+    reader.readFile()
+
     const { currentJob, jobDrafts } = this.props;
     if (currentJob) {
       this.setState((state) => ({
         ...state,
         job: { ...currentJob },
       }));
+    } else {
+      this.setState((state) => ({
+        ...state,
+        job: {
+          ...this.defaultJob()
+        }
+      }))
     }
 
     if (currentJob && currentJob.company) {
@@ -100,12 +112,38 @@ class CreateJob extends Component {
       }));
     }
   }
+  componentDidUpdate(prevProps) {
+    // if (this.state.job && prevProps.currentJob) {
+    //   if (this.state.job.uuid !== this.props.currentJob.uuid) {
+    //     this.setState((state) => ({
+    //       ...state,
+    //       job: {...this.props.currentJob},
+    //     }))
+    //   }
+    // }
+  }
 
   componentWillUnmount() {
     clearInterval(this.interval);
-    console.log('The component will unmount', this.interval);
   }
 
+  defaultJob = () => ({
+    uuid: uuid(),
+    totalCost: 0.0,
+    title: '',
+    width: '',
+    height: '',
+    quantity: '',
+    comment: '',
+    company: null,
+    selectedPaper: null,
+    paperSizeType: 'default', // or custom
+    unit: null,
+    file: null,
+    fileDataUrl: "",
+    laminated: false,
+  })
+  
   sayHello = () => {
     const { saveJobProgress } = this.props;
     const { job } = this.state;
@@ -114,25 +152,10 @@ class CreateJob extends Component {
     }, 3000);
   }
 
-  // componentDidUpdate(prevProps) {
-  //   console.log('The component has updated', prevProps);
-  //   // Check if the user has any saved jobs and restore them
-  //   const { currentJob } = prevProps;
-  //   const { job } = this.state;
-  //   // eslint-disable-next-line react/destructuring-assignment
-  //   if (currentJob !== job) {
-  //     console.log('The are not equal');
-  //     // const { saveJobProgress } = this.props;
-  //     // saveJobProgress(job);
-  //   } else {
-  //     console.log('They are equal');
-  //   }
-  // }
-
   /**
    * Compute the cost of job based on the dimensions on the paper selected
    * and the unit cost of the paper.
-   */
+  */
   computeCost = () => {
     const { job } = this.state;
     const {
@@ -149,10 +172,8 @@ class CreateJob extends Component {
       }
     } else if (paperSizeType === 'custom') {
       if (width !== '' && height !== '' && unit != null && quantity !== '') {
-        console.log("selected paper", selectedPaper)
         const cost = getDimensionInFeet(unit.symbol, width, height) * selectedPaper.unitPrice;
         const totalCost = cost * quantity;
-        console.log("Total cost", totalCost);
         // newJob.totalCost = amountToText(totalCost.toFixed(2));
         newJob.totalCost = totalCost;
       }
@@ -262,11 +283,7 @@ class CreateJob extends Component {
     this.setState((state) => ({
       ...state,
       job: {
-        title: null,
-        width: null,
-        height: null,
-        quantity: '',
-        comment: null,
+        ...this.defaultJob()
       },
     }));
   };
@@ -277,6 +294,7 @@ class CreateJob extends Component {
     this.setState((state) => ({
       ...state,
       allJobs: [...state.allJobs, job],
+      job: {...this.defaultJob()}
     }));
 
     addNewJobAsDraft(job);
@@ -312,21 +330,56 @@ class CreateJob extends Component {
     }));
   };
 
-  handleFileChange = (file) => {
+  logFile = (file) => {
+    console.log("File", file)
+  }
+  
+  handleFileChange = async (file) => {
+    const reader = new FileReader();    
     if (file.length > 0) {
-      console.log("File change", file[0].data)
-      this.setState((state) => ({
-        ...state,
-        job: {
-          ...state.job,
-          file: file[0].data
-        }
-      }), () => console.log("New state", this.state))
+      reader.readFileAsDataURL(file, (results) => {
+        this.setState((state) => ({
+          ...state,
+          job: {
+            ...state.job, 
+            file: results,
+          }
+        }), () => {this.props.saveJobProgress(this.state.job);})
+      })
     }
   }
-  // This is only application when the user selects default paper sizes
+
+  /**
+   * Set the job for editing and move the current job to draft
+   * @param {*} jobID The ID of the job to edit
+  */
+  setJobDraftForEditing = (jobUUID) => {
+    const { currentJob, jobDrafts, removeJobFromDrafts, saveJobProgress, addNewJobAsDraft } = this.props;
+    const job = jobDrafts.find((job) => job.uuid === jobUUID);
+    // set the job being edited as the current job from redux
+    saveJobProgress(job)
+
+    // remove job from drafts from redux
+    removeJobFromDrafts(jobUUID)
+
+    // save current job as a draft from redux
+    addNewJobAsDraft(currentJob);
+
+    this.setState((state) => ({
+      ...state,
+      options: {
+        ...state.options,
+        shouldDiscardFile: false,
+      },
+      job: {...job},
+    }))
+  }
+
+  // This is only applicable when the user selects default paper sizes
   getDefaultPaperSize = () => {
-    const { job: { selectedPaper, paperSizeType, height } } = this.state;
+    const { job } = this.state;
+    const { selectedPaper, paperSizeType, height } = job || {}
+
     if (selectedPaper) {
       const { defaultSizes } = selectedPaper;
       if (paperSizeType === 'default') {
@@ -339,14 +392,23 @@ class CreateJob extends Component {
     return null;
   }
 
+  handleDiscardFile = () => {
+    this.setState((state) => ({
+      ...state,
+      options: {
+        ...state.options,
+        shouldDiscardFile: true
+      }
+    }))
+  }
+
   render() {
     const {
       options: { canShowCompanyDirectory, canCreateJob },
-      allJobs, paperTypes, ref, job: {
-        quantity,
-        title, width, height, comment, totalCost, selectedPaper, paperSizeType, company, unit,
-      },
+      allJobs, paperTypes, ref, job,
     } = this.state;
+
+    const { quantity,title, width, height, comment, totalCost, selectedPaper, paperSizeType, company, unit,} = job || {}
 
     return (
 	<div>
@@ -471,17 +533,33 @@ class CreateJob extends Component {
 								value={totalCost}
 							/>
 						</div>
-						<div className="m-b-20">
-							<FormGroup
-								classes="small"
-								center
-								type="dropzone"
-								label="File *"
-								placeholder="Add file to be printed"
-                handleFileChange={this.handleFileChange}
-                multiple={false}
-							/>
-						</div>
+            {this.state.job.file && this.state.options.shouldDiscardFile && (
+              <div className="m-b-20">
+                <FormGroup
+                  classes="fluid"
+                  center
+                  type="dropzone"
+                  label="File *"
+                  placeholder="Add file to be printed"
+                  handleFileChange={this.handleFileChange}
+                  multiple={false}
+                  singleUpload
+                />
+              </div>
+            )}
+            {this.state.job.file && !this.state.options.shouldDiscardFile && (
+              <div className="m-t-20">
+                <FormGroup
+                  label="File *"
+                  classes="small"
+                >
+                  <FileThumbnail 
+                    fileURL={this.state.job.file}
+                    handleDiscardFile={this.handleDiscardFile}
+                  />
+                </FormGroup>
+              </div>
+            )}
 						<div className="m-b-20">
 							<FormGroup
 								center
@@ -495,20 +573,39 @@ class CreateJob extends Component {
 								onChange={this.handleCommentChange}
 							/>
 						</div>
-						<div className="m-t-20 m-b-20">
-							<Divider type="thick" title="Summary" />
-							<div className="m-t-10">
-								Job Drafts:
-								{allJobs.length}
-							</div>
-						</div>
-						<AddItem
-							title="Add new job"
-							classes="app-primary text-right m-t-20 m-b-20"
-							iconClasses="small icon m-r-5"
-							parentClasses="text-right"
-							handleClick={this.addJob}
-						/>
+            <div className="m-t-40 text-right flex center w-full reverse">
+              <span className="m-r-10 m-l-20">
+                <AddItem
+                  title="Add another job"
+                  classes="app-primary text-right m-t-20 m-b-20"
+                  iconClasses="small icon m-r-5"
+                  // parentClasses="text-right"
+                  handleClick={this.addJob}
+                />
+              </span>
+              <span>
+                <Button
+                  className="transparent clickable bold sm-caption"
+                  size="medium"
+                  type="button"
+                  onClick={() => this.setState({
+                    ...this.state, options: {...this.state.options, 
+                      canViewSavedJobs: !this.state.options.canViewSavedJobs
+                  }})}
+                >
+                  <Icon name="save" />
+                  {this.state.options.canViewSavedJobs ? "Hide saved jobs" : "View saved jobs"}
+                </Button>
+              </span>
+            </div>
+            <div className="w-full">
+              <Divider type="thick" title={`Summary - ${allJobs.length} saved ${allJobs.length === 1 ? "job" : "jobs"}`} />
+              {this.state.options.canViewSavedJobs && (
+                <div className="m-t-10">
+                  <ViewJobDrafts jobs={this.props.jobDrafts} setJobForEditing={this.setJobDraftForEditing} />
+                </div>
+              )}
+            </div>
 						<div className="m-t-40 text-right inline center">
 							<Link to="/jobs">
 								<Button
@@ -517,6 +614,11 @@ class CreateJob extends Component {
 									content="Cancel"
 								/>
 							</Link>
+              <Button
+                default
+                content="Clear fields" 
+                onClick={this.clearAllFields}
+              />
 							<Button
 								as="submit"
 								size="small"
@@ -531,7 +633,7 @@ class CreateJob extends Component {
 								onClick={this.handleSubmit}
 							/>
 						</div>
-					</ValidatorForm>
+					</ValidatorForm>         
 				</AppContentWrapper>
 			</AppMainContent>
 		)}
@@ -548,6 +650,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addNewJobAsDraft: (job) => dispatch(addJobAsDraft(job)),
   saveJobProgress: (job) => dispatch(saveCurrentJobProgress(job)),
+  removeJobFromDrafts: (jobID) => dispatch(removeJobFromDrafts(jobID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CreateJob));

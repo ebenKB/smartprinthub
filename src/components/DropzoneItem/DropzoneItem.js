@@ -60,16 +60,17 @@ const DropzoneItem = ({
   };
 
   const updateFile = (e) => {
+    console.log("There is a new file", e)
     const newFile = { ...file, title: e.target.value };
     handleFileUpdate(file, newFile);
   };
 
   const getTitle = () => {
     if (canEditTitle) {
-      return (<Input value={file.title} onChange={updateFile} name="title" />
+      return (<Input value={file.title} onChange={updateFile} name="title" className="w-full" />
       );
     }
-    return <div className="bold xsm-caption">{file.title}</div>;
+    return <div className="bold  w-full">{file.title}</div>;
   };
 
   return (
@@ -78,20 +79,24 @@ const DropzoneItem = ({
 			<Menu className="small logo" />
 		</div>
 		<div>
-			{getTitle()}
-			<div className="light-caption xsm-caption">
-				{file && file.name}
-			</div>
+			{canEditTitle && getTitle()}
+      {!canEditTitle && (
+        <div className="light-caption xsm-caption">
+          {file && file.data.name}
+        </div>
+      )}
 		</div>
 		<div className="w-full">
 			{getFileIcon()}
 		</div>
 		<Button.Group basic size="mini" className="dropzone-cta">
-			<Button onClick={() => setTitleEditable(true)} type="Button">EDIT</Button>
+			<Button onClick={() => setTitleEditable(!canEditTitle)} type="Button">
+        {canEditTitle ? "Close Edit" : "Edit"}
+      </Button>
 			<Button
 				onClick={() => handleDelete(idx)}
 			>
-				DELETE
+				Delete
 			</Button>
 		</Button.Group>
 	</div>
@@ -103,5 +108,7 @@ DropzoneItem.propTypes = {
   file: PropTypes.object.isRequired,
   deleteFile: PropTypes.func.isRequired,
   handleFileUpdate: PropTypes.func.isRequired,
+  canEditTitle: PropTypes.bool,
 };
+
 export default DropzoneItem;

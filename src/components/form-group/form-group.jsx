@@ -32,6 +32,7 @@ const FormGroup = ({
       value: '2',
     },
   ],
+  singleUpload,
   ...rest
 }) => {
   const getElement = () => {
@@ -81,6 +82,7 @@ const FormGroup = ({
       return (<Dropzone 
         onFilesChange={rest.handleFileChange} 
         multiple={rest.multiple ? rest.multiple : false}
+        singleUpload={singleUpload}
       />);
     } else {
       return rest.children;

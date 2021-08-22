@@ -67,7 +67,16 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
 		{message && type && (
 			<ToastNotification type={type} message={message} />
 		)}
-		{canPreviewJob && (<PreviewJobs jobs={[...jobDrafts, currentJob]} closeAction={() => setCanPreviewJob(!canPreviewJob)} />)}
+		<PreviewJobs
+      jobs={
+        [...jobDrafts.map((job) =>({
+          id: job.uuid, title: job.title, file: job.file, cost: job.totalCost
+        })), 
+        { id: currentJob.uuid, title: currentJob.title, file: currentJob.file, cost: currentJob.totalCost }]
+        }
+        closeAction={() => setCanPreviewJob(!canPreviewJob)} 
+        open={canPreviewJob}
+      />
 		<AppMainContent
 			parentClasses="app-pad"
 		>

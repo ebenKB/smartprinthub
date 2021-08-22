@@ -1,0 +1,14 @@
+.thumbnail_wrapper{
+  background-color: var(--offwhite);
+  display: inline-flex;
+  width: 70%;
+  padding: 10px;
+  justify-content: space-between;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 2px dashed #e0e0e0;
+
+  & img {
+    height: 60px;
+  }
+}
