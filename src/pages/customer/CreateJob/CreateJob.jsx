@@ -28,10 +28,7 @@ import { uuid } from 'uuidv4';
 import {uniqueId} from "lodash"
 import FileReader from '../../../utils/FileReader';
 import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
-<<<<<<< HEAD
-import FileThumbnail from '../../../components/FileThumbnail/FileThumbnail';
-=======
->>>>>>> Add new features
+import FileThumbnail from '../../../components/FileThumbnail/FileThumbnail.tsx';
 
 class CreateJob extends Component {
   constructor(props) {
@@ -41,10 +38,7 @@ class CreateJob extends Component {
         canShowCompanyDirectory: false,
         canCreateJob: false,
         canViewSavedJobs: false,
-<<<<<<< HEAD
         shouldDiscardFile: false,
-=======
->>>>>>> Add new features
       },
       tenant: {
         name: 'Best Starts Print Limited',
