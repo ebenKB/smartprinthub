@@ -28,7 +28,7 @@ import { uuid } from 'uuidv4';
 import {uniqueId} from "lodash"
 import FileReader from '../../../utils/FileReader';
 import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
-import FileThumbnail from '../../../components/FileThumbnail/FileThumbnail';
+import FileThumbnail from '../../../components/FileThumbnail/FileThumbnail.tsx';
 
 class CreateJob extends Component {
   constructor(props) {

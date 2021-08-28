@@ -14,11 +14,11 @@ import { ReactComponent as Facebook } from "../../images/facebook.svg"
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const [notification, setNotification] = useState(null);
+  const [notification, setNotification] = useState({message: "", type: ""});
   const [user, setUser] = useState({ email: '', password: '' });
   const history = useHistory();
 
-  const handleChange = (e) => {
+  const handleChange = (e: { preventDefault: () => void; target: { name: any; value: any; }; }) => {
     e.preventDefault();
     const { name, value } = e.target;
     setUser((newUser) => ({
@@ -27,11 +27,15 @@ const SignIn = () => {
     }));
 
     // clear notifications
-    setNotification(null);
+    setNotification({
+			message: "",
+			type: ""
+		});
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+
     if (user.email === '' || user.password === '') {
       setNotification({ message: 'Colud not login user', type: 'error' });
     } else {
@@ -48,7 +52,7 @@ const SignIn = () => {
 		<div className="mini container center text-center">
 			<img src={logo} alt="logo" className="medium fluid logo" />
 		</div>
-		{notification && (
+		{notification.message !== "" && (
 			<ToastNotificaton message={notification.message} type={notification.type} />
 		)}
 		<RoundContentWrapper
@@ -101,8 +105,7 @@ const SignIn = () => {
 						<ButtonWithFixedIcon
 							classes="fluid"
 							size="large"
-							content=""
-							// onClick={handleSubmit}
+							onClick={() => {}}
 							icon={<Google className="icon medium"/>}
 						>
 							<span>Continue with Google</span>
@@ -112,8 +115,7 @@ const SignIn = () => {
 						<ButtonWithFixedIcon
 							classes="fluid"
 							size="large"
-							content=""
-							// onClick={handleSubmit}
+							onClick={() => {}}
 							icon={<Facebook className="icon medium"/>}
 						>
 							<span>Continue with Facebook</span>

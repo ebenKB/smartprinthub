@@ -5,8 +5,14 @@ import classes from "./style.module.scss";
 import { useState } from 'react';
 import PreviewJobs from '../PreviewJobs/PreviewJobs';
 
-const FileThumbnail = ({fileURL, handleDiscardFile}) => {
-  const [canPreviewFile, setCanPreviewFile] = useState(false)
+interface Props {
+  fileURL: string,
+  handleDiscardFile: () => void,
+}
+
+const FileThumbnail: React.FC<Props> = ({fileURL, handleDiscardFile}) => {
+  const [canPreviewFile, setCanPreviewFile] = useState<Boolean>(false);
+ 
   return (
     <div className={classes.thumbnail_wrapper}>
       <Button 
@@ -30,7 +36,6 @@ const FileThumbnail = ({fileURL, handleDiscardFile}) => {
     </div>
   )
 }
-
 
 
 FileThumbnail.prototype={
