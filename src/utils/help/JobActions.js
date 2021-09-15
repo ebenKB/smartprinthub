@@ -14,6 +14,12 @@ const jobActions = [
     help: `If you dont want to print this job, you can use this option. 
     Dont use this option if you want the user to make changes and resend the job later.`,
   },
+  {
+    title: "Video Available",
+    help: (
+      `Watch video`
+    )
+  }
 ];
 
 export default jobActions;

@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 import './ImagePreview.scss';
-import { Button } from 'semantic-ui-react';
+import { Button, Grid, Icon } from 'semantic-ui-react';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { PropTypes } from 'prop-types';
+import { Tooltip } from '@material-ui/core';
 
-const ImagePreview = ({ handleCloseAction }) => {
+const ImagePreview = ({ handleCloseAction, fileURL }) => {
   const imageRef = useRef(null);
   const setFullScreen = () => {
     imageRef.current.requestFullscreen();
@@ -31,8 +32,20 @@ const ImagePreview = ({ handleCloseAction }) => {
 							onClick={setFullScreen}
 						/>
 					</span>
-					<span>+&nbsp;</span>
-					<span>-&nbsp;</span>
+					<Grid>
+						<Grid.Row>
+							<Grid.Column>
+								<Tooltip title="Make Image larger">
+									<Icon name="plus circle" />
+								</Tooltip>
+							</Grid.Column>
+							<Grid.Column>
+								<Tooltip title="Make Image smaller">
+									<Icon name="minus circle" />
+								</Tooltip>
+							</Grid.Column>
+						</Grid.Row>
+					</Grid>
 				</div>
 				<div className="flex center reverse">
 					<div className="text-right">
@@ -51,7 +64,7 @@ const ImagePreview = ({ handleCloseAction }) => {
 				>
 					<img
 						Style="width: auto; height: 100%; text-align: center; display:grid; align-items:center"
-						src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR838Qi_Pxvu5bNp16FXorDnIzXGLAdjOcx9w&usqp=CAU"
+						src={fileURL}
 						alt=""
 					/>
 				</div>

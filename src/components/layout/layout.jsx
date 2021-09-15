@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-// import { Image } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
 // import logo from '../../images/smartprintlogo.png';
 import Header from '../header/header';
 import HeaderOffset from '../header/header-offset';
@@ -16,10 +16,14 @@ const Layout = ({ children }) => {
 		<div className={`${hasShrunk ? 'app-container__shrink' : 'app-container'} layout`}>
 			<div className="nav-pane">
 				<div className="nav-content">
-					<div className="m-t-20">
-						{/* <Image src={logo} size="small" /> */}
+					<div className="m-t-20 text-center" style={{margin: "auto", width: "100%"}}>
+						<Image
+							src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/fingerprint.png" 
+							size="mini"
+							style={{ margin: "auto", marginTop: "20px" }}
+						/>
 						<div className="app-primary p-l-20 bold" style={{ color: 'white' }}>
-							Logo here
+							[Thumbprint] Logo
 						</div>
 						<Navigation />
 					</div>

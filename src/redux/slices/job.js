@@ -39,7 +39,6 @@ export const jobSlice = createSlice({
           jobDrafts = [action.payload];
         }
         state.jobDrafts = jobDrafts;
-        // state.currentJob = null;
       }
     },
 
