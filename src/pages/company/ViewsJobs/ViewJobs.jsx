@@ -17,6 +17,8 @@ import { ReactComponent as Done } from '../../../svg/done.svg';
 import './ViewJobs.scss';
 import SearchAndFilterWrapper from '../../../components/SearchAndFilterWrapper/SearchAndFilterWrapper';
 import SearchInputLite from '../../../components/form-fields/SearchInputLite/SearchInputLite';
+import { useEffect } from 'react';
+import { getAllJobs } from '../../../apiService/job';
 
 
 const ViewJobs = () => {
@@ -96,6 +98,19 @@ const ViewJobs = () => {
   const markJobAsComplete = (job) => {
     console.log('We want to mark the job as cmplete', job);
   };
+
+  const fetchJobs = async () => {
+    try {
+      const response = await getAllJobs();
+    } catch (error) {
+      console.log("Error here", error)
+    }
+  }
+  
+  useEffect(() =>  {
+    console.log("in jobs")
+    fetchJobs();
+  }, [])
 
   return (
 	<div>

@@ -46,6 +46,19 @@
   font-size: 1.1rem;
 }
 
+.with-caption.ui.input.error>input {
+  background-color: #fff6f6;
+  border-color: #e0b4b4;
+  color: var(--dark-red);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.with-caption.ui.input.error>input::placeholder {
+  color: var(--dark-red) !important;
+  font-weight: 400;
+}
+
 .ui.form .equal.width.fields .ui.input{
   width: 98%;
 }

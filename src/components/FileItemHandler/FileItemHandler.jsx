@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './FileItemHandler.scss';
 import { Button } from 'semantic-ui-react';
 
 import { PropTypes } from 'prop-types';
 import ImagePreview from '../ImagePreview/ImagePreview';
+import { FileHandlerContext } from '../../context/FileHandlerContext';
 
 const FileItemHandler = ({ handleDownloadAction }) => {
   const [canPreview, setCanPreview] = useState(false);
+	const {files} = useContext(FileHandlerContext)
 
   const closePreview = () => {
     setCanPreview(false);
@@ -47,9 +49,12 @@ const FileItemHandler = ({ handleDownloadAction }) => {
 			</div>
 		</div>
 		{canPreview && (
-			<ImagePreview
-				handleCloseAction={closePreview}
-			/>
+			// files.map((file) => (
+				<ImagePreview
+					fileURL={files}
+					handleCloseAction={closePreview}
+				/>
+			// ))
 		)}
 	</div>
   );

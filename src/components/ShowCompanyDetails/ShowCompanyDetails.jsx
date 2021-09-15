@@ -9,7 +9,7 @@ const ShowCompanyDetails = ({ company }) => (
 			<>
 				<div className="bold">{company.name}</div>
 				<div>{company.phone}</div>
-				<div>{company.address.location}</div>
+				<div>{company.companyInformation?.address}</div>
 				<div className="sm-caption">{company.email}</div>
 			</>
 		)}

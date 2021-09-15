@@ -9,7 +9,7 @@ const GraphItems = ({ children }) => (
 );
 
 GraphItems.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.any.isRequired,
 };
 
 export default GraphItems;

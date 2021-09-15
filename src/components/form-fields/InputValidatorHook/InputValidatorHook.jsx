@@ -3,7 +3,7 @@ import React from 'react';
 import { Controller } from 'react-hook-form';
 import { PropTypes } from 'prop-types';
 import './InputValidatorHook.scss';
-import ErrorIcon from '../../ErrorIcon/ErrorIcon';
+import ErrorLabel from '../../ErrorLabel/ErrorLabel';
 
 const InputValidatorHook = ({
   control, as, name, label, rules, error, ...rest
@@ -16,7 +16,7 @@ const InputValidatorHook = ({
 			defaultValue={rest.defaultValue}
 			rules={rules}
 		/>
-		{error && <ErrorIcon error={error} classes="sm-caption" />}
+		{error && <ErrorLabel error={error} classes="sm-caption" />}
 	</div>
 );
 

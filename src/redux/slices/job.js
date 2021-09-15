@@ -4,8 +4,8 @@ import { createSlice } from '@reduxjs/toolkit';
 export const jobSlice = createSlice({
   name: 'job',
   initialState: {
-    cost: 99.00,
-    jobs: null,
+    cost: 0.00,
+    userJobs: null,
     jobDrafts: [],
     currentJob: null,
   },
@@ -14,10 +14,6 @@ export const jobSlice = createSlice({
     addNewJob: (state) => {
       state.cost += 3;
     },
-
-    // subtracJob: (state) => {
-    //   state.cost -= 1;
-    // },
 
     addAsync: (state, action) => {
       state.cost += action.payload;
@@ -39,7 +35,6 @@ export const jobSlice = createSlice({
           jobDrafts = [action.payload];
         }
         state.jobDrafts = jobDrafts;
-        // state.currentJob = null;
       }
     },
 
@@ -53,15 +48,23 @@ export const jobSlice = createSlice({
     removeAllJobDrafts: (state) => {
       state.jobDrafts = [];
     },
+
+    saveUserJobs: (state, action) => {
+      if (action.payload) {
+        state.userJobs = action.payload
+      }
+    }
   },
 });
 
 export const {
   addNewJob, addJobAsDraft, saveCurrentJobProgress, removeAllJobDrafts, removeJobFromDrafts,
+  saveUserJobs,
 } = jobSlice.actions;
 
 export const selectJobCount = (state) => state.job.cost;
 export const selectJobDrafts = (state) => state.job.jobDrafts;
 export const selectCurrentJob = (state) => state.job.currentJob;
+export const selectJobs = (state) => state.job.userJobs;
 
 export default jobSlice.reducer;

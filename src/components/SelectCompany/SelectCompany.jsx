@@ -1,16 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dropdown, Checkbox, Button } from 'semantic-ui-react';
 import { PropTypes } from 'prop-types';
 import AppWrapperLite from '../app-wrapper-lite/app-wrapper-lite';
 import { ReactComponent as ForwardArrow } from '../../svg/forward-arrow.svg';
 import allCompanies from '../../app/mockdata/companies';
 import { findObjectByKey } from '../../utils/app';
+import { getAllCompanies } from 'apiService/company';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveComapnies, selectCompanies } from 'redux/slices/company';
+import { setNotification } from 'redux/slices/app';
+import { NotificationType } from 'enums/NotificationType.enum';
 
 const SelectCompany = ({ handleAction, setCompany }) => {
+	const dispatch = useDispatch();
+	const companies = useSelector(selectCompanies)
+
   const handleCompanyDetailsChange = (e, data) => {
     const { value } = data;
     setCompany(findObjectByKey('name', value, allCompanies));
   };
+
+	const loadCompanies = async() => {
+		try {
+			const response = await getAllCompanies();
+			dispatch(saveComapnies(response.data))
+		} catch (error) {
+			dispatch(setNotification({type: NotificationType.ERROR, message: "Error fetching companies"}))
+		}
+	}
+
+	useEffect(() => {
+		loadCompanies();
+	}, [])
 
   return (
 	<AppWrapperLite
@@ -28,7 +49,7 @@ const SelectCompany = ({ handleAction, setCompany }) => {
 					fluid
 					placeholder="Choose Company"
 					className="custom dark"
-					options={allCompanies.map((c) => ({ text: c.name, value: c.name, key: c.id }))}
+					options={companies.map((c) => ({ text: c.name, value: c.name, key: c.id }))}
 					onChange={handleCompanyDetailsChange}
 				/>
 				<Checkbox label="Set this as my default company" size="tiny" className="m-t-10 custom" />

@@ -2,13 +2,12 @@
 import React from 'react';
 // import WarningIcon from '@material-ui/icons/Warning';
 
-import './ErrorIcon.scss';
+import './ErrorLabel.scss';
 
-const ErrorIcon = ({ error, classes }) => (
+const ErrorLabel = ({ error, classes="" }) => (
 	<div className={`${classes} field-error`}>
-		{/* <WarningIcon className={classes} /> */}
 		{error}
 	</div>
 );
 
-export default ErrorIcon;
+export default ErrorLabel;

@@ -3,12 +3,17 @@ import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PropTypes } from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { clearNotification } from 'redux/slices/app';
 
-const ToastNotificaton = ({ message = '', type = 'info' }) => {
+const ToastNotificaton = ({ message = '', type = '', notificationID="" }) => {
+  const dispatch = useDispatch();
+
   const toastOptions = {
     autoClose: 5000,
     type: toast.TYPE.SUCCESS,
     position: toast.POSITION.TOP_RIGHT,
+    onClose: () => dispatch(clearNotification(notificationID)),
   };
 
   const getToast = () => {
@@ -35,7 +40,7 @@ const ToastNotificaton = ({ message = '', type = 'info' }) => {
 
       default: toastOptions.type = toast.TYPE.INFO;
     }
-    toast(message, toastOptions);
+    const toastID = toast(message, toastOptions);
   };
 
   return (

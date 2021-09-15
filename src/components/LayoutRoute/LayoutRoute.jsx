@@ -37,9 +37,9 @@ const LayoutRoute = ({
 };
 
 LayoutRoute.propTypes = {
-  component: PropTypes.element.isRequired,
-  owner: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  component: PropTypes.any.isRequired,
+  owner: PropTypes.any.isRequired,
+  title: PropTypes.string,
 };
 
 export default LayoutRoute;

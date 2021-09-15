@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { Suspense } from 'react';
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
   Redirect,
@@ -10,17 +10,31 @@ import {
 import './App.css';
 
 import GeneralProtectedRouted from './routes/general-protected-routes';
-import ProtectedUserRoutes from './routes/customer-protected-routes';
+import ProtectedCustomerRoutes from './routes/customer-protected-routes';
 import DefaultRoutes from './routes/default-routes';
 import ProtectedCompanyRoutes from './routes/company-protected-routes';
 import LayoutRoute from './components/LayoutRoute/LayoutRoute';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import AppLoader from './components/AppLoader/AppLoader';
+import { UserAccountTypes } from './enums/AccountType.enum';
+import ToastNotificaton from 'components/ToastNotification/ToastNotificaton';
+import { useSelector } from 'react-redux';
+import { selectNotification } from 'redux/slices/app';
+import history from 'utils/history';
 
 function App() {
+	const notification = useSelector(selectNotification)
+
   return (
 	<div className="light-theme">
-		<Router>
+		{notification && (
+			<ToastNotificaton 
+				message={notification.message} 
+				type={notification.type}
+				notificationID={notification.id}
+			/>
+		)}
+		<Router history={history}>
 			<Switch>
 				{DefaultRoutes.map((route, index) => (
 					<Route
@@ -53,13 +67,13 @@ function App() {
 						title={route.title}
 					/>
 				))}
-				{ProtectedUserRoutes.map((route, index) => (
+				{ProtectedCustomerRoutes.map((route, index) => (
 					<LayoutRoute
 						key={index}
 						component={route.main}
 						path={route.path}
 						exact
-						owner="user"
+						owner={UserAccountTypes.CUSTOMER}
 						title={route.title}
 					/>
 				))}

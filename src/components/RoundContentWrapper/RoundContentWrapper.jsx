@@ -28,7 +28,7 @@ const RoundContentWrapper = ({
 };
 
 RoundContentWrapper.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.array.isRequired,
   heading: PropTypes.string.isRequired,
   classes: PropTypes.string,
   isRounded: PropTypes.bool,

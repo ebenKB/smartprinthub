@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { ValidatorComponent } from 'react-form-validator-core';
 import { Input } from 'semantic-ui-react';
 // import FormError from '../../snippets/error-icon/error-icon';
-import ErrorIcon from '../../ErrorIcon/ErrorIcon';
+import ErrorLabel from '../../ErrorLabel/ErrorLabel';
 
 class InputValidator extends ValidatorComponent {
   render() {
@@ -30,7 +30,7 @@ class InputValidator extends ValidatorComponent {
 
     return (
 	<div>
-		<ErrorIcon
+		<ErrorLabel
 			error={this.getErrorMessage()}
 			classes="icon kt-logo__very-small"
 		/>

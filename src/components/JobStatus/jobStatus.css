@@ -1,0 +1,21 @@
+.job_card {
+  padding: 8px 15px;
+  border-radius: 4px;
+  color: var(--white);
+}
+
+.pending_job {
+  background-color: var(--dark-light);
+}
+
+.success_job {
+  background-color: var(--primary);
+}
+
+.queried_job {
+  background-color: var(--warning);
+}
+
+.rejected_job {
+  background-color: var(--dark-red);
+}

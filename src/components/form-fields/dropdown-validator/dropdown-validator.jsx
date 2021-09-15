@@ -2,7 +2,7 @@
 import React from 'react';
 import { ValidatorComponent } from 'react-form-validator-core';
 import { Dropdown } from 'semantic-ui-react';
-import ErrorIcon from '../../ErrorIcon/ErrorIcon';
+import ErrorLabel from '../../ErrorLabel/ErrorLabel';
 
 class DropdownValidator extends ValidatorComponent {
   render() {
@@ -28,7 +28,7 @@ class DropdownValidator extends ValidatorComponent {
 
     return (
 	<div>
-		<ErrorIcon
+		<ErrorLabel
 			error={this.getErrorMessage()}
 			classes="icon kt-logo__very-small"
 		/>

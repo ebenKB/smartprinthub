@@ -1,50 +1,36 @@
 import React, { useState } from 'react';
 import { Form, Button, Divider, Grid } from 'semantic-ui-react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import './signin.scss';
 import { useDispatch } from 'react-redux';
-import Input from './form-fields/input';
-import logo from '../../images/smartprintlogo.png';
-import RoundContentWrapper from '../RoundContentWrapper/RoundContentWrapper';
-import { authenticateUser } from '../../redux/slices/user';
-import ToastNotificaton from '../ToastNotification/ToastNotificaton';
-import ButtonWithFixedIcon from '../ButtonWithFixedIcon/ButtonWithFixedIcon';
-import { ReactComponent as Google } from "../../images/google.svg"
-import { ReactComponent as Facebook } from "../../images/facebook.svg"
+import logo from 'images/smartprintlogo.png';
+import RoundContentWrapper from 'components/RoundContentWrapper/RoundContentWrapper';
+import { saveAuthenticateUser } from 'redux/slices/user';
+import SocialAuth from 'components/SocialAuth/SocialAuth';
+import { login } from 'apiService/auth';
+import { useForm } from 'react-hook-form';
+import {InputWithValidation} from 'components/InputWithValidation/InputWithValidation';
+import { NotificationType } from 'enums/NotificationType.enum';
+import { setNotification } from 'redux/slices/app';
+import history from 'utils/history';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const [notification, setNotification] = useState({message: "", type: ""});
-  const [user, setUser] = useState({ email: '', password: '' });
-  const history = useHistory();
+  // const history = useHistory();
+	const {handleSubmit, control, formState: { errors, isSubmitting,}} = useForm({mode: "onBlur"});
 
-  const handleChange = (e: { preventDefault: () => void; target: { name: any; value: any; }; }) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    setUser((newUser) => ({
-      ...newUser,
-      [name]: value,
-    }));
-
-    // clear notifications
-    setNotification({
-			message: "",
-			type: ""
-		});
-  };
-
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-
-    if (user.email === '' || user.password === '') {
-      setNotification({ message: 'Colud not login user', type: 'error' });
-    } else {
-      dispatch(authenticateUser({
-        email: 'example@email.com',
-        password: '1212',
-      }));
-      history.push('/');
-    }
+  const onSubmit = async (user:{ username: string, password: string}) => {
+		try {
+			if (user.username === '' || user.password === '') {
+				dispatch(setNotification({ message: 'Colud not login user', type: 'error' }));
+			} else {
+				const response = await login(user);
+				dispatch(saveAuthenticateUser(response.data));
+				history.push('/signin');
+			}
+		} catch (error) {
+			dispatch(setNotification({type: NotificationType.ERROR, message: "Error logging in"}))
+		}
   };
 
   return (
@@ -52,34 +38,45 @@ const SignIn = () => {
 		<div className="mini container center text-center">
 			<img src={logo} alt="logo" className="medium fluid logo" />
 		</div>
-		{notification.message !== "" && (
-			<ToastNotificaton message={notification.message} type={notification.type} />
-		)}
 		<RoundContentWrapper
 			isRounded
 			hasDivider={false}
 			heading=""
 			classes="mini container center opaque"
 		>
-			<Form>
+			<Form onSubmit={handleSubmit(onSubmit)}>
 				<div className="form-item">
-					<Input
-						classes="with-caption fluid"
-						placeholder="Enter email"
+					<InputWithValidation
 						type="text"
-						name="email"
-						value={user.email}
-						handleChange={handleChange}
+						classes="with-caption fluid"
+						placeholder="Enter username"
+						name="username"
+						control={control}
+						validationRules={
+							{
+								required: { value: true, message: "Username is required"},
+								minLength: {value: 3, message: "Username is too Short"},
+								maxLength: {value: 32, message: "Username is too long"},
+							}}
+						error={errors.username ? true : false}
+						errorMessage={errors.username ? errors.username.message : ""}
 					/>
 				</div>
 				<div className="form-item">
-					<Input
+					<InputWithValidation
+						type="password"
 						classes="with-caption fluid"
 						placeholder="Enter password"
-						type="password"
 						name="password"
-						value={user.password}
-						handleChange={handleChange}
+						control={control}
+						validationRules={
+							{
+								required: {value: true, message: "Password is required"},
+								minLength: {value: 3, message: "Password is too Short"},
+								maxLength: {value: 32, message: "Password is too long"},
+							}}
+						error={errors.password ? true : false}
+						errorMessage={errors.password ? errors.password.message : ""}
 					/>
 				</div>
 				<div className="m-t-10">
@@ -88,41 +85,33 @@ const SignIn = () => {
 						className="fluid"
 						size="large"
 						content="Login"
-						onClick={handleSubmit}
+						type="submit"
+						loading={isSubmitting}
+						disabled={isSubmitting}
 					/>
 				</div>
 			</Form>
-			<div className="sm-caption m-t-20">
-				Dont have an account?&nbsp;
-				<Link to="/signup">
-					Signup
-				</Link>
-			</div>
+			<Grid>
+				<Grid.Row>
+					<Grid.Column width={8}>
+						<div className="sm-caption m-t-20">
+							Don't have an account?&nbsp;
+							<Link to="/signup">
+								Signup
+							</Link>
+						</div>
+					</Grid.Column>
+					<Grid.Column width={8}>
+						<div className="sm-caption m-t-20 text-right">
+							<Link to="/reset-password">
+								Forgot password
+							</Link>
+						</div>
+					</Grid.Column>
+				</Grid.Row>
+			</Grid>
 			<Divider horizontal>or</Divider>
-			<div className="m-t-40">
-				<Grid>
-					<Grid.Row>
-						<ButtonWithFixedIcon
-							classes="fluid"
-							size="large"
-							onClick={() => {}}
-							icon={<Google className="icon medium"/>}
-						>
-							<span>Continue with Google</span>
-						</ButtonWithFixedIcon>
-					</Grid.Row>
-					<Grid.Row>
-						<ButtonWithFixedIcon
-							classes="fluid"
-							size="large"
-							onClick={() => {}}
-							icon={<Facebook className="icon medium"/>}
-						>
-							<span>Continue with Facebook</span>
-						</ButtonWithFixedIcon>
-					</Grid.Row>
-				</Grid>
-			</div>
+			<SocialAuth />
 		</RoundContentWrapper>
 	</div>
   );

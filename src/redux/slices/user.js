@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import Axios from "../../utils/axios";
 
 export const userSlice = createSlice({
   name: 'user',
@@ -6,29 +7,27 @@ export const userSlice = createSlice({
     isAuthenticated: false,
     accountType: 'user', // user or company
     role: 'user',
-    email: 'example@email.com',
-    phone: '+233548086391',
-    firstname: 'Samuel',
-    lastname: 'Anderson',
-    language: 'english',
+    email: '',
+    phone: '',
+    firstname: '',
+    lastname: '',
+    language: '',
     settings: {
       canShowIntro: false,
     },
   },
   reducers: {
-    login: (state, action) => {
-      const {
-        email, phone, firstname, lastname,
-      } = action.payload;
+    saveLoginInfo: (state, action) => {
+      const {access_token} = action.payload;
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
       return ({
         ...state,
         isAuthenticated: true,
-        email,
-        phone,
-        lastname,
-        firstname,
+        ...action.payload,
+        accountType: 1,
       });
     },
+
     logout: (state) => ({
       ...state,
       isAuthenticated: false,
@@ -36,11 +35,10 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { saveLoginInfo, logout } = userSlice.actions;
 
-export const authenticateUser = (user) => (dispatch) => {
-  // authenticate the user from the api here
-  dispatch(login(user));
+export const saveAuthenticateUser = (data) => (dispatch) => {
+  dispatch(saveLoginInfo(data));
 };
 
 export const selectAuthentication = (state) => state.user.isAuthenticated;

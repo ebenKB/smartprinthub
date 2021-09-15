@@ -1,5 +1,7 @@
+import { UserAccountTypes } from "../enums/AccountType.enum";
+
 const rules = {
-  user: {
+  [UserAccountTypes.CUSTOMER]: {
     static: [
       'job:create',
       'job:edit',
