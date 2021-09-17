@@ -3,15 +3,14 @@ import {
   Divider, Button, Dropdown, Grid, Segment, Loader, Image,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import AppMainContent from '../../../../components/app-main-content/app-main-content';
-import ListItem from '../../../../components/JobListItem/JobListItem';
-import jobs from '../../../../app/mockdata/jobs';
-import JobListHeading from '../../../../components/JobListItemHeading/JobListItemHeading';
+import AppMainContent from 'components/app-main-content/app-main-content';
+import ListItem from 'components/JobListItem/JobListItem';
+import jobs from 'app/mockdata/jobs';
+import JobListHeading from 'components/JobListItemHeading/JobListItemHeading';
 import './ViewJobs.scss';
-import SearchAndFilterWrapper from '../../../../components/SearchAndFilterWrapper/SearchAndFilterWrapper';
-// import SearchInputLite from '../../../../components/form-fields/SearchInputLite/SearchInputLite';
-import CustomFilter from '../../../../components/CustomFilter/CustomFilter';
-import { JOB_STATUS } from '../../../../utils/constants';
+import SearchAndFilterWrapper from 'components/SearchAndFilterWrapper/SearchAndFilterWrapper';
+import CustomFilter from 'components/CustomFilter/CustomFilter';
+import { JOB_STATUS } from 'utils/constants';
 
 const ViewJobs = () => {
 	const PER_PAGE = 10;

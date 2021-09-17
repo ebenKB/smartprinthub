@@ -2,10 +2,10 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { Suspense } from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
 } from 'react-router-dom';
 import './App.css';
 
@@ -18,61 +18,61 @@ import PageNotFound from './pages/PageNotFound/PageNotFound';
 import AppLoader from './components/AppLoader/AppLoader';
 
 function App() {
-  return (
-	<div className="light-theme">
-		<Router>
-			<Switch>
-				{DefaultRoutes.map((route, index) => (
-					<Route
-						key={index}
-						path={route.path}
-						exact={route.exact}
-					>
-						<Suspense fallback={<AppLoader />}>
-							<route.main />
-						</Suspense>
+	return (
+		<div className="light-theme">
+			<Router>
+				<Switch>
+					{DefaultRoutes.map((route, index) => (
+						<Route
+							key={index}
+							path={route.path}
+							exact={route.exact}
+						>
+							<Suspense fallback={<AppLoader />}>
+								<route.main />
+							</Suspense>
+						</Route>
+					))}
+					{GeneralProtectedRouted.map((route, index) => (
+						<LayoutRoute
+							key={index}
+							component={route.main}
+							path={route.path}
+							exact
+							owner="general"
+							title={route.title}
+						/>
+					))}
+					{ProtectedCompanyRoutes.map((route, index) => (
+						<LayoutRoute
+							key={index}
+							component={route.main}
+							path={route.path}
+							exact
+							owner="company"
+							title={route.title}
+						/>
+					))}
+					{ProtectedUserRoutes.map((route, index) => (
+						<LayoutRoute
+							key={index}
+							component={route.main}
+							path={route.path}
+							exact
+							owner="user"
+							title={route.title}
+						/>
+					))}
+					<Redirect from="/user/settings" strict exact to="/user/settings/profile" />
+					<Redirect from="/company/settings" strict exact to="/company/settings/profile" />
+					<Route path="*">
+						{/* <Redirect to="/" /> */}
+						<PageNotFound />
 					</Route>
-				))}
-				{GeneralProtectedRouted.map((route, index) => (
-					<LayoutRoute
-						key={index}
-						component={route.main}
-						path={route.path}
-						exact
-						owner="general"
-						title={route.title}
-					/>
-				))}
-				{ProtectedCompanyRoutes.map((route, index) => (
-					<LayoutRoute
-						key={index}
-						component={route.main}
-						path={route.path}
-						exact
-						owner="company"
-						title={route.title}
-					/>
-				))}
-				{ProtectedUserRoutes.map((route, index) => (
-					<LayoutRoute
-						key={index}
-						component={route.main}
-						path={route.path}
-						exact
-						owner="user"
-						title={route.title}
-					/>
-				))}
-				<Redirect from="/user/settings" strict exact to="/user/settings/profile" />
-				<Redirect from="/company/settings" strict exact to="/company/settings/profile" />
-				<Route path="*">
-					{/* <Redirect to="/" /> */}
-					<PageNotFound />
-				</Route>
-			</Switch>
-		</Router>
-	</div>
-  );
+				</Switch>
+			</Router>
+		</div>
+	);
 }
 
 export default App;

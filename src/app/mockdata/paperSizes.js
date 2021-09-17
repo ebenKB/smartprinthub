@@ -21,6 +21,10 @@ const paperSizes = [
         name: 'A1',
         unitCost: 5.5,
       },
+      {
+        name: 'A0',
+        unitCost: 7.5,
+      },
     ],
   },
 ];

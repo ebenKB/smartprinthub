@@ -13,7 +13,7 @@
   "extends": [
     // "react-app",
     // "plugin:react/recommended",
-    "airbnb"
+    "airbnb", "airbnb/hooks","eslint:recommended"
   ],
   "rules" : {
     "react/boolean-prop-naming" : [
@@ -23,14 +23,15 @@
       }
     ],
     "react/jsx-indent" : [
-      1, 'tab',
+      1, "tab",
       {
         "checkAttributes": true,
         "indentLogicalExpressions": true
       }
     ],
+    "indent": ["error", "tab"],
     "no-tabs": 0,
-    "react/jsx-indent-props": [1, 'tab'],
+    "react/jsx-indent-props": [1, 2],
     // "react/forbid-prop-types": [0, { "forbid": [], "checkContextTypes": false, "checkChildContextTypes": false }]
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies

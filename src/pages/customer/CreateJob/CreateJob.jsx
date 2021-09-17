@@ -2,33 +2,30 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { ValidatorForm } from 'react-form-validator-core';
-import { Button, Grid, Icon } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import AppMainContent from '../../../components/app-main-content/app-main-content';
-import FormGroup from '../../../components/form-group/form-group';
-import DimensionInputGroup from '../../../components/dimension-input-group/input-group';
-import Divider from '../../../components/AppDivider/AppDivider';
-import AddItem from '../../../components/add-item/add-item';
-import CompanyDirectory from '../../../components/floating-company-directory/floating-company-directory';
-import getDimensionInFeet from '../../../utils/dimension';
-import amountToText from '../../../utils/app';
-import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
-import Help from '../../../components/HelpWrapper/HelpWrapper';
-import HelpContent from '../../../utils/help/JobActions';
-import { addJobAsDraft, addNewJob, removeJobFromDrafts, saveCurrentJobProgress } from '../../../redux/slices/job';
-import samplePaperTypes from '../../../app/mockdata/papertype';
-import CommonSizes from '../../../app/mockdata/commonsizes';
-import sampleUnits from '../../../app/mockdata/units';
-import { ReactComponent as ForwardArrow } from '../../../svg/forward-arrow.svg';
-import SelectCompany from '../../../components/SelectCompany/SelectCompany';
-import ShowCompanyDetails from '../../../components/ShowCompanyDetails/ShowCompanyDetails';
-import ViewJobDrafts from '../../../components/ViewJobDrafts/ViewJobDrafts';
+import AppMainContent from 'components/app-main-content/app-main-content';
+import FormGroup from 'components/form-group/form-group';
+import DimensionInputGroup from 'components/dimension-input-group/input-group';
+import Divider from 'components/AppDivider/AppDivider';
+import AddItem from 'components/add-item/add-item';
+import CompanyDirectory from 'components/floating-company-directory/floating-company-directory';
+import getDimensionInFeet from 'utils/dimension';
+import AppContentWrapper from 'components/app-content-wrapper/app-content-wrapper';
+import Help from 'components/HelpWrapper/HelpWrapper';
+import HelpContent from 'utils/help/JobActions';
+import { addJobAsDraft, removeJobFromDrafts, saveCurrentJobProgress } from 'redux/slices/job';
+import samplePaperTypes from 'app/mockdata/papertype';
+import CommonSizes from 'app/mockdata/commonsizes';
+import sampleUnits from 'app/mockdata/units';
+import { ReactComponent as ForwardArrow } from 'svg/forward-arrow.svg';
+import SelectCompany from 'components/SelectCompany/SelectCompany';
+import ShowCompanyDetails from 'components/ShowCompanyDetails/ShowCompanyDetails';
+import ViewJobDrafts from 'components/ViewJobDrafts/ViewJobDrafts';
 import { uuid } from 'uuidv4';
-import {uniqueId} from "lodash"
-import FileReader from '../../../utils/FileReader';
-import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
-import FileThumbnail from '../../../components/FileThumbnail/FileThumbnail.tsx';
+import FileReader from 'utils/FileReader';
+import FileThumbnail from 'components/FileThumbnail/FileThumbnail.tsx';
 
 class CreateJob extends Component {
   constructor(props) {

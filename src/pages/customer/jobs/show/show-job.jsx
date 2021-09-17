@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Grid, Label } from 'semantic-ui-react';
 import { Link, useParams } from 'react-router-dom';
 import Divider from '../../../../components/AppDivider/AppDivider';
@@ -10,11 +10,15 @@ import { FileHandlerProvider } from '../../../../context/FileHandlerContext';
 import { useSelector } from 'react-redux';
 
 const ShowJob = () => {
-	const { id }= useParams();
+	const { id } = useParams();
 
 	// find the current job from the state
 	const jobs = useSelector((state) => state.job.jobs);
-	const job = jobs && jobs.find((job) => job.id == id);
+	const job = jobs && jobs.find((job) => job.id === parseInt(id, 10));
+
+	useEffect(() => {
+		console.log("These are jobs", jobs, id);
+	}, [id, jobs])
 
 	return (
 		<div className="large container">
@@ -26,7 +30,7 @@ const ShowJob = () => {
 					<Grid columns={2}>
 						<Grid.Row>
 							<Grid.Column>
-								<h1 className="app-primary">Birthday Cards and Posters</h1>
+								<h1 className="app-primary">Birthday Cards and Posters{job && job.title}</h1>
 							</Grid.Column>
 							<Grid.Column className="text-right">
 								<span className="">
