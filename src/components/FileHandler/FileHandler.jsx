@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { FileHandlerContext, FileHandlerProvider } from '../../context/FileHandlerContext';
+import { FileHandlerContext, } from '../../context/FileHandlerContext';
 import FileItemHandler from '../FileItemHandler/FileItemHandler';
 import './FileHandler.scss';
 

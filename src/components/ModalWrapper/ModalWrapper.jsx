@@ -1,15 +1,14 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import CancelIcon from '@material-ui/icons/Cancel';
 import './ModalWrapper.scss';
-import { Button, Modal } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 // import ModalWrapperContext from '../../context/ModalWrapper.context';
 
 const ModalWrapper = ({ children, closeAction, title, open, ...rest}) => {
-  const handleModalCloseAction = () => {
-    closeAction();
-  };
+  // const handleModalCloseAction = () => {
+  //   closeAction();
+  // };
 
   return (
 	// <div className="modal-wrapper">

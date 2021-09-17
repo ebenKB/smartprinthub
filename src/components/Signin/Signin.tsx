@@ -4,18 +4,18 @@ import { Link, useHistory } from 'react-router-dom';
 import './signin.scss';
 import { useDispatch } from 'react-redux';
 import Input from './form-fields/input';
-import logo from '../../images/smartprintlogo.png';
-import RoundContentWrapper from '../RoundContentWrapper/RoundContentWrapper';
+import logo from 'images/smartprintlogo.png';
+import RoundContentWrapper from 'components/RoundContentWrapper/RoundContentWrapper';
 import { authenticateUser } from '../../redux/slices/user';
-import ToastNotificaton from '../ToastNotification/ToastNotificaton';
+import ToastNotificaton from 'components/ToastNotification/ToastNotificaton';
 import ButtonWithFixedIcon from '../ButtonWithFixedIcon/ButtonWithFixedIcon';
-import { ReactComponent as Google } from "../../images/google.svg"
-import { ReactComponent as Facebook } from "../../images/facebook.svg"
+import { ReactComponent as Google } from "images/google.svg"
+import { ReactComponent as Facebook } from "images/facebook.svg"
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const [notification, setNotification] = useState({message: "", type: ""});
-  const [user, setUser] = useState({ email: '', password: '' });
+  const [user, setUser] = useState({ email: 'eakbo23@gmail.com', password: '1111' });
   const history = useHistory();
 
   const handleChange = (e: { preventDefault: () => void; target: { name: any; value: any; }; }) => {
@@ -70,6 +70,7 @@ const SignIn = () => {
 						name="email"
 						value={user.email}
 						handleChange={handleChange}
+						// defaultValue="eakbo23@gmail.com"
 					/>
 				</div>
 				<div className="form-item">

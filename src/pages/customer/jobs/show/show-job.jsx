@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Grid, Label } from 'semantic-ui-react';
 import { Link, useParams } from 'react-router-dom';
 import Divider from '../../../../components/AppDivider/AppDivider';
@@ -14,7 +14,11 @@ const ShowJob = () => {
 
 	// find the current job from the state
 	const jobs = useSelector((state) => state.job.jobs);
-	const job = jobs && jobs.find((job) => job.id == id);
+	// const job = jobs && jobs.find((job) => job.id == id);
+
+	useEffect(() => {
+		console.log("These are jobs", jobs, id);
+	}, [id, jobs])
 
 	return (
 		<div className="large container">
