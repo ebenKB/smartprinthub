@@ -11,7 +11,7 @@ import AppHeaderContext from '../../context/AppHeaderContext';
 import AppLoader from '../AppLoader/AppLoader';
 
 const LayoutRoute = ({
-  component: Component, owner, title, ...rest
+  component: Component, owner, title="", ...rest
 }) => {
   const accountType = useSelector(selectAccountType);
   const isAuth = useSelector(selectAuthentication);
@@ -20,7 +20,7 @@ const LayoutRoute = ({
 	<Route
 		{...rest}
 		render={(matchProps) => (
-		  (((owner === accountType) || (owner === 'general')) && isAuth) ? (
+		  (/*((owner === accountType) || (owner === 'general')) &&*/ isAuth) ? (
 			<Suspense fallback={<Layout><AppLoader /></Layout>}>
 				<AppHeaderContext.Provider value={title}>
 					<Layout>
@@ -29,7 +29,7 @@ const LayoutRoute = ({
 				</AppHeaderContext.Provider>
 			</Suspense>
 		  ) : (
-			<Redirect to="/signin" />
+			<Redirect to="/hubkbs/signin" />
 		  )
 		)}
 	/>
@@ -39,7 +39,7 @@ const LayoutRoute = ({
 LayoutRoute.propTypes = {
   component: PropTypes.element.isRequired,
   owner: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 export default LayoutRoute;

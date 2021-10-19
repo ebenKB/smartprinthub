@@ -34,7 +34,7 @@ const CompanySettingsTab = () => {
 
   const tabNameToIndex = {
     0: 'profile',
-    1: 'business',
+    1: 'profile',
     2: 'job',
     3: 'payout',
   };
@@ -62,8 +62,9 @@ const CompanySettingsTab = () => {
   const classes = useStyles();
 
   const handleChange = (e, newValue) => {
+    console.log("The tab has changed", newValue)
     setSelectedTabValue(newValue);
-    history.push(`/${accountType}/settings/${tabNameToIndex[newValue]}`);
+    history.push(`/`);
   };
 
   return (

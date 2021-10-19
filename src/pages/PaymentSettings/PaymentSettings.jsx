@@ -7,7 +7,7 @@ const PaymentSettings = () => (
 		classes="medium center container"
 	>
 		<div className="m-t-20">
-			<p>Payment settings are here</p>
+			<p>Coming soon</p>
 		</div>
 	</RoundContentWrapper>
 );

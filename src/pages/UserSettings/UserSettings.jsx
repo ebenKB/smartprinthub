@@ -40,7 +40,7 @@ const UserProfile = () => {
 					<CompanyLabel companyName="Shiny Colour World Limited" />
 					<CompanyLabel companyName="Shiny Colour World Limited" />
 					<div className="text-right">
-						<Link className="m-t-20" to="/companies/new">
+						<Link className="m-t-20" to="/app/companies/new">
 							<Button content="Add new" basic size="tiny" />
 						</Link>
 					</div>

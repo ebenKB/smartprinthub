@@ -232,7 +232,7 @@ class Checkout extends React.Component {
 						</div>
 					</div>
 					<div className="m-t-20 text-right flex flex-center checkout-btns">
-						<Link to="/job/create">
+						<Link to="/app/job/create">
 							<Button
 								size="small"
 								content="Cancel"

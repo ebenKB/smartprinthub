@@ -77,7 +77,7 @@ export default function SimpleTabs() {
 
   const handleChange = (event, newValue) => {
     setSelectedTabValue(newValue);
-    history.push(`/${accountType}/settings/${tabNameToIndex[newValue]}`);
+    history.push(`/app/${accountType}/settings/${tabNameToIndex[newValue]}`);
   };
 
   return (

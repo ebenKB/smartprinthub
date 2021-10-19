@@ -304,7 +304,7 @@ class CreateJob extends Component {
     const { saveJobProgress } = this.props;
     saveJobProgress(job);
     const { history } = this.props;
-    history.push('/job/checkout');
+    history.push('/app/job/checkout');
   };
 
   toggleCompanyDirectoryForm = (value) => {

@@ -68,7 +68,7 @@ const ViewJobs = () => {
 						className="five"
 					>
 						<div>
-							<Link to={`/jobs/view/${job.id}`}>
+							<Link to={`/app/jobs/view/${job.id}`}>
 								<h3 className="caption">{job.title}</h3>
 							</Link>
 							Show the description of the job here.

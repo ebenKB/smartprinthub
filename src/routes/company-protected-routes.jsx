@@ -8,28 +8,28 @@ const ViewTransactions = lazy(() => import('../pages/company/ViewTransactions/Vi
 
 const routes = [
   {
-    path: '/company/settings/:page',
+    path: '/app/company/settings/:page',
     exact: true,
     main: () => <CompanySettingsTab />,
     title: 'Settings',
   },
   {
-    path: '/company/settings/payout/edit',
+    path: '/app/company/settings/payout/edit',
     main: () => <EditPayoutAccount />,
     title: 'Payout',
   },
   {
-    path: '/company/jobs',
+    path: '/app/company/jobs',
     main: () => <ViewJobs />,
     title: 'Jobs',
   },
   {
-    path: '/company/transactions',
+    path: '/app/company/transactions',
     main: () => <ViewTransactions />,
     title: 'Transactions',
   },
   {
-    path: '/company/jobs/:id',
+    path: '/app/company/jobs/:id',
     main: () => <ShowJobDetails />,
     title: 'Job',
   },

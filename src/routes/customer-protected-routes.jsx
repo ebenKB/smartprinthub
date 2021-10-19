@@ -14,61 +14,61 @@ const ConfirmCheckout = lazy(() => import('../pages/customer/ConfirmCheckout/Con
 
 const routes = [
   {
-    path: '/test',
+    path: '/app/test',
     exact: true,
     main: () => <h1>This is a test component</h1>,
   },
   {
-    path: '/job/create',
+    path: '/app/job/create',
     main: () => <CreateJob />,
     title: 'Create Job',
   },
   {
-    path: '/jobs',
+    path: '/app/jobs',
     main: () => <ViewJobs />,
     title: 'Jobs',
   },
   {
-    path: '/jobs/view/:id',
+    path: '/app/jobs/view/:id',
     main: () => <ShowJob />,
     title: 'Job Details',
   },
   {
-    path: '/user/settings/:page',
+    path: '/app/user/settings/:page',
     main: () => <Settings />,
     title: 'Settings',
   },
   {
-    path: '/user/settings/old',
+    path: '/app/user/settings/old',
     main: () => <UserSettings />,
   },
   {
-    path: '/job/checkout',
+    path: '/app/job/checkout',
     main: () => <Checkout />,
     title: 'Checkout',
   },
   {
-    path: '/job/checkout/confirm',
+    path: '/app/job/checkout/confirm',
     main: () => <ConfirmCheckout />,
     title: 'Confirm Checkout',
   },
   {
-    path: '/user/transactions',
+    path: '/app/user/transactions',
     main: () => <Transactions />,
     title: 'Transactions',
   },
   {
-    path: '/companies',
+    path: '/app/companies',
     main: () => <Companies />,
     title: 'Companies',
   },
   {
-    path: '/companies/new',
+    path: '/app/companies/new',
     main: () => <AddNewCompany />,
     title: 'Add Company',
   },
   {
-    path: '/companies/:id',
+    path: '/app/companies/:id',
     main: () => <ShowCompanyDetails />,
     title: 'Company',
   },

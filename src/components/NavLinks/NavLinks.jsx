@@ -31,14 +31,14 @@ const NavigationLinks = () => {
 			</NavLink>
 		</div>
 		<div className="link-item">
-			<NavLink to="/welcome" exact activeClassName="nav-selected" className="flex center link">
+			<NavLink to="/app/welcome" exact activeClassName="nav-selected" className="flex center link">
 				<Flag className="nav-icon" />
 				<span className="nav-caption">Welcome</span>
 			</NavLink>
 		</div>
 		<div className="nav-label">PAYMENTS</div>
 		<div className="link-item">
-			<NavLink to={`/${accountType}/transactions`} activeClassName="nav-selected" className="flex center link">
+			<NavLink to={`/app/${accountType}/transactions`} activeClassName="nav-selected" className="flex center link">
 				<TransIcon className="nav-icon" />
 				<span className="nav-caption">Transactions</span>
 			</NavLink>
@@ -49,7 +49,7 @@ const NavigationLinks = () => {
 			userRole={accountType}
 			yes={() => (
 				<div className="link-item">
-					<NavLink to="/job/create" activeClassName="nav-selected" className="flex center link">
+					<NavLink to="/app/job/create" activeClassName="nav-selected" className="flex center link">
 						<PlusIcon className="nav-icon" />
 						<span className="nav-caption">Create new</span>
 					</NavLink>
@@ -62,7 +62,7 @@ const NavigationLinks = () => {
 			userRole={accountType}
 			yes={() => (
 				<div className="link-item">
-					<NavLink to="/company/jobs" activeClassName="nav-selected" className="flex center link">
+					<NavLink to="/app/company/jobs" activeClassName="nav-selected" className="flex center link">
 						<List className="nav-icon" />
 						<span className="nav-caption">View Jobs</span>
 					</NavLink>
@@ -75,7 +75,7 @@ const NavigationLinks = () => {
 			userRole={accountType}
 			yes={() => (
 				<div className="link-item">
-					<NavLink to="/jobs" exact activeClassName="nav-selected" className="flex center link">
+					<NavLink to="/app/jobs" exact activeClassName="nav-selected" className="flex center link">
 						<List className="nav-icon" />
 						<span className="nav-caption">View all</span>
 					</NavLink>
@@ -85,7 +85,7 @@ const NavigationLinks = () => {
 		/>
 		<div className="nav-label">COMPANY</div>
 		<div className="link-item">
-			<NavLink to="/companies" exact activeClassName="nav-selected" className="flex center link">
+			<NavLink to="/app/companies" exact activeClassName="nav-selected" className="flex center link">
 				<Box className="nav-icon" />
 				<span className="nav-caption">View companies</span>
 			</NavLink>
@@ -95,7 +95,7 @@ const NavigationLinks = () => {
 			userRole={accountType}
 			yes={() => (
 				<div className="link-item">
-					<NavLink to="/companies/new" exact activeClassName="nav-selected" className="flex center link">
+					<NavLink to="/app/companies/new" exact activeClassName="nav-selected" className="flex center link">
 						<PlusIcon className="nav-icon" />
 						<span className="nav-caption">Add new</span>
 					</NavLink>

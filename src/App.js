@@ -16,13 +16,25 @@ import ProtectedCompanyRoutes from './routes/company-protected-routes';
 import LayoutRoute from './components/LayoutRoute/LayoutRoute';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import AppLoader from './components/AppLoader/AppLoader';
+import { ApplicationRouteSelector } from './components/ApplicationRoutesSelector/ApplicationRouteSelector';
+import CompanyRouteSelector from './components/CompanyRouteSelector/CompanyRouteSelector';
 
 function App() {
 	return (
 		<div className="light-theme">
 			<Router>
 				<Switch>
-					{DefaultRoutes.map((route, index) => (
+					<Redirect from="/" strict exact to="/app" />
+					<Route path="/app" >
+						<ApplicationRouteSelector />
+					</Route>
+					<Route path="*">
+					<Suspense fallback={<AppLoader />}>
+						<CompanyRouteSelector />
+					</Suspense>
+					</Route>
+
+					{/* {DefaultRoutes.map((route, index) => (
 						<Route
 							key={index}
 							path={route.path}
@@ -66,7 +78,12 @@ function App() {
 					<Redirect from="/user/settings" strict exact to="/user/settings/profile" />
 					<Redirect from="/company/settings" strict exact to="/company/settings/profile" />
 					<Route path="*">
-						{/* <Redirect to="/" /> */}
+						<PageNotFound />
+					</Route> */}
+
+					{/* <Redirect from="/app/user/settings" strict exact to="/app/user/settings/profile" />
+					<Redirect from="/app/company/settings" strict exact to="/app/company/settings/profile" /> */}
+					<Route path="*">
 						<PageNotFound />
 					</Route>
 				</Switch>

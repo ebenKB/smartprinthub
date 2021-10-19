@@ -19,7 +19,7 @@ const ConfirmCheckout = () => (
 		</div>
 		<div className="m-t-20 text-center">
 			<h1>Sending your job. please wait</h1>
-			<Link to="/jobs">
+			<Link to="/app/jobs">
 				Click here to view your jobs
 			</Link>
 		</div>

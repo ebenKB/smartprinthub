@@ -65,7 +65,7 @@ const ShowJob = () => {
 					</div>
 					<div className="m-t-20">
 						<div className="flex reverse">
-							<Link to="/company/1">
+							<Link to="/app/company/1">
 								<div className="bold">View Company Details</div>
 							</Link>
 						</div>
@@ -89,7 +89,7 @@ const ShowJob = () => {
 					type="faint"
 				/>
 				<div className="m-t-20">
-					<Link to="/jobs">
+					<Link to="/app/jobs">
 						<Button content="Go Back" size="small" />
 					</Link>
 				</div>

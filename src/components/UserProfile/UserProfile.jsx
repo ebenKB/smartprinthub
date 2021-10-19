@@ -34,7 +34,7 @@ const UserProfile = () => {
 			<Divider type="faint" />
 			<div className="dropdown-item__wrapper">
 				<div className="dropdown-item">
-					<Link to={`/${accountType}/settings`} className="link">
+					<Link to={`/app/${accountType}/settings`} className="link">
 						My Profile
 					</Link>
 				</div>

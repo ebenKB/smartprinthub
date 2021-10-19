@@ -5,13 +5,13 @@ const Welcome = lazy(() => import('../pages/customer/CustomerWelcomePage/Custome
 
 const routes = [
   {
-    path: '/',
+    path: '/app',
     exact: true,
     main: () => <Home />,
     title: 'Dashboard',
   },
   {
-    path: '/welcome',
+    path: '/app/welcome',
     exact: true,
     main: () => <Welcome />,
     title: 'Welcome',
