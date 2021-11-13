@@ -12,10 +12,11 @@ import BusinessSettingsTab from '../BusinessSettingsTab/BusinessSettingsTab';
 import CompanyPayoutSettingsTab from '../PayoutSettingsTab/PayoutSettingsTab';
 import UserProfileTab from '../UserProfileTab/UserProfileTab';
 import JobSettingsTab from '../JobSettingsTab/JobSettingsTab';
+import history from 'utils/history';
 
 const CompanySettingsTab = () => {
   const { page } = useParams();
-  const history = useHistory();
+  const history = history;
   const accountType = useSelector(selectAccountType);
 
   function a11yProps(index) {

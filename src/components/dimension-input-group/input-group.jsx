@@ -59,7 +59,7 @@ const InputGroup = ({
 						search
 						selection
 						options={selectedPaper.defaultSizes
-						  .map((s) => ({ text: s.name, value: s.name, key: s.id }))}
+						  .map((s) => ({ text: s.name.toUpperCase(), value: s.name, key: s.name }))}
 						value={paperSizeValue}
 						className={`md-dropdown ${classes}`}
 						onChange={(e, { value }) => handleDropDownChange(value)}

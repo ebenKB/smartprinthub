@@ -13,11 +13,11 @@ import {InputWithValidation} from 'components/InputWithValidation/InputWithValid
 import { NotificationType } from 'enums/NotificationType.enum';
 import { setNotification } from 'redux/slices/app';
 import history from 'utils/history';
+import { getErrorMessage } from 'utils/app';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  // const history = useHistory();
-	const {handleSubmit, control, formState: { errors, isSubmitting,}} = useForm({mode: "onBlur"});
+	const {handleSubmit, control, formState: { errors, isSubmitting, }} = useForm({ mode: "onBlur", });
 
   const onSubmit = async (user:{ username: string, password: string}) => {
 		try {
@@ -26,10 +26,17 @@ const SignIn = () => {
 			} else {
 				const response = await login(user);
 				dispatch(saveAuthenticateUser(response.data));
-				history.push('/signin');
+				if (history.location.pathname==="/") {
+					history.push('/');
+				} else {
+					history.goBack();
+				}
 			}
 		} catch (error) {
-			dispatch(setNotification({type: NotificationType.ERROR, message: "Error logging in"}))
+			dispatch(setNotification({
+				type: NotificationType.ERROR, 
+				message: getErrorMessage(error.response)
+			}))
 		}
   };
 

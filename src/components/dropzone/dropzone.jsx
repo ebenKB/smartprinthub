@@ -24,7 +24,7 @@ function KtDropzone({ onFilesChange, singleUpload, ...rest }) {
     if (onFilesChange) {
       onFilesChange(files);
     }
-  }, [files, onFilesChange]);
+  }, [files, /*onFilesChange*/]);
 
   /**
    * Listen to filed drop actions on the dropzone

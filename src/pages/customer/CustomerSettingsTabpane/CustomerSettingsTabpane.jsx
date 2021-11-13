@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 // import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UserSettings from '../../UserSettings/UserSettings';
 import CompanySettings from '../../company/BusinessSettingsTab/BusinessSettingsTab';
@@ -15,6 +15,7 @@ import PaymentSettings from '../../PaymentSettings/PaymentSettings';
 import { selectAccountType } from '../../../redux/slices/user';
 import TabPanel from '../../../components/TabPanel/TablPanel';
 import StyledTabs from '../../../components/MaterialTab/MaterialTab';
+import history from 'utils/history';
 
 function a11yProps(index) {
   return {
@@ -64,7 +65,7 @@ export default function SimpleTabs() {
   const accountType = useSelector(selectAccountType);
   const classes = useStyles();
   const customizedClasses = CustomStyles();
-  const history = useHistory();
+  // const history = useHistory();
   const { page } = useParams();
   const [selectedTabValue, setSelectedTabValue] = React.useState(indexToTabName[page]);
 

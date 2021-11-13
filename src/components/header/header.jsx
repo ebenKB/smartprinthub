@@ -7,11 +7,12 @@ import UserProfile from '../UserProfile/UserProfile';
 import NavToggle from '../nav-toggle/nav-toggle';
 import Notification from '../notification/notification';
 import AppHeaderContext from '../../context/AppHeaderContext';
-
+import history from 'utils/history';
 
 const Header = ({ hasShrunk, handleToggleAction }) => {
   const { id } = useParams();
-  const { location: { pathname } } = useHistory();
+  // const { location: { pathname } } = useHistory();
+	const { location: { pathname } } = history;
 
   // sets the title of the Dashboard in the layout
   const getTitle = () => {

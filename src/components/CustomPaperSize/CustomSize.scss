@@ -1,0 +1,44 @@
+@import '../form-group/form-group.scss';
+
+.form-group.small {
+  .form-group__wrapper {
+    .ui.input {
+      width: 27.5%;
+    }
+
+    .ui.dropdown {
+      width: calc(15% - 10px);
+      margin-right: 5px;
+    }
+  }
+}
+
+.form-group .small {
+    .ui.input {
+      width: 27.5%;
+    }
+
+    .ui.dropdown {
+      width: calc(15% - 10px);
+      margin-right: 5px;
+    }
+}
+
+.size-options *:not(:last-child){
+  margin-right: 20px;
+}
+
+
+.custom-paper {
+  width: 72%;
+
+  .ui .dropdown, .ui .input {
+    width: 100%;
+    height: 40px;
+  }
+
+  .dimension_label {
+    margin-top: 8px;
+    margin-left: 16px;
+  }
+}

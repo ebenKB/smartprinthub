@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  selectJobCount, selectJobDrafts, addNewJob, addJobAsDraft, removeAllJobDrafts,
+  selectJobCount, addNewJob,
 } from '../../redux/slices/job';
 import { asyncAdd } from '../../redux/actions/job';
+import { addJobAsDraft, selectJobDrafts, removeAllJobDrafts } from 'redux/slices/jobDrafts';
 
 const ExampleJob = () => {
   const jobCount = useSelector(selectJobCount);

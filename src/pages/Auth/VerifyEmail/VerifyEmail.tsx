@@ -10,12 +10,13 @@ import { useForm } from 'react-hook-form';
 import ErrorLabel from '../../../components/ErrorLabel/ErrorLabel';
 import "./verifyEmail.css";
 import { Card } from '@material-ui/core';
+import history from 'utils/history';
 
 const ResetPassword = () => {
 
   const params = new URLSearchParams(useLocation().search);
   const token= params.get("token");
-  const history = useHistory();
+  // const history = useHistory();
   const [submitting, setSubmitting] = useState(false);
 
   console.log(token)

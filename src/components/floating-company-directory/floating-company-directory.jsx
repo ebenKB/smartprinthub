@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types';
 import { ReactComponent as CloseIcon } from '../../svg/close.svg';
 import allcompanies from '../../app/mockdata/companies';
 import ListItemWrapper from '../ListItemWrapper/ListItemWrapper';
-import { findObjectByKey } from '../../utils/app';
+import { findObjectByKey } from '../../utils/app.ts';
 import { getAllCompanies } from 'apiService/company';
 import { saveComapnies, selectCompanies } from 'redux/slices/company';
 import { useDispatch, useSelector } from 'react-redux';

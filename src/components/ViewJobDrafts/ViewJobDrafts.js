@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { removeAllJobDrafts, removeJobFromDrafts } from "redux/slices/jobDrafts";
 import { Button, Grid, Icon } from 'semantic-ui-react';
 import Divider from '../../components/AppDivider/AppDivider';
-import { removeAllJobDrafts, removeJobFromDrafts } from "../../redux/slices/job";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 
 const ViewJobDrafts = ({ jobs, setJobForEditing }) => {

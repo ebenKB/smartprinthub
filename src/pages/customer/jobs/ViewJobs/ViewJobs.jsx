@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveUserJobs, selectJobs } from 'redux/slices/job';
 import { getStatusValues, Status } from 'enums/status.enum';
 import { getRandomColour } from 'utils/randomColour';
-import { formatRawDate } from 'utils/app';
+import { formatRawDate, getErrorMessage } from 'utils/app';
 import JobStatus from 'components/JobStatus/JobStatus';
 import { setNotification } from 'redux/slices/app';
 import { NotificationType } from 'enums/NotificationType.enum';
@@ -55,7 +55,10 @@ const ViewJobs = () => {
 			dispatch(saveUserJobs(response.data.jobs));
     } catch (error) {
       console.log("Error here", error)
-			dispatch(setNotification({type: NotificationType.ERROR, message: "Error loading jobs"}))
+			dispatch(setNotification({
+				type: NotificationType.ERROR,
+				message: getErrorMessage(error.response),
+			}))
     }
   }
 

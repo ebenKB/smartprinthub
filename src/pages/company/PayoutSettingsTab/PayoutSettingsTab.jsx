@@ -3,9 +3,10 @@ import { Table, Button, Dropdown } from 'semantic-ui-react';
 import { Link, useHistory } from 'react-router-dom';
 import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
 import { ReactComponent as Check } from '../../../svg/check.svg';
+import history from 'utils/history';
 
 const CompanyPayoutSettingsTab = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const { location: { pathname } } = history;
 
   const options = [

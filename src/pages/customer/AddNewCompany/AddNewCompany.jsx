@@ -6,9 +6,10 @@ import SearchInput from '../../../components/form-fields/search-input/search-inp
 import CustomFilter from '../../../components/CustomFilter/CustomFilter';
 import CustomerCompanyPreview from '../../../components/CustomerCompanyPreview/CustomerCompanyPreview';
 import Divider from '../../../components/AppDivider/AppDivider';
+import history from 'utils/history';
 
 const AddNewCompany = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const handleSearch = (text) => {
     console.log('This is the input that we want to search with', text);
   };

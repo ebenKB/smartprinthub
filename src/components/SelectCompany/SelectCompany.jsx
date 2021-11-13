@@ -4,20 +4,22 @@ import { PropTypes } from 'prop-types';
 import AppWrapperLite from '../app-wrapper-lite/app-wrapper-lite';
 import { ReactComponent as ForwardArrow } from '../../svg/forward-arrow.svg';
 import allCompanies from '../../app/mockdata/companies';
-import { findObjectByKey } from '../../utils/app';
+import { findObjectByKey } from '../../utils/app.ts';
 import { getAllCompanies } from 'apiService/company';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveComapnies, selectCompanies } from 'redux/slices/company';
 import { setNotification } from 'redux/slices/app';
 import { NotificationType } from 'enums/NotificationType.enum';
+import { getErrorMessage } from 'utils/app';
 
 const SelectCompany = ({ handleAction, setCompany }) => {
 	const dispatch = useDispatch();
 	const companies = useSelector(selectCompanies)
 
   const handleCompanyDetailsChange = (e, data) => {
-    const { value } = data;
-    setCompany(findObjectByKey('name', value, allCompanies));
+    const { value: {_id} } = data;
+		const selectedCompany = findObjectByKey('_id', _id, companies);
+    setCompany(selectedCompany);
   };
 
 	const loadCompanies = async() => {
@@ -25,7 +27,9 @@ const SelectCompany = ({ handleAction, setCompany }) => {
 			const response = await getAllCompanies();
 			dispatch(saveComapnies(response.data))
 		} catch (error) {
-			dispatch(setNotification({type: NotificationType.ERROR, message: "Error fetching companies"}))
+			dispatch(setNotification({
+				type: NotificationType.ERROR, message: getErrorMessage(error.response)
+			}))
 		}
 	}
 
@@ -49,7 +53,7 @@ const SelectCompany = ({ handleAction, setCompany }) => {
 					fluid
 					placeholder="Choose Company"
 					className="custom dark"
-					options={companies.map((c) => ({ text: c.name, value: c.name, key: c.id }))}
+					options={companies.map((c) => ({ text: c.name, value: c, key: c._id }))}
 					onChange={handleCompanyDetailsChange}
 				/>
 				<Checkbox label="Set this as my default company" size="tiny" className="m-t-10 custom" />

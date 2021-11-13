@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import Axios from "../../utils/axios";
+import Axios from "utils/axios";
 
 export const userSlice = createSlice({
   name: 'user',
@@ -45,6 +45,6 @@ export const selectAuthentication = (state) => state.user.isAuthenticated;
 export const selectUserRole = (state) => state.user.role;
 export const selectUserSettings = (state) => state.user.settings;
 export const selectAccountType = (state) => state.user.accountType;
-
+export const selectAccessToken = (state) => state.user.access_token;
 
 export default userSlice.reducer;

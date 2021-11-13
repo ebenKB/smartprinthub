@@ -13,7 +13,10 @@ const AddItem = ({
 }) => (
 	<div className={parentClasses}>
 		{!isUrlLink && (
-			<Button className={`add-item cta transparent clickable app-primary bold sm-caption ${classes}`} onClick={handleClick}>
+			<Button 
+				className={`add-item cta transparent clickable app-primary bold sm-caption ${classes}`} onClick={handleClick}
+				type="button"
+			>
 				{Logo !== null && (
 					<div className="m-r-10">{Logo}</div>
 				)}
@@ -27,6 +30,7 @@ const AddItem = ({
 			<Link to={linkUrl}>
 				<Button
 					className={`add-item cta kt-transparent clickable app-primary bold sm-caption ${classes}`}
+					type="button"
 				>
 					{Logo !== null && (
 						<div className="m-r-10">{Logo}</div>

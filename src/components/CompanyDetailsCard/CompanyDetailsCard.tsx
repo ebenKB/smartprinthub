@@ -6,6 +6,7 @@ import { Button } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 import { setNotification } from 'redux/slices/app';
 import { NotificationType } from 'enums/NotificationType.enum';
+import { getErrorMessage } from 'utils/app';
 
 interface CompanyDetails {
 	name: "",
@@ -29,9 +30,11 @@ const CompanyDetailsCard  = ({ companyID }: { companyID: string}) => {
 			setLoadingCompany(false);
       setCompany(response.data);
 		} catch (error) {
-			console.log("Error is here", error);
 			setLoadingCompany(false);
-			dispatch(setNotification({type: NotificationType.ERROR, message: "Error loading comapny information"}))
+			dispatch(setNotification({
+				type: NotificationType.ERROR,
+				message: getErrorMessage(error.response)
+			}))
 		}
 	}
 

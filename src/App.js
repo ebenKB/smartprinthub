@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-filename-extension */
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import {
   Router,
   Switch,
@@ -21,9 +21,16 @@ import ToastNotificaton from 'components/ToastNotification/ToastNotificaton';
 import { useSelector } from 'react-redux';
 import { selectNotification } from 'redux/slices/app';
 import history from 'utils/history';
+import Axios from 'utils/axios';
+import { selectAccessToken } from 'redux/slices/user';
 
 function App() {
-	const notification = useSelector(selectNotification)
+	const notification = useSelector(selectNotification);
+	const access_token = useSelector(selectAccessToken);
+
+	useEffect(() => {
+		Axios.defaults.headers.common["Authorization"]=`Bearer ${access_token}`;
+	}, []);
 
   return (
 	<div className="light-theme">
@@ -34,7 +41,7 @@ function App() {
 				notificationID={notification.id}
 			/>
 		)}
-		<Router history={history}>
+		{/* <Router history={history}> */}
 			<Switch>
 				{DefaultRoutes.map((route, index) => (
 					<Route
@@ -84,7 +91,7 @@ function App() {
 					<PageNotFound />
 				</Route>
 			</Switch>
-		</Router>
+		{/* </Router> */}
 	</div>
   );
 }

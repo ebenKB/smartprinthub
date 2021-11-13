@@ -1,10 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
+import history from 'utils/history';
 import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
 
 const EditPayoutAccount = () => {
-  const history = useHistory();
+  // const history = history;
   return (
 	<RoundContentWrapper
 		heading="Edit Payout Account"

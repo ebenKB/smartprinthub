@@ -1,6 +1,7 @@
 .nav-wrapper {
   color: white;
   padding: 20px;
+  text-align: left;
 
   .nav-label {
     color: #a3a3a3;
@@ -53,8 +54,8 @@
 
   .nav-icon {
     fill: var(--white);
-    margin-right: 5px;
-    width: 15px;
+    margin-right: 8px;
+    width: 14px;
     height: auto;
   }
 }
@@ -84,6 +85,7 @@
   .nav-wrapper {
     .nav-icon {
       width: 24px;
+      padding-top: 15px;
     }
   }
 }

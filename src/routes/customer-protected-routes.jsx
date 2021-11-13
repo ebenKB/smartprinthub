@@ -5,6 +5,7 @@ import Companies from '../pages/customer/Companies/Companies';
 import ShowCompanyDetails from '../pages/customer/CustomerCompanyDetails/CustomerCompanyDetails';
 
 const CreateJob = lazy(() => import('../pages/customer/CreateJob/CreateJob'));
+const CreateJobNew = lazy(() => import('../pages/customer/CreateJob/CreateJobV2'));
 const ViewJobs = lazy(() => import('../pages/customer/jobs/ViewJobs/ViewJobs'));
 const ShowJob = lazy(() => import('../pages/customer/jobs/show/show-job'));
 const UserSettings = lazy(() => import('../pages/customer/settings/settings'));
@@ -21,6 +22,11 @@ const routes = [
   {
     path: '/job/create',
     main: () => <CreateJob />,
+    title: 'Create Job',
+  },
+  {
+    path: '/job/create-new',
+    main: () => <CreateJobNew />,
     title: 'Create Job',
   },
   {

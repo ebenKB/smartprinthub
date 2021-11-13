@@ -12,12 +12,11 @@ import Divider from '../../../components/AppDivider/AppDivider';
 import AddItem from '../../../components/add-item/add-item';
 import CompanyDirectory from '../../../components/floating-company-directory/floating-company-directory';
 import getDimensionInFeet from '../../../utils/dimension';
-import amountToText from '../../../utils/app';
+import amountToText from '../../../utils/app.ts';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
 import Help from '../../../components/HelpWrapper/HelpWrapper';
 import HelpContent from '../../../utils/help/JobActions';
-import { addJobAsDraft, addNewJob, removeJobFromDrafts, saveCurrentJobProgress } from '../../../redux/slices/job';
-import samplePaperTypes from '../../../app/mockdata/papertype';
+import { addNewJob, saveCurrentJobProgress } from '../../../redux/slices/job';
 import CommonSizes from '../../../app/mockdata/commonsizes';
 import sampleUnits from '../../../app/mockdata/units';
 import { ReactComponent as ForwardArrow } from '../../../svg/forward-arrow.svg';
@@ -29,6 +28,8 @@ import {uniqueId} from "lodash"
 import FileReader from '../../../utils/FileReader';
 import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
 import FileThumbnail from '../../../components/FileThumbnail/FileThumbnail.tsx';
+import { loadAllCompanyJobTypes } from 'apiService/jobType';
+import { addJobAsDraft, removeJobFromDrafts } from 'redux/slices/jobDrafts';
 
 class CreateJob extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class CreateJob extends Component {
           symbol: 'GHC',
         },
       },
-      paperTypes: samplePaperTypes,
+      jobTypes: [],
       paperSizes: CommonSizes,
       units: sampleUnits,
       allJobs: [],
@@ -81,6 +82,8 @@ class CreateJob extends Component {
     reader.readFile()
 
     const { currentJob, jobDrafts } = this.props;
+    console.log("cururent job", currentJob);
+
     if (currentJob) {
       this.setState((state) => ({
         ...state,
@@ -96,6 +99,8 @@ class CreateJob extends Component {
     }
 
     if (currentJob && currentJob.company) {
+      this.loadCompanyJobTypes(currentJob.company._id);
+
       this.setState((state) => ({
         ...state,
         options: {
@@ -172,10 +177,10 @@ class CreateJob extends Component {
       }
     } else if (paperSizeType === 'custom') {
       if (width !== '' && height !== '' && unit != null && quantity !== '') {
-        const cost = getDimensionInFeet(unit.symbol, width, height) * selectedPaper.unitPrice;
+        const cost = getDimensionInFeet(unit.symbol, +width, +height) * selectedPaper.unitCost;
         const totalCost = cost * quantity;
         // newJob.totalCost = amountToText(totalCost.toFixed(2));
-        newJob.totalCost = totalCost;
+        newJob.totalCost = totalCost.toFixed(2);
       }
     }
 
@@ -187,15 +192,15 @@ class CreateJob extends Component {
     saveJobProgress(newJob);
   };
 
-  handlePaperSelectionChange = (e, data) => {
+  handleJobTypeSelectionChange = (e, data) => {
     const { value } = data;
-    const { paperTypes } = this.state;
-    const selectedPaper = paperTypes.find((f) => f.id === value);
+    const { jobTypes } = this.state;
+    const selectedJobType = jobTypes.find((f) => f._id === value._id);
     this.setState((state) => ({
       ...state,
       job: {
         ...state.job,
-        selectedPaper,
+        selectedJobType,
       },
     }), () => { this.computeCost(); });
   };
@@ -220,6 +225,22 @@ class CreateJob extends Component {
     }));
   }
 
+  loadCompanyJobTypes = async (companyID) => {
+    try {
+      // const company = this.state.job.company;
+      const response = await loadAllCompanyJobTypes(companyID);
+      const jobTypes = response.data.companyJobTypes;
+      this.setState({
+        jobTypes: jobTypes
+      })
+    } catch (error) {
+      console.log("Error here", error)
+      this.setState({
+        jobTypes: []
+      })
+    }
+  }
+
   handleJobCompanyChange = (newCompany) => {
     const updatedJob = {
       ...this.state.job,
@@ -234,6 +255,12 @@ class CreateJob extends Component {
 
     const { saveJobProgress } = this.props;
     saveJobProgress(updatedJob);
+    const { currentJob } = this.props;
+    if (currentJob) {
+      this.loadCompanyJobTypes(currentJob._id);
+    } else {
+      this.loadCompanyJobTypes(this.state.job.company._id);
+    }
   }
 
   // check when the units of measurement change or
@@ -250,7 +277,7 @@ class CreateJob extends Component {
       this.setState((state) => ({
         ...state,
         job: updatedJob,
-      }));
+      }), () => this.computeCost());
     } else if (paperSizeType === 'custom') {
       const selectedOption = units.find((u) => u.id === data);
       this.setState((state) => ({
@@ -379,9 +406,11 @@ class CreateJob extends Component {
   getDefaultPaperSize = () => {
     const { job } = this.state;
     const { selectedPaper, paperSizeType, height } = job || {}
+    console.log("This is the selected paper", selectedPaper)
 
     if (selectedPaper) {
       const { defaultSizes } = selectedPaper;
+      console.log("Default sizes", defaultSizes);
       if (paperSizeType === 'default') {
         const paperSize = defaultSizes.find((s) => s.name === height);
         if (paperSize) {
@@ -405,7 +434,7 @@ class CreateJob extends Component {
   render() {
     const {
       options: { canShowCompanyDirectory, canCreateJob },
-      allJobs, paperTypes, ref, job,
+      allJobs, jobTypes, ref, job,
     } = this.state;
 
     const { quantity,title, width, height, comment, totalCost, selectedPaper, paperSizeType, company, unit,} = job || {}
@@ -476,8 +505,12 @@ class CreateJob extends Component {
 								type="dropdown-validator"
 								label="Job Type *"
 								placeholder="Select job type"
-								options={paperTypes.map((p) => ({ key: p.id, text: `${p.name} (${p.commonName})`, value: p.id }))}
-								onChange={this.handlePaperSelectionChange}
+								options={jobTypes.map((jobType) => ({ 
+                  key: jobType._id,
+                  text: `${jobType.paperType?.name.toUpperCase()} (${jobType.paperType?.commonName})`,
+                  value: jobType,
+                }))}
+								onChange={this.handleJobTypeSelectionChange}
 								instantValidate
 								validators={['required']}
 								errorMessages={['Job Type is required']}

@@ -1,20 +1,19 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Image } from 'semantic-ui-react';
-// import logo from '../../images/smartprintlogo.png';
 import Header from '../header/header';
 import HeaderOffset from '../header/header-offset';
 import './layout.scss';
 import Navigation from '../NavLinks/NavLinks';
-import ToastNotificaton from 'components/ToastNotification/ToastNotificaton';
-// import NavToggle from '../nav-toggle/nav-toggle';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectMenuState, toggleNavMenu } from 'redux/slices/app';
 
 const Layout = ({ children }) => {
-  const [hasShrunk, setHasShrunk] = useState(false);
+	const dispatch = useDispatch();
+	const hasToggleMenu = useSelector(selectMenuState);
 
   return (
-	// <div>
-		<div className={`${hasShrunk ? 'app-container__shrink' : 'app-container'} layout`}>
+		<div className={`${hasToggleMenu ? 'app-container__shrink' : 'app-container'} layout`}>
 			<div className="nav-pane">
 				<div className="nav-content">
 					<div className="m-t-20 text-center" style={{margin: "auto", width: "100%"}}>
@@ -33,8 +32,8 @@ const Layout = ({ children }) => {
 			<div className="main-content">
 				<div>
 					<Header
-						hasShrunk={hasShrunk}
-						handleToggleAction={() => setHasShrunk(!hasShrunk)}
+						hasShrunk={hasToggleMenu}
+						handleToggleAction={() => dispatch(toggleNavMenu())}
 					/>
 					<HeaderOffset />
 					<div className="main-content__bodys">
@@ -43,7 +42,6 @@ const Layout = ({ children }) => {
 				</div>
 			</div>
 		</div>
-	// </div>
   );
 };
 

@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { PaperSizeType } from 'enums/PaperSizeType.enum';
+import { defaultJob } from 'utils/job';
 
 export const jobSlice = createSlice({
   name: 'job',
@@ -7,7 +9,10 @@ export const jobSlice = createSlice({
     cost: 0.00,
     userJobs: null,
     jobDrafts: [],
-    currentJob: null,
+    currentJob: {
+      ...defaultJob
+    },
+    jobsReadyForProcessing: [],
   },
 
   reducers: {
@@ -26,28 +31,32 @@ export const jobSlice = createSlice({
       }
     },
 
-    addJobAsDraft: (state, action) => {
-      if (action.payload) {
-        let { jobDrafts } = state;
-        if (jobDrafts !== null) {
-          jobDrafts.push(action.payload);
-        } else {
-          jobDrafts = [action.payload];
-        }
-        state.jobDrafts = jobDrafts;
-      }
+    // addJobAsDraft: (state, action) => {
+    //   if (action.payload) {
+    //     let { jobDrafts } = state;
+    //     if (jobDrafts !== null) {
+    //       jobDrafts.push(action.payload);
+    //     } else {
+    //       jobDrafts = [action.payload];
+    //     }
+    //     state.jobDrafts = jobDrafts;
+    //   }
+    // },
+
+    resetCurrentJob: (state, action) => {
+      state.currentJob= defaultJob;
     },
 
-    removeJobFromDrafts: (state, action) => {
-      if (action.payload) {
-        const jobs = state.jobDrafts.filter((x) => x.uuid !== action.payload);
-        state.jobDrafts = jobs;
-      }
-    },
+    // removeJobFromDrafts: (state, action) => {
+    //   if (action.payload) {
+    //     const jobs = state.jobDrafts.filter((x) => x.uuid !== action.payload);
+    //     state.jobDrafts = jobs;
+    //   }
+    // },
 
-    removeAllJobDrafts: (state) => {
-      state.jobDrafts = [];
-    },
+    // removeAllJobDrafts: (state) => {
+    //   state.jobDrafts = [];
+    // },
 
     saveUserJobs: (state, action) => {
       if (action.payload) {
@@ -58,12 +67,10 @@ export const jobSlice = createSlice({
 });
 
 export const {
-  addNewJob, addJobAsDraft, saveCurrentJobProgress, removeAllJobDrafts, removeJobFromDrafts,
-  saveUserJobs,
+  addNewJob, saveCurrentJobProgress, saveUserJobs, resetCurrentJob,
 } = jobSlice.actions;
 
 export const selectJobCount = (state) => state.job.cost;
-export const selectJobDrafts = (state) => state.job.jobDrafts;
 export const selectCurrentJob = (state) => state.job.currentJob;
 export const selectJobs = (state) => state.job.userJobs;
 

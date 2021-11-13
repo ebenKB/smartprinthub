@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
@@ -15,9 +15,10 @@ import User from '../../../app/mockdata/user';
 import ToastNotification from '../../../components/ToastNotification/ToastNotificaton';
 import './PaystackCheckout.scss';
 import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
+import history from 'utils/history';
 
 const PaystackCheckout = ({ jobDrafts, currentJob }) => {
-  const history = useHistory();
+  // const history = useHistory();
   const [notification, setNotification] = useState({
     message: null,
     type: null,
@@ -29,8 +30,8 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
     const initialValue = 0;
     if (jobDrafts) {
       const val = [
-        ...jobDrafts, currentJob].reduce((accum, x) => (accum + x.totalCost), initialValue);
-      return val;
+        ...jobDrafts, currentJob].reduce((accum, x) => (accum + parseFloat(x.totalCost)), initialValue);
+      return val.toFixed(2);
     }
     return currentJob.totalCost;
   };
@@ -46,7 +47,10 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
     }
   };
 
-  const computeGrossTotal = () => (computeTotalCost() + getTransactionFee());
+  const computeGrossTotal = () => {
+    const total = (parseFloat(computeTotalCost()) + parseFloat(getTransactionFee()));
+    return total.toFixed(2);
+  };
 
   const closePayment = () => {
     setNotification({
@@ -79,6 +83,7 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
       />
 		<AppMainContent
 			parentClasses="app-pad"
+      hasAside={false}
 		>
 			<AppContentWrapper
 				heading="Complete Payment"
@@ -118,7 +123,7 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
 };
 
 const mapStateToProps = (state) => ({
-  jobDrafts: state.job.jobDrafts,
+  jobDrafts: state.jobDrafts,
   currentJob: state.job.currentJob,
 });
 

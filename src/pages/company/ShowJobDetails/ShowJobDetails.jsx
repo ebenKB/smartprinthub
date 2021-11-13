@@ -13,13 +13,14 @@ import AcceptJobModal from '../../../components/AcceptJobModal/AcceptJobModal';
 import FileItemHandler from '../../../components/FileItemHandler/FileItemHandler';
 import Help from '../../../components/HelpWrapper/HelpWrapper';
 import Helps from '../../../utils/help/JobActions';
+import history from 'utils/history';
 
 const ShowJobDetails = () => {
   const [canReviseJob, setCanReviseJob] = useState(false);
   const [canReviseJobCost, setCanReviseJobCost] = useState(false);
   const [canRejectJob, setCanRejectJob] = useState(false);
   const [canAcceptJob, setCanAcceptJob] = useState(false);
-  const history = useHistory();
+  // const history = useHistory();
 
   const closeModal = () => {
     setCanReviseJob(false);
