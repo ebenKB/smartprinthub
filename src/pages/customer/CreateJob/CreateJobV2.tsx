@@ -31,10 +31,11 @@ import { NotificationType } from "enums/NotificationType.enum";
 import FileReader from 'utils/FileReader';
 import history from "utils/history";
 import { defaultJob } from "utils/job";
-import { addJobAsDraft, removeJobFromDrafts, } from "redux/slices/jobDrafts";
+import jobDrafts, { addJobAsDraft, removeJobFromDrafts, } from "redux/slices/jobDrafts";
 import { getJobEstimate } from "apiService/job";
 
 const CreateJob = (props: any) => {
+  console.log("props", props)
   const dispatch = useDispatch();
   const currentJob = useSelector(selectCurrentJob);
   // const jobDrafts = useSelector(selectJobDrafts);
@@ -90,9 +91,13 @@ const CreateJob = (props: any) => {
   const setJobDraftForEditing = () => {}
 
   const addJob  = async () => {
-    const job = await loadJobEstimate();
-    dispatch(addJobAsDraft(job));
-    clearAllFields();
+    // if(isJobValid({...data.job, ...getValues()})) {
+      const job = await loadJobEstimate();
+      dispatch(addJobAsDraft(job));
+      clearAllFields();
+    // } else {
+    //   dispatch(setNotification({type: NotificationType.ERROR, message: "Job is not valid to save"}))
+    // }
   }
 
   const clearAllFields = () => {
@@ -229,6 +234,7 @@ const CreateJob = (props: any) => {
   useEffect(() => {
     const intervalID = saveJobProgress(() => {
       if (!options.isBusy) {
+        console.log("Saved")
         saveProgress();
         dispatch(setNotification({type: NotificationType.SUCCESS, message: "Job Saved"}))
       }
@@ -485,14 +491,16 @@ const CreateJob = (props: any) => {
               </span>
             )}
           </div>
-          <div className="w-full">
-            <Divider type="thick" title={`Summary - ${data.allJobs.length} saved ${data.allJobs.length === 1 ? "job" : "jobs"}`} />
-            {options.canViewSavedJobs && (
-              <div className="m-t-10">
-                <ViewJobDrafts jobs={props.jobDrafts} setJobForEditing={setJobDraftForEditing} />
-              </div>
-            )}
-          </div>
+          {props.jobDrafts.length > 0 && (
+            <div className="w-full">
+              <Divider type="thick" title={`Summary - ${props.jobDrafts.length} saved ${props.jobDrafts.length === 1 ? "job" : "jobs"}`} />
+              {options.canViewSavedJobs && (
+                <div className="m-t-10">
+                  <ViewJobDrafts jobs={props.jobDrafts} setJobForEditing={setJobDraftForEditing} />
+                </div>
+              )}
+            </div>
+          )}
           <div className="m-t-40 text-right inline center">
             <Link to="/jobs">
               <Button
@@ -528,8 +536,8 @@ const CreateJob = (props: any) => {
   )
 }
 
-const mapStateToProps = (state: { job: { jobDrafts: any; currentJob: any; }; }) => ({
-  jobDrafts: state.job.jobDrafts,
+const mapStateToProps = (state: { jobDrafts:any, job: { jobDrafts: any; currentJob: any; }; }) => ({
+  jobDrafts: state.jobDrafts,
   currentJob: state.job.currentJob,
 });
 

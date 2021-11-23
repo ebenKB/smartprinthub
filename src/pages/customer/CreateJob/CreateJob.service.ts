@@ -1,4 +1,5 @@
 import { PaperSizeType } from "enums/PaperSizeType.enum";
+import job from "redux/slices/job";
 import { Job } from "types/job.type";
 import { computeJobCost } from "utils/job";
 

@@ -2,7 +2,7 @@
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable react/forbid-prop-types */
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 // import { useHistory } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
@@ -16,13 +16,11 @@ import ToastNotification from '../../../components/ToastNotification/ToastNotifi
 import './PaystackCheckout.scss';
 import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
 import history from 'utils/history';
+import { setNotification } from 'redux/slices/app';
 
 const PaystackCheckout = ({ jobDrafts, currentJob }) => {
-  // const history = useHistory();
-  const [notification, setNotification] = useState({
-    message: null,
-    type: null,
-  });
+  const PAYMENT_GATEWAY = "paystack";
+  const dispatch = useDispatch();
 
   const [canPreviewJob, setCanPreviewJob] = useState(false);
 
@@ -53,10 +51,10 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
   };
 
   const closePayment = () => {
-    setNotification({
+    dispatch(setNotification({
       type: 'error',
       message: 'Sorry! Your payment was not completed',
-    });
+    }))
   };
 
   const goBack = () => {
@@ -64,13 +62,9 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
   };
 
   const { email, phone } = User;
-  const { message, type } = notification;
 
   return (
 	<div className="paystack-checkout__wrapper">
-		{message && type && (
-			<ToastNotification type={type} message={message} />
-		)}
 		<PreviewJobs
       jobs={
         [...jobDrafts.map((job) =>({
@@ -94,7 +88,7 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
 					jobs={[...jobDrafts, currentJob]}
 					grossTotalCost={computeGrossTotal()}
 				/>
-				<p className="sm-caption">If you are ready to send the job, click pay and follow the instructions</p>
+				{/* <p className="sm-caption">If you are ready to send the job, click pay and follow the instructions</p> */}
 				<div className="text-right m-t-40 flex flex-center checkout-btns">
 					<Button
 						size="small"
@@ -106,15 +100,18 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
 						content="Preview Job"
 						onClick={() => setCanPreviewJob(true)}
 					/>
-					<PaystackCheckoutComponent
-						handleSuccess={completePayment}
-						handleClose={closePayment}
-						options={{
-					  amount: (computeGrossTotal() * 100),
-					  email,
-					  phone,
-						}}
-					/>
+          {/* dynamically render different checkout options here  */}
+          {PAYMENT_GATEWAY === "paystack" && (
+            <PaystackCheckoutComponent
+              handleSuccess={completePayment}
+              handleClose={closePayment}
+              // options={{
+              // amount: (computeGrossTotal() * 100),
+              // email,
+              // phone,
+              // }}
+            />
+          )}
 				</div>
 			</AppContentWrapper>
 		</AppMainContent>

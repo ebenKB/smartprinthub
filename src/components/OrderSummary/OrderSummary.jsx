@@ -7,13 +7,13 @@ import './OrderSummary.scss';
 import { PaperSizeType } from 'enums/PaperSizeType.enum';
 
 const OrderSummary = ({
-  jobs, totalCost, grossTotalCost, fee,
+  jobs,
 }) => {
 
 	const getTotalJobCost = () => {
 		if (!jobs) return 0.0;
 
-		return jobs.reduce((accum, current) => accum + parseFloat(current.totalCost), 0);
+		return jobs.reduce((accum, current) => accum + parseFloat(current.costPayable), 0);
 	}
 
 	const getJobSize = (job) => {
@@ -49,21 +49,23 @@ const OrderSummary = ({
 					<Table.HeaderCell>Size</Table.HeaderCell>
 					<Table.HeaderCell>Quantity</Table.HeaderCell>
 					<Table.HeaderCell>Unit Cost</Table.HeaderCell>
-					<Table.HeaderCell>Total Cost(GHS)</Table.HeaderCell>
-					<Table.HeaderCell>Others</Table.HeaderCell>
+					<Table.HeaderCell>Gross Total(GHS)</Table.HeaderCell>
+					<Table.HeaderCell>Discount</Table.HeaderCell>
+					<Table.HeaderCell>Net Cost</Table.HeaderCell>
 				</Table.Row>
 			</Table.Header>
 	
 			<Table.Body>
 				{jobs && jobs.map((job) => (
 					<Table.Row>
-						<Table.Cell>{job.title}</Table.Cell>
-						<Table.Cell>{job.selectedJobType.paperType.name.toUpperCase()}({job.selectedJobType.paperType.commonName})</Table.Cell>
-						<Table.Cell>{getJobSize(job)}</Table.Cell>
-						<Table.Cell textAlign="center">{job.quantity}</Table.Cell>
-						<Table.Cell textAlign="center">{getUnitcost(job)}</Table.Cell>
-						<Table.Cell textAlign="right">{job.totalCost}</Table.Cell>
-						<Table.Cell textAlign="right">0.00</Table.Cell>
+						<Table.Cell width="4">{job.title}</Table.Cell>
+						<Table.Cell width="2">{job.selectedJobType.paperType.name.toUpperCase()}({job.selectedJobType.paperType.commonName})</Table.Cell>
+						<Table.Cell width="2">{getJobSize(job)}</Table.Cell>
+						<Table.Cell textAlign="center" width="1">{job.quantity}</Table.Cell>
+						<Table.Cell textAlign="center" width="1">{getUnitcost(job)}</Table.Cell>
+						<Table.Cell textAlign="right" width="2">{job.actualCost}</Table.Cell>
+						<Table.Cell textAlign="right" width="2">{job.discount}</Table.Cell>
+						<Table.Cell textAlign="right" width="2">{job.costPayable}</Table.Cell>
 					</Table.Row>
 				))}
 			</Table.Body>
@@ -94,21 +96,21 @@ const OrderSummary = ({
 					<h3>{getTotalJobCost()}</h3>
 				</div>
 			</div>
-			<div className="order-summary__item item-caption m-t-20">
+			{/* <div className="order-summary__item item-caption m-t-20">
 				<span>Transaction Fee</span>
 				<div className="flex-inline flex center ">
 					<span>GHC</span>
 					<h3>{fee}</h3>
 				</div>
-			</div>
-			<Divider />
+			</div> */}
+			{/* <Divider />
 			<div className="order-summary__item item-caption">
 				<span className="bold">Gross Total</span>
 				<div className="flex-inline flex center app-warning bold">
 					<span>GHC</span>
 					<h2>{grossTotalCost}</h2>
 				</div>
-			</div>
+			</div> */}
 			<Divider />
 		</section>
 		</>

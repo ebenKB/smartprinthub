@@ -10,7 +10,7 @@ const ViewJobs = lazy(() => import('../pages/customer/jobs/ViewJobs/ViewJobs'));
 const ShowJob = lazy(() => import('../pages/customer/jobs/show/show-job'));
 const UserSettings = lazy(() => import('../pages/customer/settings/settings'));
 const Settings = lazy(() => import('../pages/customer/CustomerSettingsTabpane/CustomerSettingsTabpane'));
-const Checkout = lazy(() => import('../pages/customer/PaystackCheckout/PaystackCheckout'));
+const Checkout = lazy(() => import('../pages/customer/AppCheckout/AppCheckout'));
 const ConfirmCheckout = lazy(() => import('../pages/customer/ConfirmCheckout/ConfirmCheckout'));
 
 const routes = [

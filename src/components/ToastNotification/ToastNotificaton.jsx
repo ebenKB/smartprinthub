@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import React from 'react';
+import React, { useCallback } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PropTypes } from 'prop-types';
@@ -8,15 +8,19 @@ import { clearNotification } from 'redux/slices/app';
 
 const ToastNotificaton = ({ message = '', type = '', notificationID="" }) => {
   const dispatch = useDispatch();
+  const customId = "app-toast-notification";
 
   const toastOptions = {
     autoClose: 5000,
     type: toast.TYPE.SUCCESS,
     position: toast.POSITION.TOP_RIGHT,
-    onClose: () => dispatch(clearNotification(notificationID)),
+    toastId: customId,
+    onClose: () => {
+      dispatch(clearNotification(notificationID))
+    },
   };
 
-  const getToast = () => {
+  const getToast = useCallback(() => {
     switch (type) {
       case 'success': {
         toastOptions.type = toast.TYPE.SUCCESS;
@@ -40,8 +44,8 @@ const ToastNotificaton = ({ message = '', type = '', notificationID="" }) => {
 
       default: toastOptions.type = toast.TYPE.INFO;
     }
-    /*const toastID =*/ toast(message, toastOptions);
-  };
+    toast(message, toastOptions);
+  }, []);
 
   return (
 	<div>
@@ -50,7 +54,7 @@ const ToastNotificaton = ({ message = '', type = '', notificationID="" }) => {
 			draggable
 			newestOnTop
 			containerId="app-notification"
-			limit={10}
+			limit={3}
 			autoClose
 		/>
 	</div>

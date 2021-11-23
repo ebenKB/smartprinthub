@@ -26,6 +26,7 @@ import history from 'utils/history';
 
 function App() {
 	const notification = useSelector(selectNotification);
+	console.log("notification", notification);
 	const access_token = useSelector(selectAccessToken);
 
 	useEffect(() => {
@@ -34,7 +35,7 @@ function App() {
 
   return (
 	<div className="light-theme">
-		{notification && (
+		{notification?.message && (
 			<ToastNotificaton 
 				message={notification.message} 
 				type={notification.type}
