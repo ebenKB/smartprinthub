@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import './header.scss';
-import { useParams, useHistory } from 'react-router-dom';
-import UserProfile from '../UserProfile/UserProfile';
-// import SearchInput from '../form-fields/search-input/search-input';
-import NavToggle from '../nav-toggle/nav-toggle';
-import Notification from '../notification/notification';
-import AppHeaderContext from '../../context/AppHeaderContext';
+import { useParams } from 'react-router-dom';
+import UserProfile from 'components/UserProfile/UserProfile';
+import NavToggle from 'components/nav-toggle/nav-toggle';
+import Notification from 'components/notification/notification';
+import AppHeaderContext from 'context/AppHeaderContext';
 import history from 'utils/history';
 
 const Header = ({ hasShrunk, handleToggleAction }) => {

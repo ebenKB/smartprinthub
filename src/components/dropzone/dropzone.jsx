@@ -5,7 +5,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-no-undef */
 import React, {
-  useState, useEffect, createRef,
+  useState, useEffect, createRef, useCallback,
 } from 'react';
 import { Button } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
@@ -19,12 +19,16 @@ function KtDropzone({ onFilesChange, singleUpload, ...rest }) {
   const [error, setError] = useState(null);
   const [files, setFiles] = useState([]);
 
+  const handleFilesChange = useCallback((files) => {
+    onFilesChange(files);
+  }, [onFilesChange])
+
   useEffect(() => {
-    // attach the files to the requisitions
-    if (onFilesChange) {
-      onFilesChange(files);
+    if (files) {
+     handleFilesChange(files);
     }
-  }, [files, /*onFilesChange*/]);
+    // eslint-disable-next-line
+  }, [files]);
 
   /**
    * Listen to filed drop actions on the dropzone

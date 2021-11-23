@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getCompanyDetails } from 'apiService/company';
 import AppWrapperLite from 'components/app-wrapper-lite/app-wrapper-lite';
 import Divider from 'components/AppDivider/AppDivider';
@@ -18,15 +18,15 @@ interface CompanyDetails {
 		digitalAddress: "",
 	}
 }
+
 const CompanyDetailsCard  = ({ companyID }: { companyID: string}) => {
 	const dispatch = useDispatch();
   const [loadingCompany, setLoadingCompany] = useState(false);
   const [company, setCompany] = useState<CompanyDetails>();
 
-  const loadCompanyDetails = async () => {
+  const loadCompanyDetails = useCallback(async () => {
 		try {
 			const response = await getCompanyDetails(companyID);
-			console.log("response is here", response);
 			setLoadingCompany(false);
       setCompany(response.data);
 		} catch (error) {
@@ -36,13 +36,13 @@ const CompanyDetailsCard  = ({ companyID }: { companyID: string}) => {
 				message: getErrorMessage(error.response)
 			}))
 		}
-	}
+	}, [companyID, dispatch])
 
 	useEffect(() => {
 		if (loadingCompany) {
 			loadCompanyDetails();
 		}
-	}, [loadingCompany]);
+	}, [loadingCompany, loadCompanyDetails]);
 
   return (
 		<AppWrapperLite>

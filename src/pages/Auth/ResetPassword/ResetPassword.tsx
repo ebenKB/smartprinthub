@@ -2,15 +2,15 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import { Input, Button, Form, Label } from 'semantic-ui-react';
+import { Input, Button, Form, } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
-import Logo from '../../../images/smartprintlogo.png';
+import RoundContentWrapper from 'components/RoundContentWrapper/RoundContentWrapper';
+import Logo from 'images/smartprintlogo.png';
 import { useForm } from 'react-hook-form';
-import ErrorLabel from '../../../components/ErrorLabel/ErrorLabel';
+import ErrorLabel from 'components/ErrorLabel/ErrorLabel';
 
 const ResetPassword = () => {
-  const {register, handleSubmit, control,  formState: { errors, isSubmitting,}} = useForm();
+  const {handleSubmit,} = useForm();
 
   const onSubmit = () => {
     console.log("we want to submit the form");

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import { Image } from 'semantic-ui-react';
 import Header from '../header/header';
 import HeaderOffset from '../header/header-offset';

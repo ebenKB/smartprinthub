@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Label } from 'semantic-ui-react';
-import { useHistory } from 'react-router-dom';
-import AppMainContent from '../../../components/app-main-content/app-main-content';
-import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
-// import { ReactComponent as DownloadIcon } from '../../../svg/download.svg';
+import AppMainContent from 'components/app-main-content/app-main-content';
+import RoundContentWrapper from 'components/RoundContentWrapper/RoundContentWrapper';
 import './ShowJobDetails.scss';
-import CircularLabel from '../../../components/CircularLabel/CircularLabel';
-import ReviseJobCostModal from '../../../components/ReviseJobCostModal/ReviseJobCostModal';
-import ReviewJobModal from '../../../components/ReviewJobModal/ReviewJobModal';
-import RejectJobModal from '../../../components/RejectJobModal/RejectJobModal';
-import AcceptJobModal from '../../../components/AcceptJobModal/AcceptJobModal';
-import FileItemHandler from '../../../components/FileItemHandler/FileItemHandler';
-import Help from '../../../components/HelpWrapper/HelpWrapper';
-import Helps from '../../../utils/help/JobActions';
+import CircularLabel from 'components/CircularLabel/CircularLabel';
+import ReviseJobCostModal from 'components/ReviseJobCostModal/ReviseJobCostModal';
+import ReviewJobModal from 'components/ReviewJobModal/ReviewJobModal';
+import RejectJobModal from 'components/RejectJobModal/RejectJobModal';
+import AcceptJobModal from 'components/AcceptJobModal/AcceptJobModal';
+import FileItemHandler from 'components/FileItemHandler/FileItemHandler';
+import Help from 'components/HelpWrapper/HelpWrapper';
+import Helps from 'utils/help/JobActions';
 import history from 'utils/history';
 
 const ShowJobDetails = () => {
@@ -20,7 +18,6 @@ const ShowJobDetails = () => {
   const [canReviseJobCost, setCanReviseJobCost] = useState(false);
   const [canRejectJob, setCanRejectJob] = useState(false);
   const [canAcceptJob, setCanAcceptJob] = useState(false);
-  // const history = useHistory();
 
   const closeModal = () => {
     setCanReviseJob(false);

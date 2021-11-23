@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Divider, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import ButtonWithFixedIcon from '../ButtonWithFixedIcon/ButtonWithFixedIcon';
 import { ReactComponent as Google } from "../../images/google.svg"
 import { ReactComponent as Facebook } from "../../images/facebook.svg"

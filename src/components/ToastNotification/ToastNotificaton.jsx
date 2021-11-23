@@ -40,7 +40,7 @@ const ToastNotificaton = ({ message = '', type = '', notificationID="" }) => {
 
       default: toastOptions.type = toast.TYPE.INFO;
     }
-    const toastID = toast(message, toastOptions);
+    /*const toastID =*/ toast(message, toastOptions);
   };
 
   return (

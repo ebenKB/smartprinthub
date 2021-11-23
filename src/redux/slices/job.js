@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { PaperSizeType } from 'enums/PaperSizeType.enum';
 import { defaultJob } from 'utils/job';
 
 export const jobSlice = createSlice({

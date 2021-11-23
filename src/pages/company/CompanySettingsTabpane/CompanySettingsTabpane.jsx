@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
-import StyledTabs from '../../../components/MaterialTab/MaterialTab';
-import TabPanel from '../../../components/TabPanel/TablPanel';
-import { selectAccountType } from '../../../redux/slices/user';
+import StyledTabs from 'components/MaterialTab/MaterialTab';
+import TabPanel from 'components/TabPanel/TablPanel';
+import { selectAccountType } from 'redux/slices/user';
 import BusinessSettingsTab from '../BusinessSettingsTab/BusinessSettingsTab';
 import CompanyPayoutSettingsTab from '../PayoutSettingsTab/PayoutSettingsTab';
 import UserProfileTab from '../UserProfileTab/UserProfileTab';
@@ -16,7 +16,6 @@ import history from 'utils/history';
 
 const CompanySettingsTab = () => {
   const { page } = useParams();
-  const history = history;
   const accountType = useSelector(selectAccountType);
 
   function a11yProps(index) {

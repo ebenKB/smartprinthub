@@ -1,12 +1,10 @@
 import React from 'react';
 import { Button } from 'semantic-ui-react';
-import { useHistory } from 'react-router-dom';
-import AppMainContent from '../../../components/app-main-content/app-main-content';
-import CustomerCompanyPreview from '../../../components/CustomerCompanyPreview/CustomerCompanyPreview';
+import AppMainContent from 'components/app-main-content/app-main-content';
+import CustomerCompanyPreview from 'components/CustomerCompanyPreview/CustomerCompanyPreview';
 import history from 'utils/history';
 
 const ShowCompanyDetails = () => {
-  // const history = useHistory();
 
   const goBack = () => {
     history.goBack();

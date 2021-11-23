@@ -6,8 +6,8 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import { store, persistor } from './app/store';
-import { Router } from "react-router-dom";
-import history from "utils/history";
+// import { Router } from "react-router-dom";
+// import history from "utils/history";
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -16,9 +16,9 @@ ReactDOM.render(
 				loading={<div>Loading</div>}
 				persistor={persistor}
 			>
-				<Router history={history}>
+				{/* <Router history={history}> */}
 					<App />
-				</Router>
+				{/* </Router> */}
 			</PersistGate>
 		</Provider>
 	</React.StrictMode>,

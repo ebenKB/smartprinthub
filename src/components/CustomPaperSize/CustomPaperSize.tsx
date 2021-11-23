@@ -2,9 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { PaperSizeType } from 'enums/PaperSizeType.enum';
-import { Dropdown, Radio, Form, Grid, Label } from 'semantic-ui-react';
-// import InputValidator from '../form-fields/input-validator/input-validator';
+import { Dropdown, Grid, } from 'semantic-ui-react';
 import './CustomSize.scss';
 import sampleUnits from 'app/mockdata/units';
 import { InputWithValidation } from 'components/InputWithValidation/InputWithValidation';
@@ -50,11 +48,6 @@ const CustomPaperSize = ({
 	const handleChange = (data:any) => {
 		const unit = sampleUnits.find((unit) => unit.name === data);
 		handleUnitChange(unit);
-	}
-
-	const getCurrentDimenstion = () => {
-		const {width, height} = getValues();
-		return {width, height}
 	}
 
 return (

@@ -3,16 +3,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import './Signup.scss';
-import { Input, Button, Form, Divider } from 'semantic-ui-react';
+import { Button, Form, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
-import Logo from '../../../images/smartprintlogo.png';
-import SocialAuth from '../../../components/SocialAuth/SocialAuth';
-import { InputWithValidation } from '../../../components/InputWithValidation/InputWithValidation';
+import RoundContentWrapper from 'components/RoundContentWrapper/RoundContentWrapper';
+import Logo from 'images/smartprintlogo.png';
+import SocialAuth from 'components/SocialAuth/SocialAuth';
+import { InputWithValidation } from 'components/InputWithValidation/InputWithValidation';
 import { useForm } from 'react-hook-form';
 
 const Signup = () => {
-	const {handleSubmit, control, formState: { errors, isSubmitting,}} = useForm({mode: "onBlur"});
+	const {control, formState: { errors, }} = useForm({mode: "onBlur"});
 
   return (
 	<div className="signup-container">

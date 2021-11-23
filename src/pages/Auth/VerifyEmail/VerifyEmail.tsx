@@ -2,27 +2,20 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
-import { Input, Button, Form, Label, Message } from 'semantic-ui-react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import RoundContentWrapper from '../../../components/RoundContentWrapper/RoundContentWrapper';
-import Logo from '../../../images/smartprintlogo.png';
-import { useForm } from 'react-hook-form';
-import ErrorLabel from '../../../components/ErrorLabel/ErrorLabel';
+import { Button, } from 'semantic-ui-react';
+// import { useLocation } from 'react-router-dom';
+import Logo from 'images/smartprintlogo.png';
 import "./verifyEmail.css";
 import { Card } from '@material-ui/core';
 import history from 'utils/history';
 
 const ResetPassword = () => {
 
-  const params = new URLSearchParams(useLocation().search);
-  const token= params.get("token");
-  // const history = useHistory();
+  // const params = new URLSearchParams(useLocation().search);
+  // const token= params.get("token");
   const [submitting, setSubmitting] = useState(false);
 
-  console.log(token)
-
   const handleSubmit = () => {
-    console.log("we want to submit the form");
     setSubmitting(true);
     setTimeout(() => {
       history.push("/");

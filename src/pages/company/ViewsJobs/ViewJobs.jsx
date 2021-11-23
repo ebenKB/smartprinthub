@@ -101,7 +101,7 @@ const ViewJobs = () => {
 
   const fetchJobs = async () => {
     try {
-      const response = await getAllJobs();
+      await getAllJobs();
     } catch (error) {
       console.log("Error here", error)
     }

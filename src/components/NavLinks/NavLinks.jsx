@@ -1,15 +1,13 @@
 import React from 'react';
-// import { Accordion, Menu } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ReactComponent as Flag } from '../../svg/flag.svg';
-import { ReactComponent as List } from '../../svg/list.svg';
-import { ReactComponent as Box } from '../../svg/box.svg';
-import { ReactComponent as PlusIcon } from '../../svg/plus.svg';
-import { ReactComponent as TransIcon } from '../../svg/transaction.svg';
-import { ReactComponent as HomeIcon } from '../../svg/home.svg';
+import { ReactComponent as Flag } from 'svg/flag.svg';
+import { ReactComponent as List } from 'svg/list.svg';
+import { ReactComponent as PlusIcon } from 'svg/plus.svg';
+import { ReactComponent as TransIcon } from 'svg/transaction.svg';
+import { ReactComponent as HomeIcon } from 'svg/home.svg';
 import Can from '../Can/Can';
-import { selectAccountType } from '../../redux/slices/user';
+import { selectAccountType } from 'redux/slices/user';
 import './NavLinks.scss';
 import { selectMenuState } from 'redux/slices/app';
 

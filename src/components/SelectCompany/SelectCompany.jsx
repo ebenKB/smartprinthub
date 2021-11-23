@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Dropdown, Checkbox, Button } from 'semantic-ui-react';
 import { PropTypes } from 'prop-types';
 import AppWrapperLite from '../app-wrapper-lite/app-wrapper-lite';
 import { ReactComponent as ForwardArrow } from '../../svg/forward-arrow.svg';
-import allCompanies from '../../app/mockdata/companies';
 import { findObjectByKey } from '../../utils/app.ts';
 import { getAllCompanies } from 'apiService/company';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +21,7 @@ const SelectCompany = ({ handleAction, setCompany }) => {
     setCompany(selectedCompany);
   };
 
-	const loadCompanies = async() => {
+	const loadCompanies = useCallback(async () => {
 		try {
 			const response = await getAllCompanies();
 			dispatch(saveComapnies(response.data))
@@ -31,11 +30,11 @@ const SelectCompany = ({ handleAction, setCompany }) => {
 				type: NotificationType.ERROR, message: getErrorMessage(error.response)
 			}))
 		}
-	}
+	},[dispatch]);
 
 	useEffect(() => {
 		loadCompanies();
-	}, [])
+	}, [loadCompanies])
 
   return (
 	<AppWrapperLite

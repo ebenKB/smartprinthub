@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Grid, Label } from 'semantic-ui-react';
+import React from 'react';
+import { Button, Grid, } from 'semantic-ui-react';
 import { Link, useParams } from 'react-router-dom';
-import Divider from '../../../../components/AppDivider/AppDivider';
-import AppMainContent from '../../../../components/app-main-content/app-main-content';
-import AppWrapperLite from '../../../../components/app-wrapper-lite/app-wrapper-lite';
+import Divider from 'components/AppDivider/AppDivider';
+import AppMainContent from 'components/app-main-content/app-main-content';
+import AppWrapperLite from 'components/app-wrapper-lite/app-wrapper-lite';
 import './show-job.scss';
-import FileHandler from '../../../../components/FileHandler/FileHandler';
-import { FileHandlerProvider } from '../../../../context/FileHandlerContext';
+import FileHandler from 'components/FileHandler/FileHandler';
+import { FileHandlerProvider } from 'context/FileHandlerContext';
 import { useSelector } from 'react-redux';
-import { getStatusValues } from 'enums/status.enum';
 import { formatRawDate } from 'utils/app';
 import JobStatus from 'components/JobStatus/JobStatus';
-import { getCompanyDetails } from 'apiService/company';
 import CompanyDetailsCard from 'components/CompanyDetailsCard/CompanyDetailsCard';
 
 const ShowJob = () => {
 	const { id } = useParams();
-	const [loadingCompany, setLoadingCompany] = useState(false);
 
 	// find the current job from the state
 	const jobs = useSelector((state) => state.job.userJobs);
-	const job = jobs && jobs.find((job) => job._id == id);
-	console.log("Found job", job);
+	const job = jobs && jobs.find((job) => job._id === id);
 
 	return (
 		<div className="large container">

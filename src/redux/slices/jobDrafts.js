@@ -22,7 +22,7 @@ export const jobSlice = createSlice({
     removeJobFromDrafts: (state, action) => {
       if (action.payload) {
         const jobs = state.filter((x) => x.uuid !== action.payload);
-        state = [];
+        state = jobs;
       }
     },
 

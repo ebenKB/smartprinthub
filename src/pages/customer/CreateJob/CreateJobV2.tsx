@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import AppMainContent from "components/app-main-content/app-main-content";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Help from "components/HelpWrapper/HelpWrapper";
@@ -115,7 +115,20 @@ const CreateJob = (props: any) => {
     setData({...data, job: {...data.job, unit: `${value.name}`, defaultSize: null}})
   }
 
-  const handleFileChange = async (file:any) => {
+  // const handleFileChange = async (file:any) => {
+  //   try {
+  //     const reader = new FileReader();
+  //     if (file.length > 0) {
+  //       reader.readFileAsDataURL(file, (results:any) => {
+  //         setData({...data, job: {...data.job, file: results }})
+  //       })
+  //     }
+  //   } catch (error) {
+  //     console.log("error reading file", error);
+  //   }
+  // }
+
+  const handleFileChange  = useCallback(async (file:any) => {
     try {
       const reader = new FileReader();
       if (file.length > 0) {
@@ -126,18 +139,33 @@ const CreateJob = (props: any) => {
     } catch (error) {
       console.log("error reading file", error);
     }
-  }
+  }, [data]);
 
   const handleDiscardFile = () => {
     setOptions({...options, canUploadNewFile: true})
   }
 
   // load the job types for the selected company
-  const loadCompanyJobTypes = async (company: any) => {
+  // const loadCompanyJobTypes = async (company: any) => {
+  //   try {
+  //     setLoadingCompanyJobTypes(true);
+  //     // const company = data.job.company;
+  //     console.log("Company", company);
+  //     if (company) {
+  //       const response = await loadAllCompanyJobTypes(company._id);
+  //       const jobTypes = response.data.companyJobTypes;
+  //       dispatch(setCompanyJobTypes({id: company._id, jobTypes}))
+  //     }
+  //     setLoadingCompanyJobTypes(false);
+  //   } catch (error) {
+  //     setLoadingCompanyJobTypes(false);
+  //     dispatch(setCompanyJobTypes(null))
+  //   }
+  // }
+
+  const loadCompanyJobTypes = useCallback(async(company:any) => {
     try {
       setLoadingCompanyJobTypes(true);
-      // const company = data.job.company;
-      console.log("Company", company);
       if (company) {
         const response = await loadAllCompanyJobTypes(company._id);
         const jobTypes = response.data.companyJobTypes;
@@ -148,12 +176,12 @@ const CreateJob = (props: any) => {
       setLoadingCompanyJobTypes(false);
       dispatch(setCompanyJobTypes(null))
     }
-  }
+  }, [dispatch])
 
   // load default values
   useEffect(() => {
     loadCompanyJobTypes(data.job.company);
-  }, [])
+  }, [data.job.company, loadCompanyJobTypes])
 
   // query api for job estimate
   const loadJobEstimate = async (values=null) => {

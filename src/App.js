@@ -20,9 +20,9 @@ import { UserAccountTypes } from './enums/AccountType.enum';
 import ToastNotificaton from 'components/ToastNotification/ToastNotificaton';
 import { useSelector } from 'react-redux';
 import { selectNotification } from 'redux/slices/app';
-import history from 'utils/history';
 import Axios from 'utils/axios';
 import { selectAccessToken } from 'redux/slices/user';
+import history from 'utils/history';
 
 function App() {
 	const notification = useSelector(selectNotification);
@@ -30,7 +30,7 @@ function App() {
 
 	useEffect(() => {
 		Axios.defaults.headers.common["Authorization"]=`Bearer ${access_token}`;
-	}, []);
+	}, [access_token]);
 
   return (
 	<div className="light-theme">
@@ -41,7 +41,7 @@ function App() {
 				notificationID={notification.id}
 			/>
 		)}
-		{/* <Router history={history}> */}
+		<Router history={history}>
 			<Switch>
 				{DefaultRoutes.map((route, index) => (
 					<Route
@@ -91,7 +91,7 @@ function App() {
 					<PageNotFound />
 				</Route>
 			</Switch>
-		{/* </Router> */}
+		</Router>
 	</div>
   );
 }

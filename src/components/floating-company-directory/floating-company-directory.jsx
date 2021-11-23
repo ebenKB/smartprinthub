@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './floating-company-directory.scss';
 import { Button, Radio } from 'semantic-ui-react';
 import { PropTypes } from 'prop-types';
-import { ReactComponent as CloseIcon } from '../../svg/close.svg';
-import allcompanies from '../../app/mockdata/companies';
+import { ReactComponent as CloseIcon } from 'svg/close.svg';
 import ListItemWrapper from '../ListItemWrapper/ListItemWrapper';
-import { findObjectByKey } from '../../utils/app.ts';
+import { findObjectByKey } from 'utils/app.ts';
 import { getAllCompanies } from 'apiService/company';
 import { saveComapnies, selectCompanies } from 'redux/slices/company';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,19 +27,19 @@ const CompanyDirectory = ({ handleCloseAction, handleAction }) => {
     handleAction(selected);
     handleCloseAction();
   };
-
-	const loadCompanies = async() => {
+	
+	const loadCompanies = useCallback(async () => {
 		try {
 			const response = await getAllCompanies();
 			dispatch(saveComapnies(response.data))
 		} catch (error) {
 			dispatch(setNotification({type: NotificationType.ERROR, message: "Error fetching companies"}))
 		}
-	}
+	}, [dispatch])
 
 	useEffect(() => {
 		loadCompanies();
-	}, [])
+	}, [loadCompanies])
 
   return (
 	<div className="company-directory__wrapper">

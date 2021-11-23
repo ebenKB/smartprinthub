@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import AppMainContent from '../../../components/app-main-content/app-main-content';
 import SearchInput from '../../../components/form-fields/search-input/search-input';
@@ -9,7 +8,6 @@ import Divider from '../../../components/AppDivider/AppDivider';
 import history from 'utils/history';
 
 const AddNewCompany = () => {
-  // const history = useHistory();
   const handleSearch = (text) => {
     console.log('This is the input that we want to search with', text);
   };

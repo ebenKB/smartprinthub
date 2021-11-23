@@ -4,7 +4,7 @@ import { Button } from 'semantic-ui-react';
 
 import { PropTypes } from 'prop-types';
 import ImagePreview from '../ImagePreview/ImagePreview';
-import { FileHandlerContext } from '../../context/FileHandlerContext';
+import { FileHandlerContext } from 'context/FileHandlerContext';
 
 const FileItemHandler = ({ handleDownloadAction }) => {
   const [canPreview, setCanPreview] = useState(false);

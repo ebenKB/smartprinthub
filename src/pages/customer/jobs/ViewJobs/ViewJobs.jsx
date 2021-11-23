@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
-  Divider, Button, Dropdown, Grid, Segment, Loader, Image,
+  Divider, Button, Dropdown, Grid,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import AppMainContent from 'components/app-main-content/app-main-content';
 import JobListItem from 'components/JobListItem/JobListItem';
-// import jobs from 'app/mockdata/jobs';
 import JobListHeading from 'components/JobListItemHeading/JobListItemHeading';
 import './ViewJobs.scss';
 import SearchAndFilterWrapper from 'components/SearchAndFilterWrapper/SearchAndFilterWrapper';
 import CustomFilter from 'components/CustomFilter/CustomFilter';
-import { JOB_STATUS, PER_PAGE } from 'utils/constants';
+import { PER_PAGE } from 'utils/constants';
 import { getAllJobs } from 'apiService/job';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveUserJobs, selectJobs } from 'redux/slices/job';
-import { getStatusValues, Status } from 'enums/status.enum';
 import { getRandomColour } from 'utils/randomColour';
 import { formatRawDate, getErrorMessage } from 'utils/app';
 import JobStatus from 'components/JobStatus/JobStatus';
@@ -27,44 +25,25 @@ const ViewJobs = () => {
 	const jobs = useSelector(selectJobs);
 
   const viewMoreJobs = () => {
-    console.log('We want to view more jobs');
 		setCurrentPage(currentPage + 1)
   };
 
-	// const getJobStatus = (job) => {
-	// 	switch(job.status) {
-	// 		case Status.PENDING:
-	// 			return <span className="job_card pending_job">{getStatusValues(job.status)}</span>;
 
-	// 		case Status.DONE:
-	// 			return <span className="job_card success_job">{getStatusValues(job.status)}</span>;
-		
-	// 		case JOB_STATUS.QUERIED.toLowerCase():
-	// 			return <span className="job_card queried_job">{getStatusValues(job.status)}</span>;
-
-	// 		case JOB_STATUS.REJECTED.toLowerCase():
-	// 			return <span className="job_card rejected_job">{getStatusValues(job.status)}</span>;
-
-	// 		default: return getStatusValues(job.status)
-	// 	}
-	// }
-
-	const fetchJobs = async () => {
+	const fetchJobs = useCallback(async () => {
     try {
       const response = await getAllJobs();
 			dispatch(saveUserJobs(response.data.jobs));
     } catch (error) {
-      console.log("Error here", error)
 			dispatch(setNotification({
 				type: NotificationType.ERROR,
 				message: getErrorMessage(error.response),
 			}))
     }
-  }
+  }, [dispatch])
 
 	useEffect(() =>  {
     fetchJobs();
-  }, [])
+  }, [fetchJobs])
 
   return (
 	<div>
