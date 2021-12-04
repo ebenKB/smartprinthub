@@ -22,10 +22,14 @@ export const companySlice = createSlice({
     setCompanyJobTypes: (state, action) => {
       state.selectedCompany = action.payload === null ? {} : action.payload;
     },
+    
+    clearSelectedCompany: (state) => {
+      state.selectedCompany = {id: "", jobTypes: null}
+    }
   }
 })
 
-export const { saveComapnies, setCompanyJobTypes } = companySlice.actions;
+export const { saveComapnies, setCompanyJobTypes, clearSelectedCompany } = companySlice.actions;
 export const selectCompanies = (state: any) => state.company.companies;
 export const selectCompanyJobTypes = (state: any) => state.company.selectedCompany?.jobTypes;
 export default companySlice.reducer;

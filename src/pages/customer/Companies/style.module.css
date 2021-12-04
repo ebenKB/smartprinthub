@@ -1,0 +1,16 @@
+.wrapper .cta {
+  display: none;
+}
+
+.wrapper:hover .cta{
+  display: inline-flex;
+}
+
+.wrapper:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+
+.link {
+  color: var(--white);
+}

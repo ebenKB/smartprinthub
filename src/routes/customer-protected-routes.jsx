@@ -59,7 +59,7 @@ const routes = [
     title: 'Confirm Checkout',
   },
   {
-    path: '/user/transactions',
+    path: '/transactions',
     main: () => <Transactions />,
     title: 'Transactions',
   },

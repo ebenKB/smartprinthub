@@ -7,12 +7,18 @@ export type Job = {
   paperSizeType: number,
   comment: string,
   width: string | number,
-  height: string|number,
+  height: string | number,
   unit: string,
   paperType:PaperType,
   selectedJobType: JobType,
   quantity: number,
   defaultSize: DefaultSize,
   file: string,
-  unitCost: number;
+  unitCost: number,
+  costPayable?: number,
+  sweepAmount?: number,
+  transactionFee?:number,
+  chargeSplitAmount?:number,
+  actualCost?: number,
+  company: {_id: string,}
 }

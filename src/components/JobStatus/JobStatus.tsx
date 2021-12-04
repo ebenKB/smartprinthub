@@ -2,7 +2,7 @@ import { getStatusValues, Status } from "enums/status.enum";
 import React from "react";
 import "./jobStatus.css"
 
-const JobStatus = ({ status }: { status: number}) => {
+const JobStatus = ({ status }: { status: number | string}) => {
   const getJobStatus = () => {
 		switch(status) {
 			case Status.PENDING:
@@ -17,7 +17,7 @@ const JobStatus = ({ status }: { status: number}) => {
 			case Status.REJECTED:
 				return <span className="job_card rejected_job">{getStatusValues(status)}</span>;
 
-			default: return getStatusValues(status)
+			default: return ""
 		}
 	}
 

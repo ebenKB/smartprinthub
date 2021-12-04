@@ -36,6 +36,11 @@ body {
   width: 90%;
 }
 
+.container.huge {
+  width: 96%;
+}
+
+
 .container.medium {
   width: 65%;
   max-width: 80rem;

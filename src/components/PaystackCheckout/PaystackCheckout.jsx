@@ -35,13 +35,13 @@ const config = {
 //   console.log('The paystack payment was successful', reference);
 // };
 
-const PaystackCheckout = ({ handleSuccess, handleClose, options }) => {
+const PaystackCheckout = ({ handleSuccess, handleClose, handlePaymentClose, options }) => {
   const componentProps = {
     ...config,
     ...options,
     text: 'Paystack Button Implementation',
     onSuccess: (reference) => handleSuccess(reference),
-    onClose: () => handleClose(),
+    onClose: () => { handleClose(); handlePaymentClose()},
   };
 
   return (
@@ -54,7 +54,7 @@ const PaystackCheckout = ({ handleSuccess, handleClose, options }) => {
 					positive
 					size="small"
 					content="Pay And Send Job"
-					onClick={() => initializePayment()}
+					onClick={() => { handleClose(); initializePayment()}}
 				/>
 			)}
 		</PaystackConsumer>

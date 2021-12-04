@@ -22,9 +22,9 @@ import DefaultSizes from "components/DefaultPaperSizes/DefaultPaperSizes";
 import CustomPaperSize from "components/CustomPaperSize/CustomPaperSize";
 import Dropzone from 'components/dropzone/dropzone';
 import FileThumbnail from "components/FileThumbnail/FileThumbnail";
-import { formatCompanyJobTypes, isJobValid, jobHasFile, saveJobProgress } from "./CreateJob.service";
+import { createNewJob, formatCompanyJobTypes, isJobValid, jobHasFile, saveJobProgress } from "./CreateJob.service";
 import { loadAllCompanyJobTypes } from "apiService/jobType";
-import { selectCompanyJobTypes, setCompanyJobTypes } from "redux/slices/company";
+import { clearSelectedCompany, selectCompanyJobTypes, setCompanyJobTypes } from "redux/slices/company";
 import { SyntheticEvent } from "react-router/node_modules/@types/react";
 import { setNotification } from "redux/slices/app";
 import { NotificationType } from "enums/NotificationType.enum";
@@ -33,12 +33,11 @@ import history from "utils/history";
 import { defaultJob } from "utils/job";
 import jobDrafts, { addJobAsDraft, removeJobFromDrafts, } from "redux/slices/jobDrafts";
 import { getJobEstimate } from "apiService/job";
+import NumberedDivider from "components/NumberedDivider/NumberedDivider";
 
 const CreateJob = (props: any) => {
-  console.log("props", props)
   const dispatch = useDispatch();
   const currentJob = useSelector(selectCurrentJob);
-  // const jobDrafts = useSelector(selectJobDrafts);
   const selectedCompanyJobTypes = useSelector(selectCompanyJobTypes);
   const [loadingCompanyJobTypes, setLoadingCompanyJobTypes] = useState(false);
   const [data, setData] = useState({
@@ -46,10 +45,8 @@ const CreateJob = (props: any) => {
     allJobs: [],
     job: currentJob,
   })
-  const {handleSubmit, control, getValues, reset, formState: { errors, isSubmitting, isValid }} = useForm(
-    { mode: "onBlur",
-    // defaultValues: {...defaultJob},
-  });
+  const {handleSubmit, control, getValues, reset, setValue, formState: { errors, isSubmitting, isValid }} = useForm(
+    { mode: "onBlur", });
   const [canShowCompanyDirectory, setCanShowCompanyDirectory] = useState(false);
   const [options, setOptions] = useState({
     canViewSavedJobs: false,
@@ -72,13 +69,8 @@ const CreateJob = (props: any) => {
           company: newCompany,
         }
       })
-      // setData({ ...dataParts, job: {...rest, company: newCompany}});
-  
-      // dispatch(saveCurrentJobProgress({company: newCompany, ...rest }))
       loadCompanyJobTypes(newCompany);
-    } catch (error) {
-      console.log("error loading", error);
-    }
+    } catch (error) {}
   }
 
   const handlePaperSizeTypeChange = (e:SyntheticEvent<HTMLElement, Event>, paperValue: any) => {
@@ -91,19 +83,29 @@ const CreateJob = (props: any) => {
   const setJobDraftForEditing = () => {}
 
   const addJob  = async () => {
-    // if(isJobValid({...data.job, ...getValues()})) {
+    if(isJobValid({...data.job, ...getValues()})) {
       const job = await loadJobEstimate();
       dispatch(addJobAsDraft(job));
       clearAllFields();
-    // } else {
-    //   dispatch(setNotification({type: NotificationType.ERROR, message: "Job is not valid to save"}))
-    // }
+    } else {
+      dispatch(setNotification({type: NotificationType.ERROR, message: "Complete required fields before saving Job."}))
+    }
   }
 
   const clearAllFields = () => {
-    dispatch(resetCurrentJob);
-    setData({...data, job: currentJob})
+    dispatch(resetCurrentJob());
+    setData({...data, job: {...defaultJob, company: data.job.company, }})
     reset(defaultJob);
+    setValue("title", "");
+    setValue("quantity", defaultJob.quantity);
+    setValue("comment", "");
+
+    // set default options
+    setOptions({
+      canUploadNewFile: true,
+      isBusy: false,
+      canViewSavedJobs: false,
+    });
   }
 
   const handleJobTypeChange = (e:SyntheticEvent<HTMLElement, Event>, d:any) => {
@@ -210,9 +212,7 @@ const CreateJob = (props: any) => {
         ...response.data.costSummary,
       }
       return job;
-    } catch (error) {
-      console.log("Error getting estimate", error);
-    }
+    } catch (error) {}
   }
 
   const handleContinue: SubmitHandler<any> = async (values) => {
@@ -234,9 +234,7 @@ const CreateJob = (props: any) => {
   useEffect(() => {
     const intervalID = saveJobProgress(() => {
       if (!options.isBusy) {
-        console.log("Saved")
         saveProgress();
-        dispatch(setNotification({type: NotificationType.SUCCESS, message: "Job Saved"}))
       }
     });
 
@@ -258,16 +256,23 @@ const CreateJob = (props: any) => {
       parentClasses="app-pad opaque background"
     >
       <AppContentWrapper heading="New Job">
+        <NumberedDivider number={1} />
         <div className="p-l-10 p-l-10">
-          <Divider type="thick" title="Company" />
           <div className="m-t-20">
             <ShowCompanyDetails company={data.job.company} />
-            <div className="flex center space-out m-t-20">
-              <div>Open company directory to select company</div>
+            {!data.job.company && (
+              <div>
+                <h4>Assign job to a company</h4>
+                <p>Please select a company from your company directory to print this job.</p>
+              </div>
+            )}
+            <div className="flex center space-out m-t-20 flex-row-rev">
               <Button
-                content="Select new company"
+                content="Select company"
                 onClick={() => toggleCompanyDirectoryForm(true)}
-                className="transparent app-primary"
+                // className="transparent app-primary"
+                type="button"
+                positive
               />
             </div>
             {canShowCompanyDirectory && (
@@ -278,259 +283,275 @@ const CreateJob = (props: any) => {
             )}
           </div>
         </div>
-        <form onSubmit={handleSubmit(handleContinue)}>
-          <Divider
-						type="thick"
-						title="Job Details"
-						classes="m-t-40"
-					/>
-          <div className="m-b-20 m-t-20">
-            <FormGroup
-              center
-              label="Job Title *"
-              labelName=""
-              component={<InputWithValidation
-                error={errors.title ? true : false}
-                placeholder="Enter Job Title"
-                errorMessage={errors.title ? errors.title?.message : ""}
-                name="title"
-                type="text"
-                defaultValue={job.title}
-                validationRules={{
-                  required: {value: true, message: "Job title is required"},
-                  minLength: {value: 3, message: "Job title is too short"},
-                }}
-                classes=""
-                control={control}
-              />}
-              inline
-            />
-          </div>
-          <div className="m-b-20 m-t-20">
-            <FormGroup
-              inline
-              center
-              label="Job Type"
-              labelName="job_type"
-              component={
-                <Dropdown
-                  options={formatCompanyJobTypes(selectedCompanyJobTypes)}
-                  loading={loadingCompanyJobTypes}
-                  selection
-                  fluid
-                  disabled={loadingCompanyJobTypes}
-                  onChange={handleJobTypeChange}
-                  placeholder="Select Job Type"
-                  defaultValue={data.job.selectedJobType}
-                />
-              //   <DropdownWithValidation
-              //     control={control}
-              //     name="job_type"
-              //     error={errors.job_type ? true : false}
-              //     errorMessage={errors.job_type ? errors.job_type.message : ""}
-              //     validationRules={{required: true}}
-              //     placeholder="Select Job type"
-              //     fluid
-              //     selection
-              //     loading={loadingCompanyJobTypes}
-              //     options={formatCompanyJobTypes(selectedCompanyJobTypes)}
-              //     disabled={loadingCompanyJobTypes}
-              // />
-              }
-            />
-          </div>
-          <div className="m-b-20 m-t-20">
-            <FormGroup
-              inline
-              center
-              label="Size"
-              labelName="size"
-              component={
-              <>
-                <div className="flex-inline m-b-20 size-options">
-                  <Form.Field className="p-r-40">
-                    <Radio
-                      label="Default sizes"
-                      name="sizeRadio"
-                      value={PaperSizeType.DEFAULT}
-                      checked={data.paperSizeType === PaperSizeType.DEFAULT}
-                      onChange={handlePaperSizeTypeChange}
-                    />
-                  </Form.Field>
-                  <Form.Field>
-                    <Radio
-                      label="Custom size"
-                      name="sizeRadio"
-                      value={PaperSizeType.CUSTOM}
-                      checked={data.paperSizeType === PaperSizeType.CUSTOM}
-                      onChange={handlePaperSizeTypeChange}
-                    />
-                  </Form.Field>
-                </div>
-                <div>
-                {(data.paperSizeType === PaperSizeType.DEFAULT) ? (
-                  <DefaultSizes
-                    selectedJobType={(data.job.selectedJobType !== null) ?  data.job.selectedJobType : {defaultSizes: []}} 
-                    paperSizeValue={1}
+        {data.job.company && (
+          <>
+            <NumberedDivider number={2} parentClasses="m-t-50"/>
+            <form onSubmit={handleSubmit(handleContinue)}>
+              {/* <Divider
+                type="thick"
+                title="Job Details"
+                classes="m-t-40"
+              /> */}
+              <div className="m-b-20 m-t-20">
+                <FormGroup
+                  center
+                  label="Job Title *"
+                  labelName=""
+                  component={<InputWithValidation
+                    error={errors.title ? true : false}
+                    placeholder="Enter Job Title"
+                    errorMessage={errors.title ? errors.title?.message : ""}
+                    name="title"
+                    type="text"
+                    defaultValue={job.title}
+                    validationRules={{
+                      required: {value: true, message: "Job title is required"},
+                      minLength: {value: 3, message: "Job title is too short"},
+                    }}
                     classes=""
-                    handleDropDownChange={handleDimensionUnitChange}
-                    loading={false}
-                  />
-                ) : <CustomPaperSize
-                      center
-                      inline
-                      handleUnitChange={handleUnitSelectionChange}
-                      labelName="size"
-                      label="Size"
-                      defaultValue={data.job.unit}
-                      defaultWidth={data.job.width}
-                      defaultHeight={data.job.height}
-                      selectedPaper={1}
-                      control={control}
-                      errors={errors}
-                      getValues={getValues}
+                    control={control}
+                  />}
+                  inline
+                />
+              </div>
+              <div className="m-b-20 m-t-20">
+                <FormGroup
+                  inline
+                  center
+                  label="Job Type"
+                  labelName="job_type"
+                  component={
+                    <Dropdown
+                      options={formatCompanyJobTypes(selectedCompanyJobTypes)}
+                      loading={loadingCompanyJobTypes}
+                      selection
+                      fluid
+                      disabled={loadingCompanyJobTypes}
+                      onChange={handleJobTypeChange}
+                      placeholder="Select Job Type"
+                      defaultValue={data.job.selectedJobType}
+                      value={data.job.selectedJobType}
+                    />
+                  //   <DropdownWithValidation
+                  //     control={control}
+                  //     name="job_type"
+                  //     error={errors.job_type ? true : false}
+                  //     errorMessage={errors.job_type ? errors.job_type.message : ""}
+                  //     validationRules={{required: true}}
+                  //     placeholder="Select Job type"
+                  //     fluid
+                  //     selection
+                  //     loading={loadingCompanyJobTypes}
+                  //     options={formatCompanyJobTypes(selectedCompanyJobTypes)}
+                  //     disabled={loadingCompanyJobTypes}
+                  // />
+                  }
+                />
+              </div>
+              <div className="m-b-20 m-t-20">
+                <FormGroup
+                  inline
+                  center
+                  label="Size"
+                  labelName="size"
+                  component={
+                  <>
+                    <div className="flex-inline m-b-20 size-options">
+                      <Form.Field className="p-r-40">
+                        <Radio
+                          label="Default sizes"
+                          name="sizeRadio"
+                          value={PaperSizeType.DEFAULT}
+                          checked={data.paperSizeType === PaperSizeType.DEFAULT}
+                          onChange={handlePaperSizeTypeChange}
+                        />
+                      </Form.Field>
+                      <Form.Field>
+                        <Radio
+                          label="Custom size"
+                          name="sizeRadio"
+                          value={PaperSizeType.CUSTOM}
+                          checked={data.paperSizeType === PaperSizeType.CUSTOM}
+                          onChange={handlePaperSizeTypeChange}
+                        />
+                      </Form.Field>
+                    </div>
+                    <div>
+                    {(data.paperSizeType === PaperSizeType.DEFAULT) ? (
+                      <DefaultSizes
+                        selectedJobType={(data.job.selectedJobType !== null) ?  data.job.selectedJobType : {defaultSizes: []}} 
+                        paperSizeValue={1}
+                        classes=""
+                        handleDropDownChange={handleDimensionUnitChange}
+                        loading={false}
+                        defaultSize={job.defaultSize}
+                      />
+                    ) : <CustomPaperSize
+                          center
+                          inline
+                          handleUnitChange={handleUnitSelectionChange}
+                          labelName="size"
+                          label="Size"
+                          defaultValue={data.job.unit}
+                          defaultWidth={data.job.width}
+                          defaultHeight={data.job.height}
+                          selectedPaper={1}
+                          control={control}
+                          errors={errors}
+                          getValues={getValues}
+                        />}
+                    </div>
+                  </>
+                  }
+                />
+              </div>
+              <div className="m-b-20 m-t-20">
+                <FormGroup
+                  center
+                  label="Quantity *"
+                  labelName="quantity"
+                  component={<InputWithValidation
+                    error={errors.quantity ? true : false}
+                    errorMessage={errors.quantity ? errors.quantity?.message : ""}
+                    name="quantity"
+                    type="number"
+                    defaultValue={job.quantity}
+                    validationRules={{
+                      required: {value: true, message: "Quantity title is required"},
+                      pattern: {value: /^[1-9][0-9]*$/, message: "Quantity must be a number without decimals"},
+                      min: {
+                        value:1,
+                        message: "Should be a number greater than 0"
+                      }
+                    }}
+                    classes=""
+                    control={control}
+                  />}
+                  inline
+                />
+              </div>
+              {canUploadNewFile && (
+                  <div className="m-b-20">
+                  <FormGroup
+                    inline
+                    center
+                    label="File"
+                    labelName="File"
+                    component={<Dropzone
+                      onFilesChange={(file:any) => handleFileChange(file)}
+                      multiple={false}
+                      singleUpload={true}
+                      clearFiles={!data.job.file}
                     />}
-                </div>
-              </>
-              }
-            />
-          </div>
-          <div className="m-b-20 m-t-20">
-            <FormGroup
-              center
-              label="Quantity *"
-              labelName="quantity"
-              component={<InputWithValidation
-                error={errors.title ? true : false}
-                errorMessage={errors.title ? errors.title?.message : ""}
-                name="quantity"
-                type="number"
-                defaultValue={job.quantity}
-                validationRules={{
-                  required: {value: true, message: "Quantity title is required"},
-                  pattern: {value: /^[1-9][0-9]*$/, message: "Quantity must be a number greater than 0"}
-                }}
-                classes=""
-                control={control}
-              />}
-              inline
-            />
-          </div>
-          {canUploadNewFile && (
-              <div className="m-b-20">
-              <FormGroup
-                inline
-                center
-                label="File"
-                labelName="File"
-                component={<Dropzone
-                  onFilesChange={(file:any) => handleFileChange(file)}
-                  multiple={false}
-                  singleUpload={true}
-                />}
-              />
-            </div>
-          )}
-          {!canUploadNewFile && (
-            <div className="m-t-20">
-              <FormGroup
-                inline
-                center
-                label="File"
-                labelName="File"
-                component={
-                  <FileThumbnail
-                    fileURL={job.file}
-                    handleDiscardFile={handleDiscardFile}
                   />
-                }
-              />
-            </div>
-          )}
-          <div className="m-b-20 m-t-20">
-            <FormGroup
-              inline
-              center
-              label="Comments"
-              labelName="comment"
-              component={<TextAreaWithValidation
-                type="textarea"
-                placeholder="Enter comment for the job"
-                name="comment"
-                control={control}
-                defaultValue={job.comment}
-                error={errors.comment ? true : false}
-                errorMessage={errors.comment ? errors.comment?.message : ""}
-                validationRules={{
-                  required: false, minLength: {value: 8, message: "Comment is too short"}
-                }}
-              />}
-            />
-          </div>
-          <div className="m-t-40 text-right flex center w-full reverse">
-            <span className="m-r-10 m-l-20">
-              <AddItem
-                title="Add another job"
-                classes="app-primary text-right m-t-20 m-b-20"
-                iconClasses="small icon m-r-5"
-                parentClasses="text-right"
-                handleClick={addJob}
-              />
-            </span>
-            {props.jobDrafts?.length > 0 && (
-              <span>
-                <Button
-                  className="transparent clickable bold sm-caption"
-                  size="medium"
-                  type="button"
-                  onClick = {() => setOptions({...options, canViewSavedJobs: !options.canViewSavedJobs})}
-                >
-                  <Icon name="save" />
-                  {options.canViewSavedJobs ? "Hide saved jobs" : "View saved jobs"}
-                </Button>
-              </span>
-            )}
-          </div>
-          {props.jobDrafts.length > 0 && (
-            <div className="w-full">
-              <Divider type="thick" title={`Summary - ${props.jobDrafts.length} saved ${props.jobDrafts.length === 1 ? "job" : "jobs"}`} />
-              {options.canViewSavedJobs && (
-                <div className="m-t-10">
-                  <ViewJobDrafts jobs={props.jobDrafts} setJobForEditing={setJobDraftForEditing} />
                 </div>
               )}
-            </div>
-          )}
-          <div className="m-t-40 text-right inline center">
-            <Link to="/jobs">
-              <Button
-                default
-                size="small"
-                content="Cancel"
-              />
-            </Link>
-            <Button
-              default
-              content="Clear fields" 
-              onClick={clearAllFields}
-            />
-            <Button
-              as="button"
-              type="submit"
-              size="small"
-              content={(
-                <span className="flex-inline">
-                  <span>Continue</span>
-                  <ForwardArrow className="icon icon-12 m-l-5" />
-                </span>
+              {!canUploadNewFile && (
+                <div className="m-t-20">
+                  <FormGroup
+                    inline
+                    center
+                    label="File"
+                    labelName="File"
+                    component={
+                      <FileThumbnail
+                        fileURL={job.file}
+                        handleDiscardFile={handleDiscardFile}
+                      />
+                    }
+                  />
+                </div>
               )}
-              positive
-              className="flex center"
-              disabled={!isValid || !isJobValid({...data.job, ...getValues()}) || isSubmitting}
-              loading={isSubmitting}
-            />
-					</div>
-        </form>
+              <div className="m-b-20 m-t-20">
+                <FormGroup
+                  inline
+                  center
+                  label="Comments"
+                  labelName="comment"
+                  component={<TextAreaWithValidation
+                    type="textarea"
+                    placeholder="Enter comment for the job"
+                    name="comment"
+                    control={control}
+                    defaultValue={job.comment}
+                    error={errors.comment ? true : false}
+                    errorMessage={errors.comment ? errors.comment?.message : ""}
+                    validationRules={{
+                      required: false, minLength: {value: 8, message: "Comment is too short"}
+                    }}
+                  />}
+                />
+              </div>
+              <div className="m-t-40 text-right flex center w-full reverse">
+                {isJobValid({...data.job, ...getValues()}) && (
+                  <span className="m-r-10 m-l-20">
+                    <AddItem
+                      title="Add another job"
+                      classes="app-primary text-right m-t-20 m-b-20"
+                      iconClasses="small icon m-r-5"
+                      parentClasses="text-right"
+                      handleClick={addJob}
+                    />
+                  </span>
+                )}
+                {props.jobDrafts?.length > 0 && (
+                  <span>
+                    <Button
+                      className="transparent clickable bold sm-caption"
+                      size="medium"
+                      type="button"
+                      onClick = {() => setOptions({...options, canViewSavedJobs: !options.canViewSavedJobs})}
+                    >
+                      <Icon name="save" />
+                      {options.canViewSavedJobs ? "Hide saved jobs" : "View saved jobs"}
+                    </Button>
+                  </span>
+                )}
+              </div>
+              {props.jobDrafts.length > 0 && (
+                <div className="w-full">
+                  <Divider type="thick" title={`Summary - ${props.jobDrafts.length} saved ${props.jobDrafts.length === 1 ? "job" : "jobs"}`} />
+                  {options.canViewSavedJobs && (
+                    <div className="m-t-10">
+                      <ViewJobDrafts jobs={props.jobDrafts} setJobForEditing={setJobDraftForEditing} />
+                    </div>
+                  )}
+                </div>
+              )}
+              <div className="m-t-40 text-right inline center">
+                <Link to="/jobs">
+                  <Button
+                    default
+                    size="small"
+                    content="Cancel"
+                    type="button"
+                  />
+                </Link>
+                <Button
+                  default
+                  content="Clear fields" 
+                  onClick={clearAllFields}
+                  type="button"
+                />
+                <Button
+                  as="button"
+                  type="submit"
+                  size="small"
+                  content={(
+                    <span className="flex-inline">
+                      <span>Continue</span>
+                      <ForwardArrow className="icon icon-12 m-l-5" />
+                    </span>
+                  )}
+                  positive
+                  className="flex center"
+                  disabled={!isValid || !isJobValid({...data.job, ...getValues()}) || isSubmitting}
+                  loading={isSubmitting}
+                />
+              </div>
+            </form>
+          </>
+        )}
       </AppContentWrapper>
     </AppMainContent>
   )

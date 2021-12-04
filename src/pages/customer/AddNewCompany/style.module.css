@@ -1,0 +1,7 @@
+.wrapper .cta {
+  display: none;
+}
+
+.wrapper:hover .cta {
+  display: inherit;
+}

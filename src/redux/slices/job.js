@@ -30,32 +30,9 @@ export const jobSlice = createSlice({
       }
     },
 
-    // addJobAsDraft: (state, action) => {
-    //   if (action.payload) {
-    //     let { jobDrafts } = state;
-    //     if (jobDrafts !== null) {
-    //       jobDrafts.push(action.payload);
-    //     } else {
-    //       jobDrafts = [action.payload];
-    //     }
-    //     state.jobDrafts = jobDrafts;
-    //   }
-    // },
-
-    resetCurrentJob: (state, action) => {
+    resetCurrentJob: (state) => {
       state.currentJob= defaultJob;
     },
-
-    // removeJobFromDrafts: (state, action) => {
-    //   if (action.payload) {
-    //     const jobs = state.jobDrafts.filter((x) => x.uuid !== action.payload);
-    //     state.jobDrafts = jobs;
-    //   }
-    // },
-
-    // removeAllJobDrafts: (state) => {
-    //   state.jobDrafts = [];
-    // },
 
     saveUserJobs: (state, action) => {
       if (action.payload) {

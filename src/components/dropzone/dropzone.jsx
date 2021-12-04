@@ -14,7 +14,7 @@ import './dropzone.scss';
 
 const dropzoneRef = createRef();
 
-function KtDropzone({ onFilesChange, singleUpload, ...rest }) {
+function KtDropzone({ onFilesChange, singleUpload, clearFiles, ...rest }) {
   const [hasEntered, setHasEntered] = useState(false);
   const [error, setError] = useState(null);
   const [files, setFiles] = useState([]);
@@ -120,6 +120,14 @@ function KtDropzone({ onFilesChange, singleUpload, ...rest }) {
       )
     }
   }
+
+  useEffect(() => {
+    if (clearFiles) {
+      setFiles([]);
+      console.log("Clearing files")
+    }
+  }, [clearFiles]);
+  
   // const { getRootProps, getInputProps, isDragActive } = useDropzone({onDrop})
   return (
 	<div

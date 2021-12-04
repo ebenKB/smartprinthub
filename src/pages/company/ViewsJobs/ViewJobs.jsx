@@ -130,6 +130,7 @@ const ViewJobs = () => {
 			<div>
 				<JobListItemHeading classes="m-t-10 six">
 					<div>DESCRIPTION</div>
+          <div>TRACKING ID</div>
 					<div>COST</div>
 					<div>TYPE</div>
 					<div>DATE</div>

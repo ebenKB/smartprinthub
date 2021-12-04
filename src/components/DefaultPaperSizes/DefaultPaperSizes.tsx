@@ -8,9 +8,10 @@ type Props = {
   paperSizeValue:number,
   classes?:string,
   loading: boolean,
+  defaultSize: any,
 }
 
-const DefaultSizes = ({ selectedJobType={defaultSizes:[]}, handleDropDownChange, paperSizeValue, loading, classes }: Props) => {
+const DefaultSizes = ({ selectedJobType={defaultSizes:[]}, handleDropDownChange, defaultSize, paperSizeValue, loading, classes }: Props) => {
   return (
     <Dropdown
       placeholder="Select paper size"
@@ -23,7 +24,7 @@ const DefaultSizes = ({ selectedJobType={defaultSizes:[]}, handleDropDownChange,
       onChange={(e:SyntheticEvent<HTMLElement>, value:any) => handleDropDownChange(e, value)}
       loading={loading}
       disabled={loading}
-      // defaultValue={selectedJobType.defaultSizes[0]}
+      defaultValue={defaultSize}
     />
   )
 }

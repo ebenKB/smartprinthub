@@ -5,7 +5,9 @@ export const getAllCompanies = async () => {
   return response;
 }
 
-export const getCompanyDetails = async(companyID: string) => {
-  const response = await Axios.get(`/v1/company/${companyID}`);
+export const getCompanyDetails = async(companyID: string, onProgessCallback?:any) => {
+  const response = await Axios.get(`/v1/company/${companyID}`, {
+    onDownloadProgress: onProgessCallback
+  });
   return response;
 }

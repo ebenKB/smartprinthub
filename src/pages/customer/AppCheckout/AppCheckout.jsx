@@ -4,51 +4,97 @@
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
-// import { useHistory } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
-import AppMainContent from '../../../components/app-main-content/app-main-content';
-import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
-import OrderSummary from '../../../components/OrderSummary/OrderSummary';
-import appSettings from '../../../app/mockdata/appsettings';
-import PaystackCheckoutComponent from '../../../components/PaystackCheckout/PaystackCheckout';
-import User from '../../../app/mockdata/user';
-import ToastNotification from '../../../components/ToastNotification/ToastNotificaton';
+import { Button, Modal } from 'semantic-ui-react';
+import AppMainContent from 'components/app-main-content/app-main-content';
+import AppContentWrapper from 'components/app-content-wrapper/app-content-wrapper';
+import OrderSummary from 'components/OrderSummary/OrderSummary';
+import appSettings from 'app/mockdata/appsettings';
+import User from 'app/mockdata/user';
 import './PaystackCheckout.scss';
-import PreviewJobs from '../../../components/PreviewJobs/PreviewJobs';
+import PreviewJobs from 'components/PreviewJobs/PreviewJobs';
 import history from 'utils/history';
 import { setNotification } from 'redux/slices/app';
+import { createMultipleJobs, retryFailedJob } from '../CreateJob/CreateJob.service';
+import AppProgressIndicator from 'components/AppProgressIndicator/AppProgressIndicator';
+import ConfirmJobCheckout from 'components/ConfirmJobCheckkout/ConfirmJobCheckout';
+import { createTransaction } from 'apiService/transaction';
 
-const PaystackCheckout = ({ jobDrafts, currentJob }) => {
+const PaystackCheckout = ({ jobDrafts, currentJob, userID }) => {
   const PAYMENT_GATEWAY = "paystack";
   const dispatch = useDispatch();
 
   const [canPreviewJob, setCanPreviewJob] = useState(false);
-
-  const computeTotalCost = () => {
-    const initialValue = 0;
-    if (jobDrafts) {
-      const val = [
-        ...jobDrafts, currentJob].reduce((accum, x) => (accum + parseFloat(x.totalCost)), initialValue);
-      return val.toFixed(2);
-    }
-    return currentJob.totalCost;
-  };
+  const [processingJob, setProcessingJob] = useState(false);
+  const [canConfirmJobPayment, setCanConfirmJobPayment] = useState(false);
 
   const getTransactionFee = () => parseFloat(
-    (appSettings.jobChargeRate * computeTotalCost()).toFixed(2),
+    (appSettings.jobChargeRate * getTotalJobCost()).toFixed(2),
   );
 
-  const completePayment = (reference) => {
-    if (reference.message === 'Approved') {
+  const completePayment = async (paymentResponse) => {
+    if (paymentResponse.message === 'Approved') {
+      setProcessingJob(true);
       const { location: { pathname } } = history;
-      history.push(`${pathname}/confirm`);
+      let completed = 0;
+      let retries = 0;
+
+      try {
+        // LOG transaction to the api here
+        const transResponse = await createTransaction({
+          amount: getTotalJobCost(),
+          reference: paymentResponse.reference,
+          status: paymentResponse.status,
+          user: userID,
+        });
+
+        const transaction = transResponse.data;
+        if (transaction) {
+          // SEND job to api
+          const responses = await createMultipleJobs([...jobDrafts, currentJob], transaction._id);
+          /**
+           * Check the reponse to see if any of the jobs failed while processing.
+           * If any job fails, retry processing that job.
+           * If retyring processing a job fails, move the job to failed jobs.
+           * If all jobs have been processed or retried, transition from to the confirmation page.
+           */
+          for(const response of responses) {
+            if (response.status === 201) {
+              completed += 1;
+
+              if ((completed + retries) === responses.length) {
+                history.push(`${pathname}/confirm?completed=${completed}&total=${responses.length}`);
+              }
+            } else {
+              // retry failed jobs
+              retryFailedJob(response.failedJob, transaction._id, (res) => {
+                retries += 1;
+                if (res.error) { /**move job to failed jobs */}
+
+                if ((completed + retries) === responses.length) {
+                  history.push(`${pathname}/confirm?completed=${completed}&total=${responses.length}`);
+                }
+              });
+            }
+          }
+        }
+      } catch (error) {
+        console.log("Error", error);
+        setProcessingJob(false);
+      }
     }
   };
 
   const computeGrossTotal = () => {
-    const total = (parseFloat(computeTotalCost()) + parseFloat(getTransactionFee()));
+    const total = (parseFloat(getTotalJobCost()) + parseFloat(getTransactionFee()));
     return total.toFixed(2);
   };
+
+  const getTotalJobCost = () => {
+		if (!currentJob) return 0.0;
+
+		const total = [...jobDrafts, currentJob].reduce((accum, current) => accum + parseFloat(current.costPayable), 0);
+    return total;
+	}
 
   const closePayment = () => {
     dispatch(setNotification({
@@ -65,56 +111,78 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
 
   return (
 	<div className="paystack-checkout__wrapper">
-		<PreviewJobs
-      jobs={
-        [...jobDrafts.map((job) =>({
-          id: job.uuid, title: job.title, file: job.file, cost: job.totalCost
-        })), 
-        { id: currentJob.uuid, title: currentJob.title, file: currentJob.file, cost: currentJob.totalCost }]
-        }
-        closeAction={() => setCanPreviewJob(!canPreviewJob)} 
-        open={canPreviewJob}
+      {processingJob && (
+        <Modal open size="mini">
+          <AppProgressIndicator message="Processing job" />
+        </Modal>
+      )}
+      <ConfirmJobCheckout 
+        handleConfirmAction={(ref) => completePayment(ref)}
+        handleCancelAction={() => setCanConfirmJobPayment(false)}
+        handlePaymentActionClose={closePayment}
+        options={{
+          email,
+          phone,
+          amount: getTotalJobCost(),
+        }}
+        open={canConfirmJobPayment}
+        jobs={[...jobDrafts, currentJob]}
       />
-		<AppMainContent
-			parentClasses="app-pad"
-      hasAside={false}
-		>
-			<AppContentWrapper
-				heading="Complete Payment"
-			>
-				<OrderSummary
-					totalCost={computeTotalCost()}
-					fee={getTransactionFee()}
-					jobs={[...jobDrafts, currentJob]}
-					grossTotalCost={computeGrossTotal()}
-				/>
-				{/* <p className="sm-caption">If you are ready to send the job, click pay and follow the instructions</p> */}
-				<div className="text-right m-t-40 flex flex-center checkout-btns">
-					<Button
-						size="small"
-						content="Cancel"
-						onClick={goBack}
-					/>
-					<Button
-						size="small"
-						content="Preview Job"
-						onClick={() => setCanPreviewJob(true)}
-					/>
-          {/* dynamically render different checkout options here  */}
-          {PAYMENT_GATEWAY === "paystack" && (
-            <PaystackCheckoutComponent
-              handleSuccess={completePayment}
-              handleClose={closePayment}
-              // options={{
-              // amount: (computeGrossTotal() * 100),
-              // email,
-              // phone,
-              // }}
+      <PreviewJobs
+        jobs={
+          [...jobDrafts.map((job) =>({
+            id: job.uuid, title: job.title, file: job.file, cost: job.totalCost
+          })), 
+          { id: currentJob.uuid, title: currentJob.title, file: currentJob.file, cost: currentJob.totalCost }]
+          }
+          closeAction={() => setCanPreviewJob(!canPreviewJob)} 
+          open={canPreviewJob}
+      />
+      <AppMainContent
+        parentClasses="app-pad"
+        hasAside={false}
+      >
+        <AppContentWrapper
+          heading="Complete Payment"
+        >
+          <OrderSummary
+            totalCost={getTotalJobCost()}
+            fee={getTransactionFee()}
+            jobs={[...jobDrafts, currentJob]}
+            grossTotalCost={computeGrossTotal()}
+          />
+          <div className="text-right m-t-40 flex flex-center checkout-btns">
+            <Button
+              size="small"
+              content="Cancel"
+              onClick={goBack}
             />
-          )}
-				</div>
-			</AppContentWrapper>
-		</AppMainContent>
+            <Button
+              size="small"
+              content="Preview Job"
+              onClick={() => setCanPreviewJob(true)}
+            />
+            {/* dynamically render different checkout options here  */}
+            {PAYMENT_GATEWAY === "paystack" && (
+              // <PaystackCheckoutComponent
+              //   handleSuccess={completePayment}
+              //   handleClose={closePayment}
+              //   options={{
+              //     amount: getTotalJobCost(),
+              //     email,
+              //     phone,
+              //   }}
+              // />
+            <Button
+              positive
+              size="small"
+              content="Continue to Payment"
+              onClick={() => setCanConfirmJobPayment(true)}
+            />
+            )}
+          </div>
+        </AppContentWrapper>
+      </AppMainContent>
 	</div>
   );
 };
@@ -122,6 +190,7 @@ const PaystackCheckout = ({ jobDrafts, currentJob }) => {
 const mapStateToProps = (state) => ({
   jobDrafts: state.jobDrafts,
   currentJob: state.job.currentJob,
+  userID: state.user._id,
 });
 
 PaystackCheckout.propTypes = {

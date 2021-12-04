@@ -42,6 +42,9 @@ const ShowJob = () => {
 						title="Job Details"
 						type="faint"
 					/>
+					<div className="m-t-20 m-b-20">
+						<p>{job.comment} -- description is here</p>
+					</div>
 					<div className="m-t-10">
 						<div>{job.created_at ? `Created on ${formatRawDate(job.created_at)}` : "N/A"}</div>
 						<div>Job Type: {job.papperType?.name.toUpperCase()}</div>

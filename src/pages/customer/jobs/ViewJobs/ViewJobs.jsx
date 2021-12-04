@@ -60,8 +60,9 @@ const ViewJobs = () => {
 			mainClasses="p-t-40"
 		>
 			<div className="view_jobs">
-				<JobListHeading classes="four">
+				<JobListHeading classes="five">
 					<div>DESCRIPTION</div>
+					<div>TRACKING ID</div>
 					<div>TYPE</div>
 					<div>DATE</div>
 					<div>STATUS</div>
@@ -76,12 +77,14 @@ const ViewJobs = () => {
 							<Link to={`/jobs/view/${job._id}`}>
 								<h3 className="caption">{job.title}</h3>
 							</Link>
-							Show the description of the job here.
+							<span>{job.papperType?.commonName}</span>
 						</div>
+						<div>Tracking id</div>
 						<div>{job.papperType?.name.toUpperCase()}</div>
 						<div>{job.created_at ? formatRawDate(job.created_at) : "N/A"}</div>
 						<div>
-							<JobStatus status={job.status} />
+							{/* <JobStatus status={job.status} /> */}
+							{job.status.toUpperCase()}
 						</div>
 					</JobListItem>
 				))}

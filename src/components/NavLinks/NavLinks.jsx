@@ -31,13 +31,13 @@ const NavigationLinks = () => {
 		</div>
 		{!hasToggleMenu && <div className="nav-label">PAYMENTS</div>}
 		<div className="link-item">
-			<NavLink to={`/${accountType}/transactions`} activeClassName="nav-selected" className="flex center link">
+			<NavLink to={`/transactions`} activeClassName="nav-selected" className="flex center link">
 				<TransIcon className="nav-icon" />
 				<span className="nav-caption">Transactions</span>
 			</NavLink>
 		</div>
 		{!hasToggleMenu && <div className="nav-label">JOBS</div>}
-		<Can
+		{/* <Can
 			perform="job:create"
 			userRole={accountType}
 			yes={() => (
@@ -49,7 +49,7 @@ const NavigationLinks = () => {
 				</div>
 			)}
 			no={() => null}
-		/>
+		/> */}
 		<Can
 			perform="job:create"
 			userRole={accountType}
@@ -57,7 +57,7 @@ const NavigationLinks = () => {
 				<div className="link-item">
 					<NavLink to="/job/create-new" activeClassName="nav-selected" className="flex center link">
 						<PlusIcon className="nav-icon" />
-						<span className="nav-caption">Create new v2</span>
+						<span className="nav-caption">Create new</span>
 					</NavLink>
 				</div>
 			)}

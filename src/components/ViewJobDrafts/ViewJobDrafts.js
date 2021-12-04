@@ -115,11 +115,14 @@ const ViewJobDrafts = ({ jobs, setJobForEditing }) => {
       </ConfirmationModal>
       {/* <Grid.Row> */}
         {jobs && jobs.map((job) => (
-          <Grid.Row>
-            <Grid.Column width={10}>
+          <Grid.Row className="items-baseline">
+            <Grid.Column width={2}>
+              <img src={job.file} alt="" className="w-5/6" />
+            </Grid.Column>
+            <Grid.Column width={9}>
               <h3>{job.title}</h3>
             </Grid.Column>
-            <Grid.Column width={6} className="text-right">
+            <Grid.Column width={5} className="text-right">
               <Button
                 basic
                 type="button" 
@@ -153,7 +156,12 @@ const ViewJobDrafts = ({ jobs, setJobForEditing }) => {
         ))}
         <Grid.Row className="w-full m-t-20 m-b-10 p-all-10 text-right">
           <Grid.Column width={16}>
-            <Button basic danger size="small" >
+            <Button 
+              basic 
+              danger 
+              size="small"
+              type="button"
+            >
               <Icon name="close" />
               Cancel
             </Button>
@@ -163,6 +171,7 @@ const ViewJobDrafts = ({ jobs, setJobForEditing }) => {
               color="red" 
               size="small"
               onClick={handleDeleteAllClick}
+              type="button"
             >
               <Icon name="trash "/>
               Delete all
