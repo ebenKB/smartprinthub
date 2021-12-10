@@ -1,7 +1,7 @@
 import React from 'react';
-import ExampleJob from '../../../components/ExampleJob/ExampleJob';
-import AppMainContent from '../../../components/app-main-content/app-main-content';
-import AppContentWrapper from '../../../components/app-content-wrapper/app-content-wrapper';
+import AppMainContent from 'components/app-main-content/app-main-content';
+import AppContentWrapper from 'components/app-content-wrapper/app-content-wrapper';
+import { Checkbox } from 'semantic-ui-react';
 
 const Welcome = () => (
 	<AppMainContent
@@ -11,15 +11,12 @@ const Welcome = () => (
 		<AppContentWrapper
 			heading="Getting Started"
 		>
-			<ExampleJob />
-			<h1>Hello!! you have some tasks pending</h1>
-			<div>
-				<h3>Things To Show Here</h3>
-				<p>Getting Started Component like Highrise</p>
-				<p>Link to create a new job</p>
-				<p>Link to add new company to your account</p>
-				<p>Have any question? Contact our help center</p>
-			</div>
+			Good morning, welcome back.
+			<p>You have 2 unread messages</p>
+			<p>2 new jobs have been printed</p>
+			<p>1 job needs attention</p>
+			<h3>It doesn't look like there is something new</h3>
+			<Checkbox  label={`Don't show this again`} />
 		</AppContentWrapper>
 	</AppMainContent>
 );

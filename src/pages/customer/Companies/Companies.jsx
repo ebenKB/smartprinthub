@@ -1,32 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Grid } from 'semantic-ui-react';
 import { Link, NavLink } from 'react-router-dom';
-import AppMainContent from '../../../components/app-main-content/app-main-content';
-import TableWrapper from '../../../components/TableWrapper/TableWrapper';
+import AppMainContent from 'components/app-main-content/app-main-content';
+import TableWrapper from 'components/TableWrapper/TableWrapper';
 import Tile from 'components/Tile/Tile';
 import styles from "./style.module.css";
 import SearchAndFilterWrapper from 'components/SearchAndFilterWrapper/SearchAndFilterWrapper';
+import { getpreferredCompanies } from 'apiService/customer';
+import companies from 'app/mockdata/companies';
+import { useDispatch } from 'react-redux';
+import { setAppProgress } from 'redux/slices/app';
 
 const Companies = () => {
-  const columns = [
-    { id: 'company', label: 'COMPANY', minWidth: 200 },
-    {
-      id: 'email', label: 'EMAIL', minWidth: 100, align: 'left',
-    },
-    { id: 'name', label: 'PHONE', minWidth: 180 },
-    {
-      id: 'address',
-      label: 'ADDRESS',
-      minWidth: 400,
-      align: 'left',
-    },
-    {
-      id: 'size',
-      label: 'ACTION',
-      minWidth: 50,
-      align: 'left',
-    },
-  ];
+  const [preferredCompanies, setPrefferedCompanies] = useState([]);
+  const dispatch = useDispatch();
+
+  const loadCustomerPreferredCompanies = async () => {
+    try {
+      const response = await getpreferredCompanies((progress) => dispatch(setAppProgress(progress)));
+      console.log("We have preferred companies", response.data.preferredCompanies);
+      setPrefferedCompanies(response.data.preferredCompanies);
+    } catch (error) {}
+  }
 
   function createData(company, email, name, address, size) {
     return {
@@ -41,6 +36,10 @@ const Companies = () => {
     createData('Shiny colours print limited', 'example@email.com', '+233548086391', 'Kokomlemle - Accra', <Link to="/companies/1"><Button content="Manage" basic size="mini" /></Link>),
     createData('Shiny colours print limited', 'example@email.com', '+233548086391', 'Kokomlemle - Accra', <Link to="/companies/1"><Button content="Manage" basic size="mini" /></Link>),
   ];
+
+  useEffect(() => {
+    loadCustomerPreferredCompanies();
+  }, [])
 
   return (
   <>
@@ -61,7 +60,7 @@ const Companies = () => {
       parentClasses="app-pad"
       mainClasses="very large container center m-t-20"
     >
-      {rows && rows.map((row) => (
+      {preferredCompanies.map((company) => (
         <div className={styles.wrapper}>
           <Tile>
             <Grid>
@@ -80,8 +79,8 @@ const Companies = () => {
                     size="small"
                     className={styles.cta}
                   >
-                    <NavLink to="/companies/1" exact className="link">
-                      <span className="">Manage</span>
+                    <NavLink to={`/companies/${company._id}`} exact className="link">
+                      <span className="">View</span>
                     </NavLink>
                   </Button>
                 </div>

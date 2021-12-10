@@ -4,17 +4,20 @@ import RoundContentWrapper from '../RoundContentWrapper/RoundContentWrapper';
 import CaptionWithBorder from '../CaptionWithBorder/CaptionWithBorder';
 import AppMainContent from 'components/app-main-content/app-main-content';
 import { getCompanyDetails } from 'apiService/company';
+import LinearProgress from 'components/LinearProgress/LinearProgress';
+import { Button } from 'semantic-ui-react';
+import { useParams } from 'react-router';
 
-const CustomerCompanyPreview = ({ footer, companyID }) => {
+const CustomerCompanyPreview = ({ handleConfirmAction, handleCloseAction, loading }) => {
+	const {id} = useParams();
 	const [company, setCompany] = useState(null);
+	const [progress, setProgress] = useState(null);
 
 	const loadCompanyInformation = async () => {
 		try {
-			const response = await getCompanyDetails(companyID, (progress) => {console.log(progress)});
+			const response = await getCompanyDetails(id, (progress)=> setProgress(progress));
 			setCompany(response.data);
-		} catch (error) {
-			console.log("Error is here", error);
-		}
+		} catch (error) {}
 	}
 
 	useEffect(() => {
@@ -27,14 +30,16 @@ const CustomerCompanyPreview = ({ footer, companyID }) => {
 	// 	isRounded
 	// 	hasDivider={false}
 	// >
+	<>
+	<LinearProgress progressEvent={progress}/>
 	<AppMainContent
-		mainClasses="very large container center"
+		mainClasses="huge container center"
 	>
-		<h3>Loading details</h3>
+		
 		{/* {company && ( */}
 		<>
 			<CaptionWithBorder>
-				<h3>All Stars Shine Limited</h3>
+				<h3>{company && company.name}</h3>
 			</CaptionWithBorder>
 			<CaptionWithBorder>
 				<div className="flex space-out">
@@ -90,8 +95,25 @@ const CustomerCompanyPreview = ({ footer, companyID }) => {
 			</CaptionWithBorder>
 		</>
 		{/* )} */}
-		<div>{footer}</div>
+		<div className="m-t-40 text-right">
+			<div className="flex flex-inline">
+				<Button 
+					content="Close"
+					size="small"
+					onClick={handleCloseAction}
+				/>
+				<Button 
+					content="Add Company" 
+					size="small" 
+					positive
+					onClick={() => handleConfirmAction(company)}
+					loading={loading}
+					disabled={loading}
+				/>
+			</div>
+		</div>
 	</AppMainContent>
+	</>
 	// </RoundContentWrapper>
 	)
 }

@@ -13,6 +13,10 @@ export const getJobEstimate = async (job:any) => {
 
 export const createJob = async (job: any) => {
   const response = await Axios.post(`/v1/job`, job);
-  console.log("response", response);
+  return response;
+}
+
+export const getJobStatistics = async () => {
+  const response = await Axios.get(`/v1/job/user/statistics`);
   return response;
 }

@@ -4,6 +4,7 @@ export const companySlice = createSlice({
   name: "company",
   initialState: {
     companies: [],
+    userPreferredCompanies: [],
     selectedCompany: {
       id: "",
       jobTypes: null,
@@ -25,7 +26,9 @@ export const companySlice = createSlice({
     
     clearSelectedCompany: (state) => {
       state.selectedCompany = {id: "", jobTypes: null}
-    }
+    },
+
+    removeSingleCompany: (state, action) => {}
   }
 })
 

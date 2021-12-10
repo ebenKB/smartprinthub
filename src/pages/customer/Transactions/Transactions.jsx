@@ -11,6 +11,7 @@ import { getAllTransactions } from 'apiService/transaction';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveTransactions, selectTransactions } from 'redux/slices/transaction';
 import styles from "./transaction.module.css";
+import { setAppProgress, showAppProgress } from 'redux/slices/app';
 // import AppLoader from 'components/AppLoader/AppLoader';
 
 const Transactions = () => {
@@ -18,7 +19,8 @@ const Transactions = () => {
 	const transactions = useSelector(selectTransactions);
 
 	const loadTransactions = useCallback(async () => {
-		const response = await getAllTransactions();
+		dispatch(showAppProgress())
+		const response = await getAllTransactions((progress) => dispatch(setAppProgress(progress)));
 		dispatch(saveTransactions(response.data));
 	}, [dispatch])
 

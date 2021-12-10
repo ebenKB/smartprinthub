@@ -7,11 +7,9 @@ export const createTransaction = async (transaction: { transaction: Transaction}
 }
 
 
-export const getAllTransactions = async () => {
+export const getAllTransactions = async (onProgessCallback: (val:any) => void) => {
   const response = await Axios.get(`/v1/transaction`, {
-    onDownloadProgress: ((ProgressEvent) => {
-      console.log("Progress", ProgressEvent.loaded, "Total", ProgressEvent.total)
-    })
+    onDownloadProgress: onProgessCallback
   });
   return response;
 }

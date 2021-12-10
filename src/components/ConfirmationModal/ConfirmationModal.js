@@ -1,11 +1,13 @@
 import React from "react";
 import { Button, Modal } from "semantic-ui-react"
 
-const ConfirmationModal = ({ confirmButtonText, cancelButtonText, heading, children, ...rest }) => {
+const ConfirmationModal = ({ confirmButtonText, cancelButtonText, heading, children, loading, ...rest }) => {
 
   const handleConfirmModalAction = () => {
     rest.handleConfirmAction();
-    rest.closeAction();
+    // if (!loading) {
+    //   rest.closeAction();
+    // }
   }
 
   return (
@@ -20,10 +22,9 @@ const ConfirmationModal = ({ confirmButtonText, cancelButtonText, heading, child
           negative
           type="button" 
           variant="primary" 
-          className="m-l-8" 
           size="small"
           onClick={rest.closeAction}
-          style={{marginRight: "20px"}}
+          style={{marginRight: "10px"}}
         >
           {cancelButtonText}
         </Button>
@@ -31,9 +32,10 @@ const ConfirmationModal = ({ confirmButtonText, cancelButtonText, heading, child
           primary
           positive
           type="button" 
-          className="m-l-8" 
           size="small"
           onClick={handleConfirmModalAction}
+          loading={loading}
+          disabled={loading}
         >
           {confirmButtonText}
         </Button>

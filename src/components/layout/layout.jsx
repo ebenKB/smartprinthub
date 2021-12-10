@@ -6,13 +6,23 @@ import HeaderOffset from '../header/header-offset';
 import './layout.scss';
 import Navigation from '../NavLinks/NavLinks';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMenuState, toggleNavMenu } from 'redux/slices/app';
+import { selectAppProgress, selectMenuState, toggleNavMenu } from 'redux/slices/app';
+import LinearProgress from '@mui/material/LinearProgress';
+import CustomLinearProgress from 'components/LinearProgress/LinearProgress';
 
 const Layout = ({ children }) => {
 	const dispatch = useDispatch();
 	const hasToggleMenu = useSelector(selectMenuState);
+	const appProgress = useSelector(selectAppProgress);
 
   return (
+		<div>
+		{appProgress && appProgress.status && (
+			<div className="app_progress">
+				{/* <LinearProgress variant="determinate" value={appProgress.value} /> */}
+				<CustomLinearProgress progressEvent={appProgress}/>
+			</div>
+		)}
 		<div className={`${hasToggleMenu ? 'app-container__shrink' : 'app-container'} layout`}>
 			<div className="nav-pane">
 				<div className="nav-content">
@@ -41,6 +51,7 @@ const Layout = ({ children }) => {
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
   );
 };

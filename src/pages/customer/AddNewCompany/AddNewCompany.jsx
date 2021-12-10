@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { Button, Grid, Modal } from 'semantic-ui-react';
-import AppMainContent from '../../../components/app-main-content/app-main-content';
-import SearchInput from '../../../components/form-fields/search-input/search-input';
-import CustomFilter from '../../../components/CustomFilter/CustomFilter';
-import CustomerCompanyPreview from '../../../components/CustomerCompanyPreview/CustomerCompanyPreview';
-import Divider from '../../../components/AppDivider/AppDivider';
+import AppMainContent from 'components/app-main-content/app-main-content';
+import CustomerCompanyPreview from 'components/CustomerCompanyPreview/CustomerCompanyPreview';
+import Divider from 'components/AppDivider/AppDivider';
 import history from 'utils/history';
-import { useSelector } from 'react-redux';
-import { selectCompanies } from 'redux/slices/company';
+import { useDispatch } from 'react-redux';
 import Tile from 'components/Tile/Tile';
 import SearchAndFilterWrapper from 'components/SearchAndFilterWrapper/SearchAndFilterWrapper';
 import styles from "./style.module.css";
+import { addUserCompany } from 'apiService/customer';
+import { NotificationType } from 'enums/NotificationType.enum';
+import { setNotification } from 'redux/slices/app';
+import { getAvailableCompaniesForCustomer } from 'apiService/company';
 
 const AddNewCompany = () => {
-	const companies = useSelector(selectCompanies);
+	const [companies, setCompanies] = useState([]);
 	const [canShowComapnyDetails, setCanShowCompanyDetails] = useState(false);
 	const [selectedCompany, setSelectedCompany] = useState(null);
-	
+	const [loading, setLoading] = useState(false);
+	const dispatch = useDispatch();
+
   const handleSearch = (text) => {
     console.log('This is the input that we want to search with', text);
   };
@@ -24,6 +27,37 @@ const AddNewCompany = () => {
   const goBack = () => {
     history.goBack();
   };
+
+	const getAvailableCompanies = async () => {
+		try {
+			const response = await getAvailableCompaniesForCustomer();
+			setCompanies(response.data);
+		} catch (error) {
+			console.log("This is error", error);
+		}
+	}
+
+	const addCompany = async () => {
+		const company = selectedCompany;
+		try {
+			setLoading(true);
+			const response = await addUserCompany({
+				"preferredCompanies": [company._id]
+			});
+			setLoading(false);
+			if (response.status === 200 || response.status === 201) {
+				dispatch(setNotification({type: NotificationType.SUCCESS, message: "Company has been added"}));
+				setCanShowCompanyDetails(false);
+			}
+		} catch (error) {
+			setLoading(false);
+			dispatch(setNotification({type: NotificationType.ERROR, message: "Error adding company"}));
+		}
+	}
+
+	useEffect(() => {
+		getAvailableCompanies();
+	}, []);
 
   return (
 	<>
@@ -34,9 +68,8 @@ const AddNewCompany = () => {
 			mainClasses="very large container center"
 			padTop
 		>
-			<div className={`m-t-40`}>
+			<div className={`m-t-50`}>
 				<h2 className="bold m-b-20">Available companies</h2>
-				
 				{companies && companies.map((company) => (
 					<div className={`m-t-20 ${styles.wrapper}`}>
 						<Tile>
@@ -46,13 +79,11 @@ const AddNewCompany = () => {
 									<p>
 										<div>{company.phone}</div>
 										<div>{company.email}</div>
-										<div>Accra New town</div>
 									</p>
 								</Grid.Column>
 								<Grid.Column width={4}>
 									<div className={`text-right ${styles.cta}`}>
 										<Button
-											// primary
 											positive
 											size="small"
 											onClick={() => {setCanShowCompanyDetails(true); setSelectedCompany(company)}}
@@ -90,20 +121,13 @@ const AddNewCompany = () => {
 			</div> */}
 			{canShowComapnyDetails && (
 				<Modal open={canShowComapnyDetails} onClose={()=> setCanShowCompanyDetails(false)}>
-					<div className="m-t-40 m-b-40">
-						<CustomerCompanyPreview footer={(
-							<div className="m-t-40 text-right">
-								<div className="flex flex-inline">
-									<Button 
-										content="Close"
-										size="small"
-										onClick={()=> setCanShowCompanyDetails(false)}
-									/>
-									<Button content="Add Company" size="small" positive />
-								</div>
-							</div>
-						)}
-						companyID={selectedCompany._id}
+					<div className="m-b-40">
+						<CustomerCompanyPreview
+							handleConfirmAction={addCompany}
+							handleCloseAction={() => setCanShowCompanyDetails(false)}
+							companyID={selectedCompany._id}
+							loading={loading}
+							setNotification={(notif)=>dispatch(setNotification(notif))}
 						/>
 					</div>
 				</Modal>
