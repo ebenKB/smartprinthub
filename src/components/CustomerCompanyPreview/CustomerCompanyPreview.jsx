@@ -4,17 +4,17 @@ import RoundContentWrapper from '../RoundContentWrapper/RoundContentWrapper';
 import CaptionWithBorder from '../CaptionWithBorder/CaptionWithBorder';
 import AppMainContent from 'components/app-main-content/app-main-content';
 import { getCompanyDetails } from 'apiService/company';
+import LinearProgress from 'components/LinearProgress/LinearProgress';
 
 const CustomerCompanyPreview = ({ footer, companyID }) => {
 	const [company, setCompany] = useState(null);
+	const [progress, setProgress] = useState(null);
 
 	const loadCompanyInformation = async () => {
 		try {
-			const response = await getCompanyDetails(companyID, (progress) => {console.log(progress)});
+			const response = await getCompanyDetails(companyID, (progress)=> setProgress(progress));
 			setCompany(response.data);
-		} catch (error) {
-			console.log("Error is here", error);
-		}
+		} catch (error) {}
 	}
 
 	useEffect(() => {
@@ -27,10 +27,12 @@ const CustomerCompanyPreview = ({ footer, companyID }) => {
 	// 	isRounded
 	// 	hasDivider={false}
 	// >
+	<>
+	<LinearProgress progressEvent={progress}/>
 	<AppMainContent
 		mainClasses="very large container center"
 	>
-		<h3>Loading details</h3>
+		
 		{/* {company && ( */}
 		<>
 			<CaptionWithBorder>
@@ -92,6 +94,7 @@ const CustomerCompanyPreview = ({ footer, companyID }) => {
 		{/* )} */}
 		<div>{footer}</div>
 	</AppMainContent>
+	</>
 	// </RoundContentWrapper>
 	)
 }

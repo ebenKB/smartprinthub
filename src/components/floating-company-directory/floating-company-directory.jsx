@@ -10,11 +10,13 @@ import { saveComapnies, selectCompanies } from 'redux/slices/company';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationType } from 'enums/NotificationType.enum';
 import { setNotification } from 'redux/slices/app';
+import LinearProgress from 'components/LinearProgress/LinearProgress';
 
 const CompanyDirectory = ({ handleCloseAction, handleAction }) => {
 	const dispatch = useDispatch();
 	const companies = useSelector(selectCompanies);
   const [selectedCompany, setSelectedCompany] = useState('');
+	const [progress, setProgress] = useState(null);
 
   const handleCompanyOptionChange = (e, data) => {
     const { value } = data;
@@ -23,17 +25,16 @@ const CompanyDirectory = ({ handleCloseAction, handleAction }) => {
 
   const setCompany = () => {
     const selected = findObjectByKey('name', selectedCompany, companies);
-		console.log("Selected company", selectedCompany)
     handleAction(selected);
     handleCloseAction();
   };
 	
 	const loadCompanies = useCallback(async () => {
 		try {
-			const response = await getAllCompanies();
+			const response = await getAllCompanies((progress)=> setProgress(progress));
 			dispatch(saveComapnies(response.data))
 		} catch (error) {
-			dispatch(setNotification({type: NotificationType.ERROR, message: "Error fetching companies"}))
+			dispatch(setNotification({type: NotificationType.ERROR, message: "Error fetching companies"}));
 		}
 	}, [dispatch])
 
@@ -43,6 +44,7 @@ const CompanyDirectory = ({ handleCloseAction, handleAction }) => {
 
   return (
 	<div className="company-directory__wrapper">
+		<LinearProgress progressEvent={progress}/>
 		<div className="content">
 			<div className="company-directory__header flex center">
 				<span className="bold">Company Directory</span>

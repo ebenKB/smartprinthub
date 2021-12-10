@@ -90,7 +90,7 @@ const AddNewCompany = () => {
 			</div> */}
 			{canShowComapnyDetails && (
 				<Modal open={canShowComapnyDetails} onClose={()=> setCanShowCompanyDetails(false)}>
-					<div className="m-t-40 m-b-40">
+					<div className="m-b-40">
 						<CustomerCompanyPreview footer={(
 							<div className="m-t-40 text-right">
 								<div className="flex flex-inline">
