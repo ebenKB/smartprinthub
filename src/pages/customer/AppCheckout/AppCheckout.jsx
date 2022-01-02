@@ -35,8 +35,8 @@ const PaystackCheckout = ({ jobDrafts, currentJob, userID }) => {
     if (paymentResponse.message === 'Approved') {
       setProcessingJob(true);
       const { location: { pathname } } = history;
-      let completed = 0;
-      let retries = 0;
+      // let completed = 0;
+      // let retries = 0;
 
       try {
         // LOG transaction to the api here
@@ -57,7 +57,11 @@ const PaystackCheckout = ({ jobDrafts, currentJob, userID }) => {
            * If retyring processing a job fails, move the job to failed jobs.
            * If all jobs have been processed or retried, transition from to the confirmation page.
            */
+
           for(const response of responses) {
+            let completed = 0;
+            let retries = 0;
+
             if (response.status === 201) {
               completed += 1;
 

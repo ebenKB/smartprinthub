@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveUserJobs, selectJobs } from 'redux/slices/job';
 import { getRandomColour } from 'utils/randomColour';
 import { formatRawDate, getErrorMessage } from 'utils/app';
-import JobStatus from 'components/JobStatus/JobStatus';
 import { setNotification } from 'redux/slices/app';
 import { NotificationType } from 'enums/NotificationType.enum';
 
@@ -83,7 +82,6 @@ const ViewJobs = () => {
 						<div>{job.papperType?.name.toUpperCase()}</div>
 						<div>{job.created_at ? formatRawDate(job.created_at) : "N/A"}</div>
 						<div>
-							{/* <JobStatus status={job.status} /> */}
 							{job.status.toUpperCase()}
 						</div>
 					</JobListItem>

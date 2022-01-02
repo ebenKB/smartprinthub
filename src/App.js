@@ -8,7 +8,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 import './App.css';
-
 import GeneralProtectedRouted from './routes/general-protected-routes';
 import ProtectedCustomerRoutes from './routes/customer-protected-routes';
 import DefaultRoutes from './routes/default-routes';
@@ -18,15 +17,14 @@ import PageNotFound from './pages/PageNotFound/PageNotFound';
 import AppLoader from './components/AppLoader/AppLoader';
 import { UserAccountTypes } from './enums/AccountType.enum';
 import ToastNotificaton from 'components/ToastNotification/ToastNotificaton';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectNotification, setNotification } from 'redux/slices/app';
+import { useSelector } from 'react-redux';
+import { selectNotification } from 'redux/slices/app';
 import Axios from 'utils/axios';
 import { selectAccessToken } from 'redux/slices/user';
 import history from 'utils/history';
 
 function App() {
 	const notification = useSelector(selectNotification);
-	console.log("notification", notification);
 	const access_token = useSelector(selectAccessToken);
 
 	useEffect(() => {

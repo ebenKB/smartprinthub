@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import ConfirmationModal from "components/ConfirmationModal/ConfirmationModal";
+import React from "react";
 import { Button, Modal } from "semantic-ui-react";
 import PaystackCheckoutComponent from 'components/PaystackCheckout/PaystackCheckout';
 import { Job } from "types/job.type";

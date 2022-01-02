@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import './app-content-wrapper.scss';
+import './app-content-wrapper.css';
 
 const AppContentWrapper = ({ children, heading }) => (
 	<div className="app-content-wrapper">

@@ -1,4 +1,3 @@
-import { Job } from "types/job.type";
 import Axios  from "../utils/axios";
 
 export const getAllJobs  = async () => {

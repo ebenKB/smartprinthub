@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Button } from 'semantic-ui-react';
 import AppMainContent from 'components/app-main-content/app-main-content';
 import history from 'utils/history';
@@ -18,12 +18,12 @@ const ShowCompanyDetails = () => {
 	const [loading, setLoading] = useState(false);
 	const dispatch = useDispatch();
 
-	const loadCompanyInformation = async () => {
+	const loadCompanyInformation = useCallback(async() => {
 		try {
 			const response = await getCompanyDetails(id, (progress)=> dispatch(setAppProgress(progress)));
 			setCompany(response.data);
 		} catch (error) {}
-	}
+	}, [id, dispatch])
 
 	const confirmRemoveCompany = async () => {
 		try {
@@ -49,7 +49,7 @@ const ShowCompanyDetails = () => {
 
 	useEffect(() => {
 		loadCompanyInformation();
-	}, [])
+	}, [loadCompanyInformation])
 
   return (
 	<>

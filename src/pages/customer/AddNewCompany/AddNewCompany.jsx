@@ -20,9 +20,9 @@ const AddNewCompany = () => {
 	const [loading, setLoading] = useState(false);
 	const dispatch = useDispatch();
 
-  const handleSearch = (text) => {
-    console.log('This is the input that we want to search with', text);
-  };
+  // const handleSearch = (text) => {
+  //   console.log('This is the input that we want to search with', text);
+  // };
 
   const goBack = () => {
     history.goBack();

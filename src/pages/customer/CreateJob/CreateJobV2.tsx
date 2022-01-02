@@ -22,16 +22,16 @@ import DefaultSizes from "components/DefaultPaperSizes/DefaultPaperSizes";
 import CustomPaperSize from "components/CustomPaperSize/CustomPaperSize";
 import Dropzone from 'components/dropzone/dropzone';
 import FileThumbnail from "components/FileThumbnail/FileThumbnail";
-import { createNewJob, formatCompanyJobTypes, isJobValid, jobHasFile, saveJobProgress } from "./CreateJob.service";
+import { formatCompanyJobTypes, isJobValid, jobHasFile, saveJobProgress } from "./CreateJob.service";
 import { loadAllCompanyJobTypes } from "apiService/jobType";
-import { clearSelectedCompany, selectCompanyJobTypes, setCompanyJobTypes } from "redux/slices/company";
+import { selectCompanyJobTypes, setCompanyJobTypes } from "redux/slices/company";
 import { SyntheticEvent } from "react-router/node_modules/@types/react";
 import { setNotification } from "redux/slices/app";
 import { NotificationType } from "enums/NotificationType.enum";
 import FileReader from 'utils/FileReader';
 import history from "utils/history";
 import { defaultJob } from "utils/job";
-import jobDrafts, { addJobAsDraft, removeJobFromDrafts, } from "redux/slices/jobDrafts";
+import { addJobAsDraft, removeJobFromDrafts, } from "redux/slices/jobDrafts";
 import { getJobEstimate } from "apiService/job";
 import NumberedDivider from "components/NumberedDivider/NumberedDivider";
 
@@ -122,19 +122,6 @@ const CreateJob = (props: any) => {
     setData({...data, job: {...data.job, unit: `${value.name}`, defaultSize: null}})
   }
 
-  // const handleFileChange = async (file:any) => {
-  //   try {
-  //     const reader = new FileReader();
-  //     if (file.length > 0) {
-  //       reader.readFileAsDataURL(file, (results:any) => {
-  //         setData({...data, job: {...data.job, file: results }})
-  //       })
-  //     }
-  //   } catch (error) {
-  //     console.log("error reading file", error);
-  //   }
-  // }
-
   const handleFileChange  = useCallback(async (file:any) => {
     try {
       const reader = new FileReader();
@@ -151,24 +138,6 @@ const CreateJob = (props: any) => {
   const handleDiscardFile = () => {
     setOptions({...options, canUploadNewFile: true})
   }
-
-  // load the job types for the selected company
-  // const loadCompanyJobTypes = async (company: any) => {
-  //   try {
-  //     setLoadingCompanyJobTypes(true);
-  //     // const company = data.job.company;
-  //     console.log("Company", company);
-  //     if (company) {
-  //       const response = await loadAllCompanyJobTypes(company._id);
-  //       const jobTypes = response.data.companyJobTypes;
-  //       dispatch(setCompanyJobTypes({id: company._id, jobTypes}))
-  //     }
-  //     setLoadingCompanyJobTypes(false);
-  //   } catch (error) {
-  //     setLoadingCompanyJobTypes(false);
-  //     dispatch(setCompanyJobTypes(null))
-  //   }
-  // }
 
   const loadCompanyJobTypes = useCallback(async(company:any) => {
     try {

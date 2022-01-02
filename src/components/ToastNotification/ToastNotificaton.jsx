@@ -45,7 +45,7 @@ const ToastNotificaton = ({ message = '', type = '', notificationID="" }) => {
       default: toastOptions.type = toast.TYPE.INFO;
     }
     toast(message, toastOptions);
-  }, []);
+  }, [type, message, toastOptions]);
 
   return (
 	<div>

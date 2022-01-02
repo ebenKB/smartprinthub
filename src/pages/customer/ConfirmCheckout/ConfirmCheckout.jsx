@@ -16,7 +16,7 @@ const ConfirmCheckout = () => {
 		dispatch(removeAllJobDrafts());
 		dispatch(resetCurrentJob());
 		dispatch(clearSelectedCompany());
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<AppMainContent

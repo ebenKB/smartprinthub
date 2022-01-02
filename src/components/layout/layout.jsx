@@ -7,7 +7,6 @@ import './layout.scss';
 import Navigation from '../NavLinks/NavLinks';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAppProgress, selectMenuState, toggleNavMenu } from 'redux/slices/app';
-import LinearProgress from '@mui/material/LinearProgress';
 import CustomLinearProgress from 'components/LinearProgress/LinearProgress';
 
 const Layout = ({ children }) => {
@@ -19,7 +18,6 @@ const Layout = ({ children }) => {
 		<div>
 		{appProgress && appProgress.status && (
 			<div className="app_progress">
-				{/* <LinearProgress variant="determinate" value={appProgress.value} /> */}
 				<CustomLinearProgress progressEvent={appProgress}/>
 			</div>
 		)}
