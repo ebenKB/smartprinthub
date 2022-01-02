@@ -12,6 +12,7 @@ AxiosInstance.interceptors.response.use((response) => {
   return response;
 }, error => {
   if (error.response && error.response.status === 401) {
+    console.log("UnAuth", error)
     history.push(`/signin`);
   }
   return Promise.reject(error);

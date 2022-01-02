@@ -17,7 +17,7 @@ const ShowCompanyDetails = ({ company }) => (
 );
 
 ShowCompanyDetails.propTypes = {
-  company: PropTypes.object.isRequired,
+  company: PropTypes.object,
 };
 
 export default ShowCompanyDetails;

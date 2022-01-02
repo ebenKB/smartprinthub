@@ -291,7 +291,7 @@ const CreateJob = (props: any) => {
                   labelName="job_type"
                   component={
                     <Dropdown
-                      options={formatCompanyJobTypes(selectedCompanyJobTypes)}
+                      options={formatCompanyJobTypes(selectedCompanyJobTypes || [])}
                       loading={loadingCompanyJobTypes}
                       selection
                       fluid

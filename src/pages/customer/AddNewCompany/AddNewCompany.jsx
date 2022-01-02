@@ -71,7 +71,7 @@ const AddNewCompany = () => {
 			<div className={`m-t-50`}>
 				<h2 className="bold m-b-20">Available companies</h2>
 				{companies && companies.map((company) => (
-					<div className={`m-t-20 ${styles.wrapper}`}>
+					<div className={`m-t-20 ${styles.wrapper}`} key={company._id}>
 						<Tile>
 							<Grid>
 								<Grid.Column width={12}>

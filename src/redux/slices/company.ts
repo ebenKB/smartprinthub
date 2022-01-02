@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "app/store";
 
 export const companySlice = createSlice({
   name: "company",
@@ -33,6 +34,7 @@ export const companySlice = createSlice({
 })
 
 export const { saveComapnies, setCompanyJobTypes, clearSelectedCompany } = companySlice.actions;
-export const selectCompanies = (state: any) => state.company.companies;
-export const selectCompanyJobTypes = (state: any) => state.company.selectedCompany?.jobTypes;
+export const selectCompanies = (state: RootState) => state.company.companies;
+export const selectCompanyJobTypes = (state: RootState) => state.company.selectedCompany?.jobTypes;
+export const selectUserCompanies = (state: RootState) => state.company.userPreferredCompanies;
 export default companySlice.reducer;

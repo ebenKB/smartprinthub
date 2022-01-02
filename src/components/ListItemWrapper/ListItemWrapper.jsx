@@ -11,7 +11,7 @@ const ListItemWrapper = ({ children }) => (
 
 
 ListItemWrapper.propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 export default ListItemWrapper;

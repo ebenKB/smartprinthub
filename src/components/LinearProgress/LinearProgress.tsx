@@ -27,11 +27,11 @@ const CustomLinearProgress = ({ progressEvent } : {progressEvent: {loaded: numbe
       }
     }
     return () => {
-      if(!progress.status) {
+      // if(!progress.status) {
         clearTimeout(timer)
-      }
+      // }
     }
-  }, [progressEvent, progress.status, dispatch]);
+  }, [progressEvent, dispatch]);
 
   return (
     <>

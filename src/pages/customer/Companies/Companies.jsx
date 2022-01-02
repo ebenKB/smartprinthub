@@ -45,15 +45,14 @@ const Companies = () => {
       mainClasses="very large container center m-t-20"
     >
       {preferredCompanies.map((company) => (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} key={company._id}>
           <Tile>
             <Grid>
               <Grid.Column width={12}>
-                <h3>Hub KB.S Company Limited</h3>
+                <h3>{company.name}</h3>
                 <p>
-                  <div>0548086344</div>
-                  <div>example@email.com</div>
-                  <div>Cirlce, Kokomlemle</div>
+                  <div>{company.phone}</div>
+                  <div>{company.email}</div>
                 </p>
               </Grid.Column>
               <Grid.Column width={4}>
