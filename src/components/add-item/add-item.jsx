@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import { PropTypes } from 'prop-types';
 import { ReactComponent as Icon } from '../../svg/plus.svg';
-import './add-item.scss';
+import './add-item.css';
 
 
 const AddItem = ({

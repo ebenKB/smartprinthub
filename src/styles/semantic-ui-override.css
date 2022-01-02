@@ -1,0 +1,64 @@
+.ui.input>input{
+  border-radius: 0px;
+}
+
+.ui.button {
+  border-radius: 2px;
+}
+
+.ui.button.app-primary {
+  color: var(--blue);
+}
+
+.ui.button.hoverable {
+  background: transparent;
+}
+
+.ui.button.hoverable:hover {
+  background: #e0e1e2 ;
+}
+
+.ui.button.light {
+  font-weight: 300;
+}
+
+.ui.checkbox.custom label{
+  color: var(--dark);
+}
+
+.ui.selection.dropdown.custom.dark {
+  background: var(--light-gray);
+}
+
+.ui.form .field>label{
+  color: var(--dark);
+}
+
+.ui.table thead th{
+  color: var(--dark);
+  padding: 1.25em .8em
+}
+
+
+.with-caption input::placeholder {
+  color: var(--dark) !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.with-caption.ui.input.error>input {
+  background-color: #fff6f6;
+  border-color: #e0b4b4;
+  color: var(--dark-red);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.with-caption.ui.input.error>input::placeholder {
+  color: var(--dark-red) !important;
+  font-weight: 400;
+}
+
+.ui.form .equal.width.fields .ui.input{
+  width: 98%;
+}

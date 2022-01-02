@@ -10,7 +10,7 @@ import React, {
 import { Button } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import DropzoneItem from "../DropzoneItem/DropzoneItem";
-import './dropzone.scss';
+import './dropzone.css';
 
 const dropzoneRef = createRef();
 
